@@ -43,7 +43,6 @@ export default ({ history }) => {
     const onClickLogin = useCallback(async () => {
         const { email, pw: password } = inputState;
         const result = await requestPOSTLogin({ email, password });
-        console.log(result);
         if (result.status === 200) {
             if (result.data.msg === "회원가입 되어있지 않은 이메일입니다.") {
                 // 회원가입 안되있는 이메일

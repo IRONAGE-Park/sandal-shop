@@ -24,7 +24,7 @@ const PW_TEXT = (
     <span>자신의 아이디와 휴대폰 인증을 통해 비밀번호를 재설정합니다.</span>
 );
 
-export default () => (
+const Find = () => (
     <>
         <FindItem
             src={FindIdSvg}
@@ -40,3 +40,4 @@ export default () => (
         />
     </>
 );
+export default Find;

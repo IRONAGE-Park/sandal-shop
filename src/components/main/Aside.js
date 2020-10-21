@@ -27,12 +27,12 @@ const cn = classNamesBind.bind(styles);
     이동할 수 있게 카테고리 링크 컴포넌트 리스트를 렌더링 함.
 */
 
-const AsideCategory = ({ category }) => (
-    /*
-        왼쪽 사이드에 표시해야할 카테고리 컴포넌트
+/*
+    왼쪽 사이드에 표시해야할 카테고리 컴포넌트
 
-        카테고리의 정보를 가져오면 링크 컴포넌트를 연결시킨 후 렌더링 함
-    */
+    카테고리의 정보를 가져오면 링크 컴포넌트를 연결시킨 후 렌더링 함
+*/
+const AsideCategory = ({ category }) => (
     <NavLink to={category.href}>
         <ButtonBase component="li" className={styles['item']}>{category.name}</ButtonBase>
     </NavLink>
@@ -73,8 +73,8 @@ const Aside = ({ open, setOpen }) => {
         { name: '공지사항', href: Paths.main.support.notice },
         { name: '자주 묻는 질문', href: Paths.main.support.faq },
         { name: '1:1 문의', href: Paths.main.support.qna },
-
     ]);
+
     return (
         <>
             <aside className={cn('aside', { open })}>
