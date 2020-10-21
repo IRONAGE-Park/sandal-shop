@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Logo from '../../components/svg/sandal_logo.svg';
+import Paths from '../../paths';
 
 const Page = styled.div`
     padding: 5% 20%;
@@ -24,13 +25,19 @@ const TextArea = styled.h3`
     word-break: keep-all;
 `;
 
-const IntroPage = () => (
-    <Page>
-        <ImageArea>
-            <Image src={Logo} alt="logo" />
-        </ImageArea>
-        <TextArea>가맹점 관리 페이지에 오신 것을 환영합니다.</TextArea>
-    </Page>
-);
+const IntroPage = ({ history }) => {
+    useEffect(() => {
+        history.push(Paths.main.operation);
+    }, [history]);
+    
+    return (
+        <Page>
+            <ImageArea>
+                <Image src={Logo} alt="logo" />
+            </ImageArea>
+            <TextArea>가맹점 관리 페이지에 오신 것을 환영합니다.</TextArea>
+        </Page>
+    );
+};
 
 export default IntroPage;

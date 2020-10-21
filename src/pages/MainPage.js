@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../store/user';
 /* Redux */
 
+import IntroPage from './main/IntroPage';
 import AccountPage from './main/AccountPage';
 import SecessionPage from './main/SeccessionPage';
 import OperationPage from './main/OperationPage';
@@ -20,16 +21,71 @@ import ErrorPage from './ErrorPage';
 /* Pages */
 
 import Header from '../components/main/Header';
+import MobileHeader from '../components/assets/MobileHeader';
 import MainTitle from '../components/main/assets/MainTitle';
 import Aside from '../components/main/Aside';
+import { IconButton } from '@material-ui/core';
 /* Components */
 
 import styles from './Main.module.scss';
+import Hamburger from '../components/svg/mobile_hamburger.svg';
 /* Statics */
 
 import Paths from '../paths';
-import IntroPage from './main/IntroPage';
 /* Paths */
+
+const { main } = Paths;
+
+const MobileTitleObject = {
+    [main.index]: {
+        title: "샌달 가맹점 관리"
+    },
+    [main.account]: {
+        title: "내 정보 수정",
+        back: main.index
+    },
+    [main.secession]: {
+        title: "회원 탈퇴",
+        back: main.account
+    },
+    [main.operation]: {
+        title: "운영 정보 관리"
+    },
+    [main.operation + '/time']: {
+        title: "운영 정보 관리"
+    },
+    [main.operation + '/holi']: {
+        title: "운영 정보 관리"
+    },
+    [main.operation + '/time_update']: {
+        title: "영업시간 변경",
+        back: main.operation
+    },
+    [main.operation + '/holi_update']: {
+        title: "휴무일 변경",
+        back: main.operation + '/holi'
+    },
+    [main.menu]: {
+        title: "메뉴 관리",
+    },
+    [main.order]: {
+        title: "주문 상세 보기",
+        back: "goBack"
+    },
+    [main.order + '/modal']: {
+        title: "주문 상세 보기",
+        back: "goBack"
+    },
+    [main.order + '/progress']: {
+        title: "주문 내역",
+    },
+    [main.order + '/complete']: {
+        title: "주문 내역",
+    },
+    [main.order + '/cancel']: {
+        title: "주문 내역",
+    }
+};
 
 /*
     로그인 후 관리자 메인 페이지.
@@ -41,7 +97,8 @@ import IntroPage from './main/IntroPage';
 
 const MainPage = ({ location }) => {
     const reduxDispatch = useDispatch();
-    
+    const { title, back } = MobileTitleObject[location.pathname] ? MobileTitleObject[location.pathname] : {};
+
     const user = useSelector(state => state.user);
     const [asideOpen, setAsideOpen] = useState(false);
 
@@ -55,27 +112,41 @@ const MainPage = ({ location }) => {
         }
     }, [user, reduxDispatch]);
 
+    useEffect(() => {
+        setAsideOpen(false);
+    }, [location]);
+
     return (
-        <div className={styles['app']}>
-            <Header />
-            <Aside open={asideOpen} setOpen={setAsideOpen} />
-            <article className={styles['main']}>
-                <div className={styles['content']}>
-                    <MainTitle pathname={location.pathname} />
-                    <Switch>
-                        <Route path={Paths.main.index} component={IntroPage} exact/>
-                        <Route path={Paths.main.account} component={AccountPage} />
-                        <Route path={Paths.main.secession} component={SecessionPage} />
-                        <Route path={Paths.main.operation + '/:mode?'} component={OperationPage} />
-                        <Route path={Paths.main.menu} component={MenuPage} />
-                        <Route path={Paths.main.order + '/:tab?'} component={OrderPage} />
-                        <Route path={Paths.main.calculate.index} component={CalculatePage} />
-                        <Route path={Paths.main.support.index} component={SupportPage} />
-                        <Route component={ErrorPage} />
-                    </Switch>
-                </div>
-            </article>
-        </div>
+        <>
+            <MobileHeader
+                title={title} back={back}
+                defaultIcon={(
+                    <IconButton className={styles['hamburger']} onClick={() => setAsideOpen(true)}>
+                        <img src={Hamburger} alt="메뉴 열기" />
+                    </IconButton>
+                )}
+            />
+            <div className={styles['app']}>
+                <Header />
+                <Aside open={asideOpen} setOpen={setAsideOpen} />
+                <article className={styles['main']}>
+                    <div className={styles['content']}>
+                        <MainTitle pathname={location.pathname} />
+                        <Switch>
+                            <Route path={Paths.main.index} component={IntroPage} exact/>
+                            <Route path={Paths.main.account} component={AccountPage} />
+                            <Route path={Paths.main.secession} component={SecessionPage} />
+                            <Route path={Paths.main.operation + '/:mode?'} component={OperationPage} />
+                            <Route path={Paths.main.menu} component={MenuPage} />
+                            <Route path={Paths.main.order + '/:tab?'} component={OrderPage} />
+                            <Route path={Paths.main.calculate.index} component={CalculatePage} />
+                            <Route path={Paths.main.support.index} component={SupportPage} />
+                            <Route component={ErrorPage} />
+                        </Switch>
+                    </div>
+                </article>
+            </div>
+        </>
     );
 };
 

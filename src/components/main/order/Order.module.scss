@@ -137,6 +137,9 @@
                                     font-size: $desktop18px;
                                     background-color: $color-777;
                                     color: #fff;
+                                    &.disabled {
+                                        background-color: #f0f0f0;
+                                    }
                                 }
                             }
                         }

@@ -19,6 +19,7 @@ const ErrorBox = styled.div`
         width: 100px;
     }
 `; // 에러 페이지를 감싸고 있는 박스 div 스타일러.
+
 const ErrorPage = ({ match, history, location }) => {
     /*
         에러 정보를 렌더링할 컴포넌트.

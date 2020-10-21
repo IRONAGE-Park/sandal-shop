@@ -10,7 +10,7 @@
         overflow-y: auto;
         @include notebook {
             float: none;
-            width: 100%; height: calc(100% - 60px);
+            width: 100%; height: calc(100% - 80px);
         }
         @include tablet {
             float: none;
@@ -30,6 +30,17 @@
                 overflow-y: auto;
                 padding: 40px 0;
             }
+        }
+    }
+}
+
+html {
+    body {
+        .hamburger {
+            position: absolute;
+            left: 12px;
+            width: 40px; height: 40px;
+            padding: 0;
         }
     }
 }

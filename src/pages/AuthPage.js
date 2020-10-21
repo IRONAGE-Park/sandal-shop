@@ -13,6 +13,7 @@ import Find from '../container/auth/FindContainer';
 /* Components */
 
 import styles from './Auth.module.scss';
+import MobileHeader from '../components/assets/MobileHeader';
 /* Stylesheets */
 
 const cx = classnames.bind(styles);
@@ -23,7 +24,47 @@ const cx = classnames.bind(styles);
     URL에 맞춰서 로그인 페이지 혹은 회원가입 페이지 렌더링.
 */
 
+const { auth } = Paths;
+
+const MobileTitleObject = {
+    [auth.index]: {
+        title: 'index',
+    },
+    [auth.signin]: {
+        title: "로그인",
+    },
+    [auth.signup]: {
+        title: "회원가입",
+        back: auth.signin
+    },
+    [auth.signup + '/complete']: {
+        title: "회원가입 완료",
+        back: auth.signup
+    },
+    [auth.find.index]: {
+        title: "아이디/비밀번호 찾기",
+        back: auth.signin
+    },
+    [auth.find.id]: {
+        title: "아이디 찾기",
+        back: auth.find.index
+    },
+    [auth.find.id + '/complete']: {
+        title: "아이디 찾기",
+        back: auth.find.index
+    },
+    [auth.find.pw]: {
+        title: "비밀번호 찾기",
+        back: auth.find.index
+    },
+    [auth.find.pw + '/complete']: {
+        title: "비밀번호 재설정",
+        back: auth.find.index
+    }
+}
+
 const AuthPage = ({ history, location }) => {
+    const { title, back } = MobileTitleObject[location.pathname] ? MobileTitleObject[location.pathname] : {};
     const [position, setPosition] = useState(false);
 
     useEffect(() => {
@@ -40,14 +81,17 @@ const AuthPage = ({ history, location }) => {
     }, []);
 
     return (
-        <div className={cx('auth', { center: position })}>
-            <AuthHeader />
-            <Switch>
-                <Route path={Paths.auth.signin} component={SignIn} />
-                <Route path={Paths.auth.signup} component={SignUp} />
-                <Route path={Paths.auth.find.index} component={Find} />
-            </Switch>
-        </div>
+        <>
+            <MobileHeader title={title} back={back} />
+            <div className={cx('auth', { center: position })}>
+                <AuthHeader />
+                <Switch>
+                    <Route path={Paths.auth.signin} component={SignIn} />
+                    <Route path={Paths.auth.signup} component={SignUp} />
+                    <Route path={Paths.auth.find.index} component={Find} />
+                </Switch>
+            </div>
+        </>
     );
 };
 

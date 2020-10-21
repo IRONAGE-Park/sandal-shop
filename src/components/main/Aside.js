@@ -16,6 +16,7 @@ import Paths from '../../paths';
 import styles from './Aside.module.scss';
 // StyleSheets
 import Direction from '../svg/Direction';
+import Hamburger from '../svg/hamburger.svg';
 /* Statics */
 
 const cn = classNamesBind.bind(styles);
@@ -78,6 +79,9 @@ const Aside = ({ open, setOpen }) => {
     return (
         <>
             <aside className={cn('aside', { open })}>
+                <ButtonBase className={styles['tablet-nav-button']} onClick={() => setOpen(!open)}>
+                    <img className={styles['hamburger']} src={Hamburger} alt="hamburder" />
+                </ButtonBase>
                 <nav className={cn('content')}>
                     <Link to={Paths.main.account}>
                         <UserInfo />
