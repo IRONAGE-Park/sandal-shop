@@ -37,13 +37,13 @@ const Timer = () => {
     );
 };
 
-export default () => (
-    /*
-        헤더 컴포넌트.
+/*
+    헤더 컴포넌트.
 
-        헤더 로고와 헤더가 보유한 카테고리 리스트 렌더링.
-        카테고리 리스트는 각 카테고리로 이동할 수 있는 링크 컴포넌트 연결
-    */
+    헤더 로고와 헤더가 보유한 카테고리 리스트 렌더링.
+    카테고리 리스트는 각 카테고리로 이동할 수 있는 링크 컴포넌트 연결
+*/
+export default () => (
     <header>
         <div className={styles['container']}>
             <div className={styles['logo-area']}>

@@ -27,7 +27,6 @@ const OrderDetailContainer = ({ order_id }) => {
     
     return (
         <div>
-
             <Loading open={loading} />
         </div>
     );
