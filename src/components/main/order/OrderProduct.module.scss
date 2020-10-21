@@ -1,0 +1,54 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+.item {
+    .image {
+        display: none;
+        @include mobile {
+            display: inline-block;
+            vertical-align: middle;
+            width: 104px;
+            height: 104px;
+        }
+    }
+    .info {
+        @include mobile {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 18px;
+        }
+        .name {
+            font-size: $desktop24px;
+            font-weight: bold;
+            color: $color-222;
+            @include mobile {
+                font-size: $desktop20px;
+                color: #444;
+            }
+        }
+        .option {
+            margin-top: 10px;
+            font-size: $desktop16px;
+            color: $color-777;
+            @include mobile {
+                color: $color-999;
+            }
+        }
+        .value {
+            display: none;
+            @include mobile {
+                display: inline-block;
+                font-size: $desktop20px;
+                margin-top: 18px;
+                color: #444;
+                font-weight: bold;
+            }
+        }
+    }
+    & + & {
+        margin-top: 40px;
+        @include mobile {
+            margin-top: 16px;
+        }
+    }
+}

@@ -118,7 +118,7 @@ export const requestPUTOrderConfirm = async (JWT_TOKEN, order_id) => {
     return res;
 }
 
-export const requestPUTOrderCancle = async (JWT_TOKEN, order_id, cancle_reason) => {
+export const requestPUTOrderCancel = async (JWT_TOKEN, order_id, cancel_reason) => {
     /*
         가맹점 주문 승인 Request API
 
@@ -127,10 +127,10 @@ export const requestPUTOrderCancle = async (JWT_TOKEN, order_id, cancle_reason) 
 
         문서보기:
     */
-    const URL = Paths.api + 'shop/order/cancle';
+    const URL = Paths.api + 'shop/order/cancel';
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
-    const res = await axios.put(URL, { order_id, cancle_reason });
+    const res = await axios.put(URL, { order_id, cancel_reason });
     return res;
 }

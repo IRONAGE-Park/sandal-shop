@@ -1,11 +1,14 @@
 import React from 'react';
+import classnames from 'classnames/bind';
 import Message from '../../assets/Message';
 import OrderItem from './OrderItem';
 
 import styles from './Order.module.scss';
 
+const cn = classnames.bind(styles);
 
 const OrderList = ({ list }) => {
+    console.log(list);
     return (
         <div className={styles['content']}>
             <div className={styles['header']}>
@@ -15,7 +18,7 @@ const OrderList = ({ list }) => {
                 <div className={styles['order-payment']}>결제</div>
                 <div className={styles['order-state']}>상태</div>
             </div>
-            <ul className={styles['list']}>
+            <ul className={cn('list', { empty: list.length === 0 })}>
                 {list.length ? list.map(item => <OrderItem key={item.order_id} item={item} />)
                 : <Message msg="조회된 결과가 없습니다." />}
             </ul>

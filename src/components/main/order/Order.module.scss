@@ -27,9 +27,12 @@
         }
     }
     .list {
-        min-height: 220px; height: 100%;
         position: relative;
         border-bottom: solid 1px $color-ebebeb;
+        &.empty {
+            min-height: 220px;
+            height: 100%;
+        }
         .item {
             cursor: pointer;
             @include mobile {

@@ -14,8 +14,7 @@ const OrderItem = ({ item }) => {
         order_id, od_status, item_name,
         s_addr1, s_addr2, extra_item_count,
         receipt_price, receipt_time,
-        sticker_id,
-        total_price, total_qty
+        sticker_id, total_qty
     } = item;
 
     const onClickDetailView = useCallback(() => {

@@ -1,0 +1,393 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+.container {
+    position: relative;
+    padding-top: 40px;
+
+    @include mobile {
+        padding: 0;
+    }
+    .sticker {
+        position: absolute;
+        top: 40px; right: 0;
+        @include mobile {
+            position: static;
+        }
+        .pc-view {
+            color: $desktop-main-color;
+            font-size: $desktop16px;
+            font-weight: 500;
+            text-decoration: underline;
+            text-decoration-color: $desktop-main-color;;
+            cursor: pointer;
+            @include mobile {
+                display: none;
+            }
+        }
+    }
+    .area {
+        float: left;
+        @include mobile {
+            float: none;
+        }
+        &.info {
+            width: calc(50% - 10px);
+            .box {
+                height: 490px;
+                @include mobile {
+                    height: auto;
+                }
+                .border {
+                    height: 100%;
+                }
+                &.small {
+                    height: 245px - 56px;
+                    @include mobile {
+                        height: auto;
+                    }
+
+                    .i-content {
+                        font-size: $desktop16px;
+                        @include mobile {
+                            font-size: $desktop18px;
+                        }
+                        .i-name {
+                            display: inline-block;
+                            color: $color-777;
+                            width: 120px;
+                        }
+                        .i-value {
+                            color: $color-222;
+                            display: inline-block;
+                        }
+                        &.deli {
+                            font-size: $desktop14px;
+                            @include mobile {
+                                font-size: $desktop18px;
+                            }
+                            .i-value {
+                                color: $color-777;
+                            }
+                        }
+                    }
+                }
+            }
+            @include mobile {
+                width: 100%;
+            }
+        }
+        &.delivery {
+            margin-left: 20px;
+            @include mobile {
+                margin-left: 0;
+            }
+        }
+        &.payment {
+            width: 100%;
+            @include mobile {
+                line-height: 1.5;
+            }
+            .pay-info {
+                display: inline-block;
+                vertical-align: middle;
+                width: 35%;
+                @include tablet {
+                    width: 50%;
+                }
+                @include mobile {
+                    display: block;
+                    width: 100%;
+                }
+                .pay-table {
+                    width: 100%;
+                    .table-name {
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-size: $desktop16px;
+                        color: $color-222;
+                        font-weight: 500;
+                        @include mobile {
+                            width: 30%;
+                            color: #444;
+                            text-align: left;
+                        }
+                    }
+                    .table-value {
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-left: 20px;
+                        font-size: $desktop18px;
+                        color: $color-555;
+                        @include mobile {
+                            width: 70%;
+                            color: $color-777;
+                            text-align: right;
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+            .pay-price {
+                display: inline-block;
+                vertical-align: middle;
+                width: 30%;
+                padding-left: 3%;
+                @include tablet {
+                    width: 50%;
+                }
+                @include mobile {
+                    display: block;
+                    width: 100%;
+                    padding-left: 0;
+                }
+                .pay-price-title {
+                    .pay-price-name {
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-size: $desktop16px;
+                        font-weight: bold;
+                        color: $color-222;
+                        @include mobile {
+                            display: none;
+                        }
+                    }
+                    .pay-state {
+                        display: inline-block;
+                        border: solid 1px $desktop-main-color;
+                        border-radius: 15px;
+                        color: $desktop-main-color;
+                        padding: 5px 10px;
+                        margin-left: 10px;
+                        font-size: $desktop16px;
+                        @include mobile {
+                            display: none;
+                        }
+                    }
+                }
+                .pay-value {
+                    font-size: $desktop34px;
+                    color: $color-222;
+                    font-weight: bold;
+                    margin-top: 20px;
+                    @include mobile {
+                        font-size: $desktop16px;
+                        display: inline-block;
+                        width: 100%;
+                        text-align: right;
+                        color: $color-777;
+                        font-weight: normal;
+                        margin-top: 0;
+                        &::before {
+                            content: '결제금액';
+                            float: left;
+                            font-weight: normal;
+                            color: #444;
+                        }
+                    }
+                }
+
+                .m-pay-state {
+                    display: none;
+                    @include mobile {
+                        display: block;
+                        font-size: $desktop16px;
+                        .m-pay-state-name {
+                            display: inline-block;
+                            width: 30%;
+                            color: #444;
+                        }
+                        .m-pay-state-value {
+                            display: inline-block;
+                            width: 70%;
+                            text-align: right;
+                            color: $color-777;
+                        }
+                    }
+                }
+            }
+            .pay-action {
+                display: inline-block;
+                vertical-align: middle;
+                width: 35%;
+                @include tablet {
+                    width: 100%;
+                    margin-top: 20px;
+                }
+                @include mobile {
+                    width: 100%;
+                    margin-top: 20px;
+                }
+                .button {
+                    width: calc(50% - 5px);
+                    border: solid 1px;
+                    font-size: $desktop16px;
+                    font-weight: 500;
+                    transition: all .3s ease-in-out;
+                    @include tablet {
+                        width: calc(25% - 12px);
+                    }
+                    @include mobile {
+                        width: 100%;
+                    }
+                }
+                .process {
+                    color: $color-777;
+                    height: 40px;
+                    background-color: $color-f9f9f9;
+                    border-color: $color-dbdbdb;
+                    @include tablet {
+                        height: 90px;
+                    }
+                    @include mobile {
+                        height: 48px;
+                    }
+                }
+                .reject {
+                    color: $color-222;
+                    margin-left: 10px;
+                    height: 40px;
+                    border-color: $color-dbdbdb;
+                    @include tablet {
+                        margin-left: 16px;
+                        height: 90px;
+                    }
+                    @include mobile {
+                        margin-left: 0;
+                        margin-top: 10px;
+                        height: 48px;
+                    }
+                }
+                .receipt {
+                    margin-top: 10px;
+                    color: #fff;
+                    height: 90px;
+                    background-color: $desktop-main-color;
+                    border-color: $desktop-main-color;
+                    @include tablet {
+                        margin-top: 0;
+                        margin-left: 16px;
+                    }
+                    @include mobile {
+                        margin-left: 0;
+                        margin-top: 10px;
+                        height: 48px;
+                    }
+                }
+                .call {
+                    margin-top: 10px; margin-left: 10px;
+                    height: 90px;
+                    color: $desktop-main-color;
+                    border-color: $desktop-main-color;
+                    @include tablet {
+                        margin-top: 0;
+                        margin-left: 16px;
+                    }
+                    @include mobile {
+                        margin-left: 0;
+                        margin-top: 10px;
+                        height: 48px;
+                    }
+                }
+            }
+        }
+        .a-title {
+            font-size: $desktop18px;
+            color: $color-222;
+            font-weight: bold;
+            margin-bottom: 20px;
+            @include mobile {
+                display: none;
+            }
+        }
+        .m-title {
+            display: none;
+            font-size: $desktop22px;
+            color: #444;
+            font-weight: bold;
+            line-height: 56px;
+            padding: 0 18px;
+            background-color: $color-f9f9f9;
+            @include mobile {
+                display: block;
+            }
+            &.responsive {
+                display: block;
+                border-left: solid 1px $color-dbdbdb;
+                border-right: solid 1px $color-dbdbdb;
+                @include mobile {
+                    border: none;
+                }
+            }
+            &.bt {
+                border-top: solid 1px $color-dbdbdb;
+                @include mobile {
+                    border: none;
+                }
+            }
+        }
+        .box {
+
+            .border {
+                border: solid 1px $color-dbdbdb;
+                padding: 30px;
+                @include tablet {
+                    padding: 20px;
+                }
+                @include mobile {
+                    padding: 24px;
+                    border: none;
+                }
+            }
+        }
+    }
+    overflow: hidden;
+
+}
+
+.pay-table {
+    & + & {
+        margin-top: 16px;
+        @include mobile {
+            margin-top: 0;
+        }
+    }
+}
+
+.mobile-view {
+    display: none;
+
+    @include mobile {
+        display: block;
+        .m-title {
+            display: none;
+            @include mobile {
+                display: block;
+                font-size: $desktop22px;
+                color: #444;
+                font-weight: bold;
+                padding: 18px;
+                background-color: $color-f9f9f9;
+            }
+        }
+        .view-button-area {
+            text-align: center;
+            padding: 24px;
+            .view-button {
+                border: solid 1px #ccc;
+                width: 100%; height: 48px;
+            }
+        }
+    }
+}
+
+.i-content {
+    & + & {
+        margin-top: 8px;
+    }
+    &.deli {
+        & + & {
+            margin-top: 10px;
+        }
+    }
+}
