@@ -1,0 +1,112 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+.title {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: #222;
+    margin-bottom: 20px;
+    @include mobile {
+        display: none;
+    }
+}
+
+.signup-form {
+    .domain {
+        margin-bottom: 40px;
+        .interaction {
+            width: 100%;
+            height: 64px;
+            font-size: 1.333rem;
+            margin-top: 10px;
+            padding: 20px;
+            border: solid 1px #ebebeb;
+            color: #222;
+            transition: height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            @include tablet {
+                height: 56px;
+            }
+            @include mobile {
+                height: 48px;
+            }
+            &.button {
+                font-size: 1.5rem;
+                font-weight: 500;
+                background-color: #f9f9f9;
+
+                transition-property: background-color, border-color, color;
+                transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+                @include mobile {
+                    border-color: $mobile-main-color;
+                    background-color: #fff;
+                    color: $mobile-main-color;
+                    font-weight: normal;
+                    &.small {
+                        position: absolute;
+                        font-size: 1.333rem;
+                        font-weight: normal;
+                        margin: 0;
+                        padding: 0;
+                        width: 120px;
+                        height: 48px;
+                        bottom: 0;
+                        right: 0;
+                        transform: none;
+                    }
+                }
+                &.active {
+                    color: #fff;
+                    background-color: $desktop-main-color;
+                }
+            }
+            &::placeholder {
+                color: #aaa;
+            }
+        }
+    }
+    .agree {
+        margin-bottom: 60px;
+        .all {
+            background-color: #f9f9f9;
+            @include mobile {
+                padding: 8px 0;
+                background-color: transparent;
+                border: solid 1px #dbdbdb;
+                border-bottom-color: #ebebeb;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+            }
+        }
+        .list {
+            padding: 10px 0;
+            border: solid 1px #f9f9f9;
+            @include mobile {
+                border: none;
+                background-color: #f9f9f9;
+                padding-bottom: 70px;
+            }
+        }
+        @include mobile {
+            .content:not(.mobile) {
+                max-width: 100%;
+                margin: 0;
+            }
+            .mobile {
+                padding: 0 24px;
+                box-sizing: content-box;
+            }
+        }
+    }
+}
+
+.area {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: content-box;
+}
+.content {
+    max-width: $content-width;
+    margin: 0 auto;
+    // padding: 0 16px;
+}

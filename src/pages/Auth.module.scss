@@ -1,0 +1,23 @@
+@import '../static/stylesheets/lib/mixin';
+@import '../static/stylesheets/lib/variables';
+
+$padding-top: 120px;
+
+.auth {
+    min-width: $min-width;
+    padding-top: $padding-top;
+    &.center {
+        padding-top: $padding-top * 2;
+    }
+    @include mobile {
+        padding-top: 72px !important;
+    }
+}
+.area {
+    width: 100%;
+}
+
+.container {
+    max-width: $max-width;
+    margin: 0 auto;
+}

@@ -1,0 +1,29 @@
+@import './lib/variables';
+@import './lib/mixin';
+
+* {
+    box-sizing: border-box;
+    padding: 0; margin: 0;
+    outline: none; border: none;
+    border-radius: 0;
+    font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", 나눔고딕, "NanumGothic", "맑은 고딕", "Malgun Gothic", Ngothic, sans-serif;
+}
+
+html, body {
+    font-size: $root-font-size-desktop;
+    @include tablet {
+        font-size: $root-font-size-tablet;
+    }
+    @include mobile {
+        font-size: $root-font-size-mobile;
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

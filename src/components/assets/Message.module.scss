@@ -1,0 +1,22 @@
+@import '../../static/stylesheets/lib/mixin';
+@import '../../static/stylesheets/lib/variables';
+
+.message {
+    position: absolute;
+    top: 50%; left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    .image {
+        display: none;
+        @include mobile {
+            display: inline-block;
+        }
+    }
+    .text {
+        font-size: $desktop16px;
+        color: $color-aaa;
+        @include mobile {
+            color: $color-999;
+        }
+    }
+}

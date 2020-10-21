@@ -1,0 +1,35 @@
+@import '../static/stylesheets/lib/mixin';
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    .main {
+        float: left;
+        width: calc(100% - 280px); height: calc(100% - 80px);
+        overflow-y: auto;
+        @include notebook {
+            float: none;
+            width: 100%; height: calc(100% - 60px);
+        }
+        @include tablet {
+            float: none;
+            width: 100%; height: calc(100% - 60px);
+        }
+        @include mobile {
+            float: none;
+            width: 100%; height: 100%;
+        }
+        .content {
+            width: 100%;;
+            padding: 50px 45px;
+            box-sizing: border-box;
+            @include mobile {
+                height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 40px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+@import '../../static/stylesheets/lib/variables';
+
+.find {
+    .area {
+        width: 100%;
+    }
+    .container {
+        max-width: $max-width;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .content {
+        max-width: $content-width;
+        margin: 0 auto;
+        // padding: 0 16px;
+    }
+}

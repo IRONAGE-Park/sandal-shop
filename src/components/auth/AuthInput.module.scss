@@ -1,0 +1,44 @@
+@import '../../static/stylesheets/lib/mixin';
+@import '../../static/stylesheets/lib/variables';
+
+.input-area {
+    width: 100%;
+    position: relative;
+    
+    .interaction {
+        width: 100%; height: 64px;
+        transition: height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        @include tablet {
+            height: 56px;
+        }
+        @include mobile {
+            height: 48px;
+        }
+    }
+    .label {
+        color: #222;
+        font-size: 1.333rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .input {
+        font-size: 1.333rem;
+        padding: 20px;
+        border: 1px solid #ebebeb;
+        @include mobile {
+            display: none;
+        }
+        &::placeholder {
+            color: #aaa;
+        }
+    }
+    .mobile {
+        display: none;
+        @include mobile {
+            display: block;
+        }
+    }
+    & + & {
+        margin-top: 10px;
+    }
+}

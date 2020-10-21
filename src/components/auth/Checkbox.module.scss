@@ -1,0 +1,50 @@
+@import '../../static/stylesheets/lib/mixin';
+@import '../../static/stylesheets/lib/variables';
+
+.checkbox {
+    color: #222;
+    font-size: 1.333rem;
+    font-weight: 500;
+    padding: 10px 20px;
+
+    @include mobile {
+        font-weight: normal;
+        color: #777;
+        padding: 0;
+    }
+    .container {
+        .content {
+            cursor: pointer;
+            .title {
+                margin-left: 8px;
+                .bold {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    @include mobile {
+                        color: #444;
+                    }
+                }
+            }
+        }
+        .detail {
+            margin-left: 16px;
+            font-weight: normal;
+            color: #999;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        * {
+            vertical-align: middle;
+        }
+    }
+
+    .text {
+        margin-left: 40px;
+        font-size: 1.1rem;
+        color: #777;
+        word-break: keep-all;
+        @include mobile {
+            color: #999;
+        }
+    }
+}

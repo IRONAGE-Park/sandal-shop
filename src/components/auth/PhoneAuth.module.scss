@@ -1,0 +1,62 @@
+@import '../../static/stylesheets/lib/mixin';
+@import '../../static/stylesheets/lib/variables';
+
+.phone-auth {
+    .interaction {
+        border: solid 1px #ebebeb;
+        color: #222;
+        background-color: #f9f9f9;
+        position: absolute;
+        font-size: 1.333rem;
+        font-weight: normal;
+        margin: 0; padding: 0;
+        width: 120px; height: 48px;
+        bottom: 50%;
+        right: 8px;
+        transform: translateY(50%);
+        transition: height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        @include tablet {
+            right: 4px;
+        }
+        @include mobile {
+            border-color: $mobile-main-color;
+            background-color: #fff;
+            color: $mobile-main-color;
+            font-weight: normal;
+            bottom: 0; right: 0;
+            transform: none;
+
+            &.active {
+                border-color: #AAA;
+                color: #222;
+            }
+        }
+
+        &.disable {
+            color: #918e8e;
+            background-color: #fff;
+            border-color: #ebebeb;
+        }
+    }
+
+    .auth {
+        margin-top: 10px;
+        position: relative;
+        left: -30%;
+        opacity: 0;
+        transition: .3s ease-in-out;
+        transition-property: left, opacity;
+        &.view {
+            left: 0px;
+            opacity: 1;
+        }
+    }
+    .timer {
+        font-size: 1.333rem;
+        font-weight: bold;
+        color: #555;
+        position: absolute;
+        top: 50%; right: 148px;
+        transform: translateY(-50%);
+    }
+}

@@ -1,0 +1,22 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+.container {
+    
+    letter-spacing: -0.05em;
+    @include mobile {
+        padding-top: 60px;
+        height: 100%;
+    }
+    .tab {
+        @include mobile {
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            background-color: #fff;
+        }
+    }
+    .content {
+        height: 100%;
+    }
+}

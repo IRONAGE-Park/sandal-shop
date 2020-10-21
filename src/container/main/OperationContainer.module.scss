@@ -1,0 +1,258 @@
+@import '../../static/stylesheets/lib/variables';
+@import '../../static/stylesheets/lib/mixin';
+
+.container {
+    padding-top: 33px;
+    overflow: visible;
+    
+    @include mobile {
+        padding-top: 60px;
+        height: 100%;
+        background-color: $color-f9f9f9;
+        &.updateForm {
+            padding-top: 0;
+            .tab {
+                display: none;
+            }
+        }
+    }
+    .tab {
+        @include mobile {
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            background-color: #fff;
+        }
+    }
+    .content {
+        padding-top: 80px;
+        @include notebook {
+            padding-top: 60px;
+        }
+        @include tablet {
+            padding-top: 30px;
+        } 
+        @include mobile {
+            padding-top: 0;
+            height: 100%;
+        }
+        .box-area {
+            overflow: visible;
+            padding-bottom: 20px;
+            .holi-box {
+                display: inline-block;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                transition: all .3s ease-in-out;
+                overflow: hidden;
+                @include mobile {
+                    display: block;
+                    padding: 30px 24px;
+                    background-color: #fff;
+                    border-radius: 0;
+                    box-shadow: none;
+                    border: solid 1px $color-ebebeb;
+                }
+                &.holiday {
+                    width: calc(100% - 311px);
+                    float: right;
+                    @include notebook {
+                        width: 100%;
+                        float: none;
+                    }
+                    @include tablet {
+                        width: 100%;
+                        float: none;
+                    }
+                    @include mobile {
+                        width: 100%;
+                        float: none;
+                        margin-top: 0;
+                    }
+                    .holi {
+                        display: none;
+                        @include mobile {
+                            display: block;
+                            margin-top: 10px;
+                            font-size: $desktop20px;
+                            color: #000;
+                        }
+                    }
+                }
+                &.regular {
+                    width: 290px; height: 400px;
+                    float: left;
+                    @include notebook {
+                        width: 100%;
+                        margin-top: 20px;
+                        height: auto;
+                        float: none;
+                    }
+                    @include tablet {
+                        width: 100%;
+                        margin-top: 20px;
+                        height: auto;
+                        float: none;
+                    }
+                    @include mobile {
+                        width: 100%;
+                        float: none;
+                        height: auto;
+                        margin-top: 8px;
+                    }
+                    .holi {
+                        padding: 70px 0;
+                        @include notebook {
+                            padding: 30px 0;
+                        }
+                        @include tablet {
+                            padding: 30px 0;
+                        }
+                        @include mobile {
+                            padding: 10px 0;
+                        }
+                    }
+                }
+                &.temp {
+                    width: calc(100% - 311px); height: 300px;
+                    float: right;
+                    margin-top: 20px;
+                    @include notebook {
+                        width: 100%;
+                        float: none;
+                        height: auto;
+                    }
+                    @include tablet {
+                        width: 100%;
+                        float: none;
+                        height: auto;
+                    }
+                    @include mobile {
+                        width: 100%;
+                        height: auto;
+                        float: none;
+                        margin-top: 8px;
+                    }
+                    .holi {
+                        padding: 50px 0;
+                        @include notebook {
+                            padding: 30px 0;
+                        }
+                        @include tablet {
+                            padding: 30px 0;
+                        }
+                        @include mobile {
+                            &.disabled {
+                                padding: 0;
+                                height: 0;
+                                overflow: hidden;
+                            }
+                            height: 110px;
+                            padding: 10px 0;
+                        }
+                    }
+                }
+                .holi {
+                    display: table;
+                    width: 100%; height: calc(100% - 80px);
+                    font-size: $desktop32px;
+                    color: $color-555;
+                    font-weight: bold;
+                    text-align: center;
+                    @include mobile {
+                        text-align: left;
+                        color: #000;
+                        font-size: $desktop20px;
+                        font-weight: normal;
+                    }
+                    .holi-cell {
+                        display: table-cell;
+                        vertical-align: middle;
+                        @include mobile {
+                            display: block;
+                            margin-top: 10px;
+                        }
+                        .label {
+                            display: inline-block;
+                            font-size: $desktop18px;
+                            color: #222;
+                            font-weight: normal;
+                            margin-right: 36px;
+                            @include mobile {
+                                color: #000;
+                                margin-right: 20px;
+                            }
+                            @media screen and (max-width: 450px) {
+                                display: block;
+                                margin-bottom: 8px;
+                                font-size: $desktop16px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .button-area {
+            width: 100%;
+            text-align: center;
+            @include mobile {
+                position: fixed;
+                left: 0; bottom: 0;
+                margin-top: 0;
+            }
+            .button {
+                width: 320px; height: 48px;
+                margin-top: 80px;
+                border: solid 1px $color-dbdbdb;
+                color: #333;
+                font-weight: 500;
+                font-size: 1.5rem;
+                &.confirm {
+                    color: $mobile-main-color;
+                    border-color: $mobile-main-color;
+                }
+                @include mobile {
+                    width: 100%; height: 60px;
+                    background-color: $mobile-main-color;
+                    color: #fff;
+                    border: none;
+                    &.confirm {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+.tem-date {
+    & + & {
+        margin-top: 10px;
+    }
+}
+
+.reg-date {
+    & + & {
+        margin-top: 30px;
+    }
+    @include notebook {
+        display: inline-block;
+        & + & {
+            margin-top: 0;
+            margin-left: 16px;
+        }
+    }
+    @include tablet {
+        display: inline-block;
+        & + & {
+            margin-top: 0;
+            margin-left: 16px;
+        }
+    }
+    @include mobile {
+        display: inline-block;
+        & + & {
+            margin-top: 0;
+            margin-left: 8px;
+        }
+    }
+}

@@ -1,0 +1,213 @@
+@import '../../static/stylesheets/lib/variables';
+@import '../../static/stylesheets/lib/mixin';
+
+.container {
+    .content {
+        .area {
+            padding: 40px 0;
+            border-bottom: solid 1px $color-ebebeb;
+
+            .password-check {
+                margin-top: 8px;
+                line-height: 1.2;
+                height: 0px;
+                overflow: hidden;
+                font-size: $desktop12px;
+                color: #A61332;
+                transition: height .15s ease-in-out;
+                &.confirm {
+                    color: $mobile-main-color;
+                }
+                &.on {
+                    height: 20px;
+                }
+            }
+            .possible-box {
+                width: 100%; height: 48px;
+                margin-top: 20px;
+                font-size: $desktop16px;
+                font-weight: bold;
+                color: #fff;
+                background-color: $color-999;
+                &.possible {
+                    background-color: $desktop-main-color;
+                }
+                @include mobile {
+                    display: none;
+                }
+            }
+            @include mobile {
+                padding: 0;
+                border: none;
+            }
+            .relative {
+                position: relative;
+                .remove-button {
+                    position: absolute;
+                    top: 50%; right: 10px;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+
+        .input {
+            display: block;
+            height: 48px;
+            padding: 0 20px;
+            font-size: $desktop16px;
+            color: $color-222;
+            border: solid 1px $color-ebebeb;
+            &.normal {
+                width: 320px;
+                @include mobile {
+                    width: 100%;
+                }
+            }
+            &.address {
+                width: 100%;
+            }
+            &.detail-address {
+                width: 520px;
+                @include mobile {
+                    width: 100%;
+                }
+            }
+            &.desktop {
+                @include mobile {
+                    display: none;
+                }
+            }
+            &.mobile {
+                display: none;
+                @include mobile {
+                    display: block;
+                }
+            }
+            &::placeholder {
+                color: $color-aaa;
+            }
+        }
+        .label-box {
+            .label {
+                display: none;
+                @include mobile {
+                    display: block;
+                    font-size: $desktop16px;
+                    font-weight: 500;
+                    color: $color-222;
+                    line-height: 1.3;
+                    margin-bottom: 8px;
+                }
+            }
+        }
+        .phone-box {
+            position: relative;
+            .phone {
+                padding-right: 140px;
+            }
+            .phone-button {
+                position: absolute;
+                width: 120px; height: 48px;
+                top: 0; right: 0;
+                border: solid 1px $color-ebebeb;
+                font-size: $desktop16px;
+                color: $color-222;
+                background-color: $color-f9f9f9;
+                transition: all .3s ease-in-out;
+                &.enabled {
+                    @include mobile {
+                        background-color: #fff;
+                        border-color: $mobile-main-color;
+                        color: $mobile-main-color;
+                    }
+                }
+                &.disabled {
+                    color: #918E8E;
+                    @include mobile {
+                        color: $color-aaa;
+                    }
+                }
+            }
+        }
+        .address-box {
+            display: table;
+            width: 100%; height: 48px;
+            .address-area {
+                display: table-cell;
+                vertical-align: top;
+                height: 48px;
+                padding: 0;
+                .address-button {
+                    display: block;
+                    min-width: 120px; max-width: 120px; height: 48px;
+                    border: solid 1px $color-aaa;
+                }
+                &.i {
+                    width: 100%;
+                }
+                &.b {
+                    width: 120px;
+                }
+            }
+        }
+        .secession {
+            text-align: right;
+            margin: 20px 0;
+            .secession-link {
+                .desktop-link {
+                    color: $color-999;
+                    font-size: $desktop16px;
+                    font-weight: 500;
+                    @include mobile {
+                        display: none;
+                    }
+                }
+                .mobile-link {
+                    display: none;
+                    @include mobile {
+                        display: block;
+                        width: 100%; height: 48px;
+                        border-radius: 10px;
+                        border: solid 1px $color-ebebeb;
+                        font-size: $desktop14px;
+                        color: $color-555;
+                        background-color: #fff;
+                    }
+                }
+            }
+            @include mobile {
+                padding: 0 24px;
+                margin: 40px 0;
+            }
+        }
+        .update {
+            text-align: center;
+            margin-top: 40px;
+            .update-button {
+                width: 320px; height: 48px;
+                font-size: $desktop16px;
+                color: $color-333;
+                border: solid 1px $color-dbdbdb;
+            }
+            @include mobile {
+                display: none;
+            }
+        }
+    }
+    @include mobile {
+        padding-top: 40px;
+        height: 100vh;
+        background-color: $color-f9f9f9;
+    }
+}
+
+.label-box, .phone-box, .address-box {
+    & + & {
+        margin-top: 10px;
+    }
+}
+.label-box.response {
+    & + & {
+        margin-top: 40px;
+    }
+}

@@ -1,0 +1,53 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+.complete {
+    text-align: center;
+    word-break: keep-all;
+    margin-top: 130px;
+    .m-image {
+        display: none;
+        margin-bottom: 60px;
+        @include mobile {
+            display: inline;
+        }
+    }
+    .congratulations {
+        font-size: 2rem;
+        color: #222;
+        margin-bottom: 20px;
+    }
+    .sub {
+        font-size: 1.333rem;
+        font-weight: normal;
+        color: #222;
+        margin-bottom: 60px;
+        @include mobile {
+            margin-bottom: 0;
+            font-size: 1.167rem;
+            line-height: 2;
+            color: #555;
+        }
+    }
+    .text {
+        color: #999;
+        font-size: 1.167rem;
+        line-height: 2;
+        margin-bottom: 120px;
+        @include mobile {
+            color: #555;
+        }
+    }
+}
+
+.area {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: content-box;
+}
+.content {
+    max-width: $content-width;
+    margin: 0 auto;
+    // padding: 0 16px;
+}

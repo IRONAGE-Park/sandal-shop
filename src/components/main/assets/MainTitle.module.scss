@@ -1,0 +1,14 @@
+@import '../../../static/stylesheets/lib/mixin';
+
+.title {
+    position: relative;
+    border-bottom: 2px solid #222;
+    .content {
+        color: #222;
+        font-size: 2.333rem;
+        margin-bottom: 20px;
+    }
+    @include mobile {
+        display: none;
+    }
+}

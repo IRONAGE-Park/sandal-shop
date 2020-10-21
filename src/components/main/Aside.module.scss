@@ -1,0 +1,159 @@
+@import '../../static/stylesheets/lib/mixin';
+@import '../../static/stylesheets/lib/variables';
+
+.aside {
+    width: 280px; height: calc(100% - 80px);
+    color: #fff;
+    background-color: #333;
+    float: left;
+    box-sizing: border-box;
+    
+    @include notebook {
+        width: 260px; height: 100%;
+        color: #222;
+        position: fixed;
+        background-color: #fff;
+        box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.16);
+        z-index: 1500;
+        transform: translateX(-100%);
+        top: 0; left: 0;
+        &.open {
+            transform: none;
+        }
+    }
+    @include tablet {
+        width: 260px; height: 100%;
+        color: #222;
+        position: fixed;
+        background-color: #fff;
+        box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.16);
+        z-index: 1500;
+        transform: translateX(-100%);
+        top: 0; left: 0;
+        &.open {
+            transform: none;
+        }
+    }
+    @include mobile {
+        width: 240px; height: 100%;
+        color: #222;
+        position: fixed;
+        background-color: #fff;
+        box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.16);
+        z-index: 1500;
+        transform: translateX(-100%);
+        top: 0; left: 0;
+        &.open {
+            transform: none;
+        }
+    }
+    .content {
+        .profile {
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            .content {
+                padding: 38px 24px;
+                .name {
+                    font-size: 1.833rem;
+                    svg {
+                        width: 12px; height: 12px;
+                        fill: #fff;
+                        margin-left: 10px;
+                    }
+                }
+                .label {
+                    width: 164px;
+                    line-height: 24px;
+                    font-size: 1.167rem;
+                    color: #555;
+                    margin-top: 12px;
+                    text-align: center;
+                    background-color: #fff;
+                    border-radius: 12px;
+                    border: solid 1px #EBEBEB;
+                }
+            }
+            &:hover {
+                color: #222;
+                background-color: #fff;
+                .content {
+                    .name {
+                        svg {
+                            fill: #222;
+                        }
+                    }
+                }
+            }
+            @include mobile {
+                .content {
+                    .name {
+                        svg {
+                            fill: #222;
+                        }
+                    }
+                }
+            }
+        }
+        .category {
+            .list {
+                .item {
+                    display: block;
+                    padding: 18px 24px;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    transition: all 0.3s;
+                    @include mobile {
+                        font-weight: normal;
+                        border: 1px solid #f9f9f9;
+                    }
+                    &:hover {
+                        background-color: #fff;
+                        color: #222;
+                    }
+                }
+                :global(a.active) {
+                    .item {
+                        background-color: #fff;
+                        color: #222;
+                        @include mobile {
+                            background-color: inherit;
+                            color: inherit;
+                        }
+                    }
+                }
+                @include mobile {
+                    background-color: #fff;
+                }
+            }
+            @include mobile {
+                padding-top: 16px;
+                background-color: #f9f9f9;
+            }
+        }
+    }
+    .logout {
+        position: absolute;
+        display: none;
+        width: 100%;
+        bottom: 0;
+        background-color: $mobile-main-color;
+        .button {
+            width: 100%; height: 56px;
+            font-size: 1.333rem;
+            color: #fff;
+        }
+        @include mobile {
+            display: block;
+
+        }
+    }
+    & + .backdrop {
+        display: none;
+        @include mobile {
+            display: block;
+            z-index: 1000;
+        }
+    }
+}

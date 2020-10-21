@@ -1,0 +1,108 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+
+.content {
+    position: relative;
+    min-height: 360px; height: 100%;
+    padding: 20px;
+    background-color: $color-f9f9f9;
+    border: solid 1px $color-dbdbdb;
+    @include mobile {
+        padding: 0;
+        border: none;
+        background-color: #fff;
+    }
+    .list {
+        margin-top: -20px;
+        @include mobile {
+            margin-top: -8px;
+        }
+        .item {
+            display: inline-block;
+            width: calc(25% - 15px);
+            background-color: #fff;
+            border: solid 1px $color-ebebeb;
+            margin-top: 20px;
+            transition: all .3s ease-in-out;
+            @include notebook {
+                width: calc(33.33333% - 13.33333px);
+            }
+            @include tablet {
+                width: calc(50% - 10px);
+            }
+            @include mobile {
+                display: block;
+                width: 100%;
+                padding: 16px 16px;
+                margin-top: 8px;
+            }
+            .image {
+                @include mobile {
+                    display: inline-block;
+                    width: 88px;
+                    vertical-align: middle;
+                }
+            }
+            .text {
+                padding: 20px;
+                position: relative;
+
+                @include mobile {
+                    display: inline-block;
+                    padding: 0;
+                    padding-left: 18px;
+                    padding-right: 50px;
+                    vertical-align: middle;
+                    width: calc(100% - 88px);
+                }
+                .name {
+                    color: $color-555;
+                    font-size: $desktop16px;
+                    font-weight: normal;
+                    margin: 10px 0;
+                }
+                .price {
+                    color: $color-222;
+                    font-size: $desktop22px;
+                    font-weight: bold;
+                    @include mobile {
+                        font-size: $desktop20px;
+                    }
+                }
+                .toggle {
+                    position: absolute;
+                    bottom: 20px; right: 20px;
+                    @include mobile {
+                        top: 50%; right: 0;
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+        }
+    }
+}
+.item {
+    & + & {
+        margin-left: 20px;
+        @include mobile {
+            margin-left: 0;
+        }
+    }
+    &:nth-child(4n + 1) {
+        margin-left: 0;
+        @include notebook {
+            margin-left: 20px;
+        }
+    }
+    @include notebook {
+        &:nth-child(3n + 1) {
+            margin-left: 0;
+        }
+    }
+    @include tablet {
+        &:nth-child(2n + 1) {
+            margin-left: 0;
+        }
+    }
+}
