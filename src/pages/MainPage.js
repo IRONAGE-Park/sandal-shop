@@ -72,7 +72,11 @@ const MobileTitleObject = {
         title: "주문 상세 보기",
         back: "goBack"
     },
-    [main.order + '/modal']: {
+    [main.order + '/reject']: {
+        title: "주문 상세 보기",
+        back: "goBack"
+    },
+    [main.order + '/sticker']: {
         title: "주문 상세 보기",
         back: "goBack"
     },
@@ -84,6 +88,15 @@ const MobileTitleObject = {
     },
     [main.order + '/cancel']: {
         title: "주문 내역",
+    },
+    [main.calculate + '/daily']: {
+        title: "배달 매출 현황"
+    },
+    [main.calculate + '/monthly']: {
+        title: "배달 매출 현황"
+    },
+    [main.calculate + '/yearly']: {
+        title: "배달 매출 현황"
     }
 };
 
@@ -139,7 +152,7 @@ const MainPage = ({ location }) => {
                             <Route path={Paths.main.operation + '/:mode?'} component={OperationPage} />
                             <Route path={Paths.main.menu} component={MenuPage} />
                             <Route path={Paths.main.order + '/:tab?'} component={OrderPage} />
-                            <Route path={Paths.main.calculate.index} component={CalculatePage} />
+                            <Route path={Paths.main.calculate + '/:mode?'} component={CalculatePage} />
                             <Route path={Paths.main.support.index} component={SupportPage} />
                             <Route component={ErrorPage} />
                         </Switch>

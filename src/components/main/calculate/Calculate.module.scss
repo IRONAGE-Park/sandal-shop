@@ -1,0 +1,197 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+
+.content {
+    position: relative;
+    .header {
+        display: table;
+        width: 100%; height: 56px;
+        text-align: center;
+        font-size: $desktop16px;
+        font-weight: 500;
+        color: #000;
+        border-top: solid 2px $color-222;
+        border-bottom: solid 1px $color-999;
+        @include mobile {
+            display: none;
+        }
+        & > div {
+            display: table-cell;
+            vertical-align: middle;
+            width: 12.5%;
+        }
+    }
+    .m-total {
+        display: none;
+        @include mobile {
+            display: block;
+            padding: 24px;
+            border-bottom: solid 1px $color-dbdbdb;
+            .m-content {
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16);
+                padding: 20px;
+                .total-header {
+                    border-bottom: solid 1px $color-ebebeb;
+                    padding-bottom: 15px;
+                    margin-bottom: 15px;
+                }
+                .total-row {
+                    display: table;
+                    width: 100%;
+                    line-height: 2;
+                    & > div {
+                        display: table-cell;
+                        vertical-align: top;
+                        width: 50%;
+                        &.total-name {
+                            font-size: 12px;
+                            color: $color-555;
+                        }
+                        &.total-value {
+                            text-align: right;
+                            font-size: 14px;
+                            color: $color-222;
+                        }
+                    }
+                    &.total-price {
+                        font-weight: bold;
+                        .total-name {
+                            font-size: 18px;
+                            color: #222;
+                        }
+                        .total-value {
+                            font-size: 16px;
+                            color: $mobile-main-color;
+                        }
+                    }
+                }
+            }
+            .m-button-area {
+                margin-top: 30px;
+                .m-open-button {
+                    width: 100%; height: 54px;
+                    background-color: $color-ebebeb;
+                    border-radius: 10px;
+                    font-weight: bold;
+                    font-size: $desktop16px;
+                    .text {
+                        margin-right: 16px;
+                    }
+                }
+            }
+        }
+    }
+    .list {
+        position: relative;
+        border-bottom: solid 1px $color-ebebeb;
+        transition: all .3s ease-in-out; 
+        &.empty {
+            min-height: 220px;
+            height: 100%;
+            @include mobile {
+                min-height: 320px;
+            }
+        }
+        @include mobile {
+            height: 0;
+            overflow: hidden;
+            &.openList {
+                height: 100%;
+            }
+        }
+        .item {
+            .view {
+                display: table;
+                width: 100%; height: 100px;
+                @include mobile {
+                    display: block;
+                    height: auto;
+                    padding: 20px 24px;
+                }
+                .view-column {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    width: 12.5%;
+                    font-size: $desktop14px;
+                    color: $color-777;
+                    @include mobile {
+                        display: block;
+                        width: 100%;
+                        font-size: $desktop18px;
+                        color: $color-222;
+                        line-height: 2;
+                        &::before {
+                            content: '';
+                            display: inline-block;
+                            width: 50%;
+                            text-align: left;
+                        }
+                        &.o-date::before {
+                            content: '주문일';
+                        }
+                        &.o-count::before {
+                            content: '주문수';
+                        }
+                        &.o-total::before {
+                            content: '주문합계';
+                        }
+                        &.o-cancel::before {
+                            content: '취소/환불';
+                        }
+                        &.o-sales::before {
+                            content: '매출액';
+                        }
+                        &.service::before {
+                            content: '서비스 수수료';
+                        }
+                        &.delivery::before {
+                            content: '배달비';
+                        }
+                        &.calc-value::before {
+                            content: '정산액';
+                        }
+                        .value {
+                            display: inline-block;
+                            width: 50%;
+                            text-align: right;
+                            color: $color-222;
+                            font-weight: bold;
+                            font-size: $desktop20px;
+                        }
+                    }
+                    &.o-count, &.o-total {
+                        font-size: $desktop16px;
+                        color: $color-222;
+                        font-weight: bold;
+                        @include mobile {
+                            font-weight: normal;
+                            font-size: $desktop18px;
+                        }
+                    }
+                    &.calc-value {
+                        font-size: $desktop18px;
+                        color: $color-222;
+                        font-weight: bold;
+                        @include mobile {
+                            font-weight: normal;
+                            font-size: $desktop18px;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+.item {
+    & + & {
+        border-top: solid 1px $color-ebebeb;
+        @include mobile {
+            border-top: solid 4px #f5f5f5;
+        }
+    }
+}

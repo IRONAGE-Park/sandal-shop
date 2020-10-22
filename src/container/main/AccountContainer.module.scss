@@ -2,6 +2,7 @@
 @import '../../static/stylesheets/lib/mixin';
 
 .container {
+    @include container;
     .content {
         .area {
             padding: 40px 0;

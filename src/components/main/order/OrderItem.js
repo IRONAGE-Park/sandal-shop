@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import classnames from 'classnames/bind';
 import { useHistory } from 'react-router-dom';
 import Paths from '../../../paths';
@@ -22,13 +22,11 @@ const OrderItem = ({ item }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [order_id]);
 
-    console.log(item);
-
     return (
         <li className={styles['item']} onClick={onClickDetailView}>
             <div className={styles['view']}>
                 <div className={cn('order-time')}>
-                    {receipt_time.split(' ').map(line => <>{line}<br /></>)}
+                    {receipt_time.split(' ').map((line, index)=> <Fragment key={index}>{line}<br /></Fragment>)}
                 </div>
                 <div className={cn('order-type')}>
                     <p>{item_name}{extra_item_count > 0 && ` 외 ${extra_item_count}개`}</p>

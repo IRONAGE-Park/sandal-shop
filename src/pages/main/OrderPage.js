@@ -12,7 +12,7 @@ const OrderPage = ({ match, location }) => {
     const { order_id } = query; // 상세보기 시 사용할 order_id
 
     return (
-        order_id ? <OrderDetailContainer order_id={order_id} />
+        order_id ? <OrderDetailContainer order_id={order_id} modal={tab} />
         : <OrderContainer tab={tab} />
     );
 };

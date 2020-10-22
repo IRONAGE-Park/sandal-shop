@@ -6,7 +6,7 @@ import Paths from '../paths';
 
 axios.defaults.headers['Context-Type'] = 'application/json';
 
-export const requestGETCalculateDay = async (JWT_TOKEN, start_date, end_date) => {
+export const requestGETCalculateDaily = async (JWT_TOKEN, start_date, end_date) => {
     /*
         가맹점 일일 매출 현황 리스트 Request API
 
@@ -18,11 +18,15 @@ export const requestGETCalculateDay = async (JWT_TOKEN, start_date, end_date) =>
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
-    const res = await axios.get(URL);
+    const res = await axios.get(URL, {
+        params: {
+            start_date, end_date
+        }
+    });
     return res;
 }
 
-export const requestGETCalculateMonth = async (JWT_TOKEN, start_date, end_date) => {
+export const requestGETCalculateMonthly = async (JWT_TOKEN, start_date, end_date) => {
     /*
         가맹점 월별 매출 현황 리스트 Request API
 
@@ -42,7 +46,7 @@ export const requestGETCalculateMonth = async (JWT_TOKEN, start_date, end_date) 
     return res;
 }
 
-export const requestGETCalculateYear = async (JWT_TOKEN, start_date, end_date) => {
+export const requestGETCalculateYearly = async (JWT_TOKEN, start_date, end_date) => {
     /*
         가맹점 연간 매출 현황 리스트 Request API
 

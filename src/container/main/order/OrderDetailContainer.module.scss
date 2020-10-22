@@ -2,8 +2,7 @@
 @import '../../../static/stylesheets/lib/variables';
 
 .container {
-    position: relative;
-    padding-top: 40px;
+    @include container;
 
     @include mobile {
         padding: 0;
@@ -53,13 +52,17 @@
                             font-size: $desktop18px;
                         }
                         .i-name {
+                            vertical-align: top;
                             display: inline-block;
                             color: $color-777;
                             width: 120px;
                         }
                         .i-value {
+                            vertical-align: top;
                             color: $color-222;
                             display: inline-block;
+                            word-break: keep-all;
+                            width: calc(100% - 120px);
                         }
                         &.deli {
                             font-size: $desktop14px;
@@ -85,8 +88,10 @@
         }
         &.payment {
             width: 100%;
+            margin-top: 40px;
             @include mobile {
                 line-height: 1.5;
+                margin-top: 0;
             }
             .pay-info {
                 display: inline-block;
@@ -219,54 +224,23 @@
                     margin-top: 20px;
                 }
                 .button {
-                    width: calc(50% - 5px);
+                    width: calc(50% - 5px); height: 70px;
                     border: solid 1px;
                     font-size: $desktop16px;
                     font-weight: 500;
                     transition: all .3s ease-in-out;
                     @include tablet {
-                        width: calc(25% - 12px);
+                        width: calc(33.333% - 12px);
                     }
                     @include mobile {
                         width: 100%;
                     }
                 }
-                .process {
-                    color: $color-777;
-                    height: 40px;
-                    background-color: $color-f9f9f9;
-                    border-color: $color-dbdbdb;
-                    @include tablet {
-                        height: 90px;
-                    }
-                    @include mobile {
-                        height: 48px;
-                    }
-                }
                 .reject {
                     color: $color-222;
-                    margin-left: 10px;
-                    height: 40px;
                     border-color: $color-dbdbdb;
                     @include tablet {
-                        margin-left: 16px;
-                        height: 90px;
-                    }
-                    @include mobile {
                         margin-left: 0;
-                        margin-top: 10px;
-                        height: 48px;
-                    }
-                }
-                .receipt {
-                    margin-top: 10px;
-                    color: #fff;
-                    height: 90px;
-                    background-color: $desktop-main-color;
-                    border-color: $desktop-main-color;
-                    @include tablet {
-                        margin-top: 0;
-                        margin-left: 16px;
                     }
                     @include mobile {
                         margin-left: 0;
@@ -275,17 +249,33 @@
                     }
                 }
                 .call {
-                    margin-top: 10px; margin-left: 10px;
-                    height: 90px;
+                    margin-left: 10px;
                     color: $desktop-main-color;
                     border-color: $desktop-main-color;
                     @include tablet {
                         margin-top: 0;
-                        margin-left: 16px;
+                        margin-left: 18px;
                     }
                     @include mobile {
                         margin-left: 0;
                         margin-top: 10px;
+                        height: 48px;
+                    }
+                }
+                .receipt {
+                    color: #fff;
+                    width: 100%;
+                    margin-top: 10px;
+                    background-color: $desktop-main-color;
+                    border-color: $desktop-main-color;
+                    @include tablet {
+                        margin-top: 0;
+                        margin-left: 18px;
+                        width: calc(33.333% - 12px);
+                    }
+                    @include mobile {
+                        margin-top: 10px;
+                        margin-left: 0;
                         height: 48px;
                     }
                 }

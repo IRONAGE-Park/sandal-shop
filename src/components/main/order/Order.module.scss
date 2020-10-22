@@ -4,8 +4,6 @@
 
 .content {
     position: relative;
-    height: 100%;
-    padding-top: 80px;
     @include mobile {
         padding-top: 0;
     }

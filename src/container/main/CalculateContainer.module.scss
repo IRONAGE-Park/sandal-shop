@@ -6,4 +6,11 @@
     .tab {
         @include tab;
     }
+
+    .content {
+        margin-top: 80px;
+        @include mobile {
+            margin-top: 0;
+        }
+    }
 }

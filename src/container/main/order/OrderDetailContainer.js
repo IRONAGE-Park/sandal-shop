@@ -29,11 +29,10 @@ const OrderDetailContainer = ({ order_id, modal }) => {
         receipt_price, receipt_time
     } = orderData;
 
-    const onOpenSticker = useCallback(() => history.push(Paths.order + '/sticker' + location.search), [location, history]);
-    const onOpenReject = useCallback(() => history.push(Paths.order + '/reject' + location.search), [location, history]);
+    const onOpenSticker = useCallback(() => history.push(Paths.main.order + '/sticker' + location.search), [location, history]);
+    const onOpenReject = useCallback(() => history.push(Paths.main.order + '/reject' + location.search), [location, history]);
     const onCloseModal = useCallback(() => history.goBack(), [history]);
     
-
     const callPUTOrderConfirm = useCallback(async () => {
         const JWT_TOKEN = sessionStorage.getItem('user_token');
         if (JWT_TOKEN) {
@@ -146,12 +145,12 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                             문구 서비스 신청 주문입니다.
                         </p>
                         <div className={styles['view-button-area']}>
-                            <ButtonBase className={styles['view-button']}>
+                            <ButtonBase onClick={onOpenSticker} className={styles['view-button']}>
                                 문구 서비스 이미지 보기
                             </ButtonBase>
                         </div>
                     </div>
-                    <p className={styles['pc-view']}>문구 서비스 신청 주문입니다.(보기)</p>
+                    <p className={styles['pc-view']} onClick={onOpenSticker}>문구 서비스 신청 주문입니다.(보기)</p>
                 </div>
                 <div className={cn('area', 'payment')}>
                     <p className={styles['a-title']}>결제 금액</p>
@@ -184,10 +183,9 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                 </div>
                             </div>
                             <div className={styles['pay-action']}>
-                                <ButtonBase className={cn('button', 'process')}>결제처리</ButtonBase>
-                                <ButtonBase className={cn('button', 'reject')}>주문거절</ButtonBase>
-                                <ButtonBase className={cn('button', 'receipt')}>주문접수</ButtonBase>
-                                <ButtonBase className={cn('button', 'call')}>오토바이 호출</ButtonBase>
+                                <ButtonBase onClick={onOpenReject} className={cn('button', 'reject')}>주문거절</ButtonBase>
+                                <ButtonBase className={cn('button', 'call')}>차량 호출</ButtonBase>
+                                <ButtonBase onClick={callPUTOrderConfirm} className={cn('button', 'receipt')}>주문접수</ButtonBase>
                             </div>
                         </div>
                     </div>

@@ -17,15 +17,15 @@ const initialState = {
         start_date: calculateDate(new Date(), 7, 'DATE'), end_date: new Date()
     },
     // 일일 매출 내역에서 사용할 일자
-    caculate_day: {
-        start_date: calculateDate(new Date(), 7, 'DATE'), end_date: new Date()
+    calculate_daily: {
+        start_date: calculateDate(new Date(), 1, 'MONTH'), end_date: new Date()
     },
     // 월간 매출 내역에서 사용할 일자
-    calcuate_month: {
+    calculate_monthly: {
         start_date: calculateDate(new Date(), 3, 'MONTH'), end_date: new Date()
     },
     // 연간 매출 내역에서 사용할 일자
-    calculate_year: {
+    calculate_yearly: {
         start_date: calculateDate(new Date(), 3, 'YEAR'), end_date: new Date()
     }
 };

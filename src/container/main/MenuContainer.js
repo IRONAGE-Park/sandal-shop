@@ -45,7 +45,8 @@ const MenuContainer = ({ tab }) => {
     return (
         <div className={styles['container']}>
             <div className={styles['tab']}>
-                {categories !== null && categories.length &&
+                {categories !== null &&
+                categories.length &&
                 <Tabs
                     idx={tab}
                     categories={categories}

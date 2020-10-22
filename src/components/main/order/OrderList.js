@@ -8,7 +8,6 @@ import styles from './Order.module.scss';
 const cn = classnames.bind(styles);
 
 const OrderList = ({ list }) => {
-    console.log(list);
     return (
         <div className={styles['content']}>
             <div className={styles['header']}>

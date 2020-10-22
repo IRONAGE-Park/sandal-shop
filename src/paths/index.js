@@ -19,12 +19,7 @@ const Paths = {
         operation: '/main/operation',
         menu: '/main/menu',
         order: '/main/order',
-        calculate: {
-            index: '/main/calculate',
-            days: '/main/calculate/days',
-            month: '/main/calculate/month',
-            years: '/main/calculate/years'
-        },
+        calculate: '/main/calculate',
         support: {
             index: '/main/support',
             notice: '/main/support/notice',

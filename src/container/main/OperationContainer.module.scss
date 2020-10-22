@@ -2,12 +2,9 @@
 @import '../../static/stylesheets/lib/mixin';
 
 .container {
-    padding-top: 33px;
-    overflow: visible;
+    @include container;
     
     @include mobile {
-        padding-top: 60px;
-        height: 100%;
         background-color: $color-f9f9f9;
         &.updateForm {
             padding-top: 0;
@@ -17,12 +14,7 @@
         }
     }
     .tab {
-        @include mobile {
-            position: fixed;
-            top: 40px;
-            width: 100%;
-            background-color: #fff;
-        }
+        @include tab;
     }
     .content {
         padding-top: 80px;
