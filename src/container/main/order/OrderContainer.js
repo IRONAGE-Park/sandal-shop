@@ -13,12 +13,17 @@ import { useDialog } from '../../../hooks/useDialog';
 import Loading from '../../../components/assets/Loading';
 import OrderList from '../../../components/main/order/OrderList';
 import { useSelector } from 'react-redux';
+import { IconButton } from '@material-ui/core';
+import DateIcon from '../../../components/svg/date.svg';
+import BottomModal from '../../../components/assets/BottomModal';
 
 const cn = classnames.bind(styles);
 
 const getPaths = ['progress', 'complete', 'cancel'];
 
 const OrderContainer = ({ tab }) => {
+
+    const [open,setOpen] = useState(false);
     const history = useHistory();
     const openDialog = useDialog();
     const date = useSelector((state) => state.date); // 각 조회할 날짜들을 갖고 있는 객체.
@@ -27,6 +32,9 @@ const OrderContainer = ({ tab }) => {
     const [orderList, setOrderList] = useState([]);
 
     const index = getPaths.findIndex(path => path === tab);
+
+    const handleOpen = ()=> setOpen(true);
+    const handleClose = ()=> setOpen(false);
 
     const setListfromResult = useCallback(
         (result) => {
@@ -135,11 +143,15 @@ const OrderContainer = ({ tab }) => {
                     ]}
                     onChange={path => history.push(Paths.main.order + '/' + getPaths[path])}
                 />
+                <IconButton className={styles['date-icon']} onClick={handleOpen}>
+                    <img src ={DateIcon} alt="date"/>
+                </IconButton>
             </div>
             <div className={styles['content']}>
                 {!loading && <OrderList list={orderList} />}
             </div>
             <Loading open={loading} />
+            <BottomModal open={open} handleClose={handleClose} onClick={handleClose} />
         </div>
     );
 };

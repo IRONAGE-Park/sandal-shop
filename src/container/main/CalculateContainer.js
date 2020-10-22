@@ -6,21 +6,36 @@ import Paths from '../../paths';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/assets/Loading';
 import { useDialog } from '../../hooks/useDialog';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { requestGETCalculateDaily, requestGETCalculateMonthly, requestGETCalculateYearly } from '../../api/calculate';
 import CalculateList from '../../components/main/calculate/CalculateList';
+import SelectBox from '../../components/assets/SelectBox';
+import { dateSet } from '../../store/date';
+import {Button } from '@material-ui/core';
 
 const cn = classnames.bind(styles);
 
 const getPaths = ['daily', 'monthly', 'yearly'];
 
+
 const CalculateContainer = ({ mode }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const openDialog = useDialog();
     const date = useSelector(state => state.date); // 각 조회할 날짜들을 갖고 있는 객체.
 
+    const { order_complete, order_cancel, calculate_daily, calculate_monthly, calculate_yearly } = date;
+
     const [loading, setLoading] = useState(false);
     const [calculateList, setCalculateList] = useState([]);
+
+    const handleChange = useCallback((type, start, end) => {
+        console.log(start);
+        console.log(end);
+        const start_date = new Date(start);
+        const end_date = new Date(end);
+        dispatch(dateSet(type, start_date, end_date));
+    }, [date, dispatch]);
 
     const index = getPaths.findIndex(path => path === mode); // 현재 보여줘야 할 내용 결정.
 
@@ -112,7 +127,7 @@ const CalculateContainer = ({ mode }) => {
                 history.push(Paths.main.calculate + '/daily');
                 break;
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [index, callGETCalculateDaily, callGETCalculateMonthly, callGETCalculateYearly]);
 
     return (
@@ -128,9 +143,62 @@ const CalculateContainer = ({ mode }) => {
                     onChange={path => history.push(Paths.main.calculate + '/' + getPaths[path])}
                 />
             </div>
+            <div className={styles['pc-date-picker']}>
+                <div className={styles['date-box']}>
+                    <p className={styles['label']}>기간입력</p>
+                    <SelectBox
+                        value={calculate_daily.start_date.getFullYear()}
+                        handleChange={e => handleChange('calculate_daily', `${e.target.value}/${(calculate_daily.start_date.getMonth() + 1)}/${calculate_daily.start_date.getDate()}`, calculate_daily.end_date)}
+                        disabled={false}
+                        list={Array.from({ length: 60 }).map((v, i) => i + 1970)}
+                        name={Array.from({ length: 60 }).map((v, i) => i + 1970 + '년')}
+                    />
+                    <SelectBox
+                        value={calculate_daily.start_date.getMonth() + 1}
+                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.start_date.getFullYear()}/${(e.target.value)}/${calculate_daily.start_date.getDate()}`, calculate_daily.end_date)}
+                        disabled={false}
+                        list={Array.from({ length: 12 }).map((v, i) => i + 1)}
+                        name={Array.from({ length: 12 }).map((v, i) => i + 1 + '월')}
+                    />
+                    <SelectBox
+                        value={calculate_daily.start_date.getDate()}
+                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.start_date.getFullYear()}/${(calculate_daily.start_date.getMonth() + 1)}/${e.target.value}`, calculate_daily.end_date)}
+                        disabled={false}
+                        list={Array.from({ length: 31 }).map((v, i) => i + 1)}
+                        name={Array.from({ length: 31 }).map((v, i) => i + 1 + '일')}
+                    />
+                        <div className={styles['line']}/>
+                    <SelectBox
+                        value={calculate_daily.start_date.getFullYear()}
+                        handleChange={e => handleChange('calculate_daily', `${e.target.value}/${(calculate_daily.start_date.getMonth() + 1)}/${calculate_daily.start_date.getDate()}`, calculate_daily.end_date)}
+                        disabled={false}
+                        list={Array.from({ length: 60 }).map((v, i) => i + 1970)}
+                        name={Array.from({ length: 60 }).map((v, i) => i + 1970 + '년')}
+                    />
+                    <SelectBox
+                        value={calculate_daily.start_date.getMonth() + 1}
+                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.start_date.getFullYear()}/${(e.target.value)}/${calculate_daily.start_date.getDate()}`, calculate_daily.end_date)}
+                        disabled={false}
+                        list={Array.from({ length: 12 }).map((v, i) => i + 1)}
+                        name={Array.from({ length: 12 }).map((v, i) => i + 1 + '월')}
+                    />
+                    <SelectBox
+                        value={calculate_daily.start_date.getDate()}
+                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.start_date.getFullYear()}/${(calculate_daily.start_date.getMonth() + 1)}/${e.target.value}`, calculate_daily.end_date)}
+                        disabled={false}
+                        list={Array.from({ length: 31 }).map((v, i) => i + 1)}
+                        name={Array.from({ length: 31 }).map((v, i) => i + 1 + '일')}
+                    />
+                    <Button className={styles['search-btn']}>
+                            조회
+                    </Button>
+                </div>
+            </div>
+
             <div className={styles['content']}>
-                {!loading && 
-                <CalculateList list={calculateList} type={mode} />}
+
+                {!loading &&
+                    <CalculateList list={calculateList} type={mode} />}
             </div>
             <Loading open={loading} />
         </div>
