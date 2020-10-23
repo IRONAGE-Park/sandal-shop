@@ -87,6 +87,11 @@ export default ({ history }) => {
                                 name="pw"
                                 handleChange={onChangeInput}
                                 value={inputState.pw}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        onClickLogin();
+                                    }
+                                }}
                                 label="비밀번호"
                             />
                         </div>
