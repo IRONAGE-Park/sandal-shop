@@ -18,6 +18,7 @@ export const requestGETCalculateDaily = async (JWT_TOKEN, start_date, end_date) 
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
+    end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
             start_date, end_date
@@ -38,6 +39,7 @@ export const requestGETCalculateMonthly = async (JWT_TOKEN, start_date, end_date
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
+    end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
             start_date, end_date
@@ -58,6 +60,7 @@ export const requestGETCalculateYearly = async (JWT_TOKEN, start_date, end_date)
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
+    end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
             start_date, end_date

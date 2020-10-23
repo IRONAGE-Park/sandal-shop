@@ -154,20 +154,16 @@
             }
         }
     }
-    .logout {
+    .button {
         position: absolute;
-        display: none;
-        width: 100%;
+        display: none;    
         bottom: 0;
+        width: 100%; height: 60px;
+        font-size: 1.5rem;
         background-color: $mobile-main-color;
-        .button {
-            width: 100%; height: 56px;
-            font-size: 1.333rem;
-            color: #fff;
-        }
+        color: #fff;
         @include mobile {
             display: block;
-
         }
     }
     & + .backdrop {

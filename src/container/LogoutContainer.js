@@ -22,7 +22,7 @@ const LogoutContainer = ({ history }) => {
             /* 토큰이 존재함 => 로그인된 상태. */
             sessionStorage.removeItem('user_token');
             reduxDispatch(deleteUser(JWT_TOKEN));
-            openDialog("로그아웃 되셨습니다.", "서비스를 이용해 주셔서 감사합니다.");
+            openDialog("성공적으로 로그아웃 하였습니다.", "서비스를 이용해 주셔서 감사합니다.");
             history.push(Paths.auth.signin);
         }
     }, [JWT_TOKEN, reduxDispatch, openDialog, history]);

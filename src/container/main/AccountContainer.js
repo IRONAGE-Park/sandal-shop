@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import classnames from 'classnames/bind';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AccountInput from '../../components/main/account/AccountInput';
 import { stringToTel } from '../../lib/formatter';
 
@@ -13,6 +13,7 @@ import { useDialog } from '../../hooks/useDialog';
 
 import RemoveIcon from '../../components/svg/remove.svg';
 import { requestPUTUpdateName, requestPUTUpdatePassword, requestPUTUpdatePhoneNumber, requestPUTUpdateShop } from '../../api/mypage';
+import { updateUser } from '../../store/user';
 
 const cn = classnames.bind(styles);
 
@@ -65,13 +66,15 @@ const AccountPhoneInput = ({
 
 const AccountContainer = () => {
     const USER_TOKEN = useStore();
+    const history = useHistory();
+    const reduxDispatch = useDispatch();
     const openDialog = useDialog();
     const user = useSelector(state => state.user);
     
     const [userState, userDispatch] = useReducer((state, action) => ({
         ...state, ...action
     }), {
-        shop: '', name: '',
+        shop_name: '', name: '',
         passwordOld: '', password: '', passwordConfirm: '',
         phoneNumber: '', authNumber: '',
         address: '', detailAddress: ''
@@ -79,7 +82,7 @@ const AccountContainer = () => {
     const [passwordCheck, setPasswordCheck] = useState(false);
     const [phoneAuth, setPhoneAuth] = useState(false);
 
-    const onChangeShop = useCallback(e => userDispatch({ shop: e.target.value }), []);
+    const onChangeShop = useCallback(e => userDispatch({ shop_name: e.target.value }), []);
     const onChangeName = useCallback(e => userDispatch({ name: e.target.value }), []);
     const onChangePasswordOld = useCallback(e => userDispatch({ passwordOld: e.target.value }), []);
     const onChangePassword = useCallback(e => userDispatch({ password: e.target.value }), []);
@@ -91,12 +94,13 @@ const AccountContainer = () => {
     const onRemoveValue = useCallback(name => userDispatch({ [name]: '' }), []);
 
     const callUpdateShop = useCallback(async () => {
-        const { shop } = userState;
-        if (shop) {
+        const { shop_name } = userState;
+        if (shop_name) {
             try {
-                const res = await requestPUTUpdateShop(USER_TOKEN, shop);
+                const res = await requestPUTUpdateShop(USER_TOKEN, shop_name);
                 if (res.data.msg === "성공") {
-                    openDialog("성공적으로 변경되었습니다!", "");
+                    openDialog("성공적으로 변경되었습니다!", '');
+                    reduxDispatch(updateUser('shop_name', shop_name));
                 } else {
                     openDialog('잘못된 접근입니다.', '잠시 후 다시 시도해 주세요.');
                 }
@@ -112,6 +116,7 @@ const AccountContainer = () => {
                 const res = await requestPUTUpdateName(USER_TOKEN, name);
                 if (res.data.msg === "성공") {
                     openDialog("성공적으로 변경되었습니다!", "");
+                    reduxDispatch(updateUser('name', name));
                 } else {
                     openDialog('잘못된 접근입니다.', '잠시 후 다시 시도해 주세요.');
                 }
@@ -126,9 +131,9 @@ const AccountContainer = () => {
             if (user.hp !== phoneNumber) {
                 try {
                     const res = await requestPUTUpdatePhoneNumber(USER_TOKEN, phoneNumber);
-                    console.log(res);
                     if (res.data.msg === "성공") {
                         openDialog("성공적으로 변경되었습니다!", "");
+                        reduxDispatch(updateUser('hp', phoneNumber));
                     } else {
                         openDialog('잘못된 접근입니다.', '잠시 후 다시 시도해 주세요.');
                     }
@@ -158,6 +163,7 @@ const AccountContainer = () => {
         callUpdateName();
         callUpdatePhoneNumber();
         callUpdatePassword();
+        history.push(Paths.main.operation);
     }, [callUpdateName, callUpdatePassword, callUpdatePhoneNumber, callUpdateShop]);
 
     useEffect(() => {
@@ -170,23 +176,24 @@ const AccountContainer = () => {
     }, [userState]);
 
     useEffect(() => {
-        const { name } = user;
-        userDispatch({ name });
+        const { name, shop_name } = user;
+        const sn = shop_name ? shop_name : '';
+        userDispatch({ name, shop_name: sn });
     }, [user]);
 
     return (
         <div className={styles['container']}>
             <div className={styles['content']}>
                 <div className={styles['area']}>
-                    <AccountInput title="가맹점명" text={userState.shop} handleClick={callUpdateShop} possible>
+                    <AccountInput title="가맹점명" text={user.shop_name} handleClick={callUpdateShop} possible>
                         <div className={styles['relative']}>
                             <input
                                 className={cn('input', 'normal')}
                                 type="text"
                                 onChange={onChangeShop}
-                                value={userState.shop}
+                                value={userState.shop_name}
                             />
-                            <IconButton onClick={() => onRemoveValue('shop')} className={cn('remove-button')}>
+                            <IconButton onClick={() => onRemoveValue('shop_name')} className={cn('remove-button')}>
                                 <img src={RemoveIcon} alt="remove" />
                             </IconButton>
                         </div>

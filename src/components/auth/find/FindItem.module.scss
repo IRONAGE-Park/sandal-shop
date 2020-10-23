@@ -9,9 +9,14 @@
     .area {
         width: 100%;
         border: solid 1px #EBEBEB;
+        transition: all .3s ease-in-out;
         @include mobile {
             border: solid 1px #DBDBDB;
             padding: 0 24px;
+        }
+        &:hover {
+            border-color: transparent;
+            box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
         }
         .container {
             display: table;

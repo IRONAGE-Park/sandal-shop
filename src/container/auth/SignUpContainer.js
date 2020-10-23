@@ -74,8 +74,8 @@ export default ({ history }) => {
     /* Event Listener */
 
     return (
-        <div className={styles['container']}>
-            <div className={styles['signup']}>
+        <div className={styles['signup']}>
+            <div className={styles['container']}>
                 {complete ? <Complete name={name} />
                 : <SignUp
                     shop={shop} setShop={setShop}

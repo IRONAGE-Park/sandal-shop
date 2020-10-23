@@ -6,10 +6,12 @@ import { useDialog } from '../../../hooks/useDialog';
 import styles from './OrderDetailContainer.module.scss';
 import { ButtonBase } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router-dom';
-import { numberFormat } from '../../../lib/formatter';
+import { numberFormat, stringToTel } from '../../../lib/formatter';
 import Paths from '../../../paths';
 import OrderProductList from '../../../components/main/order/OrderProductList';
 import { isEmpty } from '../../../lib/formatChecker';
+import StickerModal from '../../../components/main/order/StickerModal';
+import RejectModal from '../../../components/main/order/RejectModal';
 
 const cn = classnames.bind(styles);
 
@@ -24,7 +26,8 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     console.log(orderData);
 
     const {
-        items, 
+        items, s_hp, s_name,
+        delivery_req_time, sticker_id,
         s_addr1, s_addr2, settle_case,
         receipt_price, receipt_time
     } = orderData;
@@ -93,15 +96,15 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                         <div className={cn('border')}>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>받는 분</p>
-                                <p className={styles['i-value']}>임시</p>
+                                <p className={styles['i-value']}>{s_name}</p>
                             </div>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>연락처</p>
-                                <p className={styles['i-value']}>010-0000-0000</p>
+                                <p className={styles['i-value']}>{stringToTel(s_hp)}</p>
                             </div>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>배달 요청 시간</p>
-                                <p className={styles['i-value']}>{new Date().getFullYear()}</p>
+                                <p className={styles['i-value']}>{delivery_req_time}</p>
                             </div>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>배달 주소</p>
@@ -118,11 +121,11 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                         <div className={cn('border')}>
                             <div className={cn('i-content', 'deli')}>
                                 <p className={styles['i-name']}>주문자</p>
-                                <p className={styles['i-value']}>임시</p>
+                                <p className={styles['i-value']}>{s_name}</p>
                             </div>
                             <div className={cn('i-content', 'deli')}>
                                 <p className={styles['i-name']}>연락처</p>
-                                <p className={styles['i-value']}>010-0000-0000</p>
+                                <p className={styles['i-value']}>{stringToTel(s_hp)}</p>
                             </div>
                             <div className={cn('i-content', 'deli')}>
                                 <p className={styles['i-name']}>이메일</p>
@@ -139,7 +142,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                         </div>
                     </div>
                 </div>
-                <div className={styles['sticker']}>
+                {sticker_id !== 0 && <div className={styles['sticker']}>
                     <div className={styles['mobile-view']}>
                         <p className={styles['m-title']}>
                             문구 서비스 신청 주문입니다.
@@ -151,7 +154,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                         </div>
                     </div>
                     <p className={styles['pc-view']} onClick={onOpenSticker}>문구 서비스 신청 주문입니다.(보기)</p>
-                </div>
+                </div>}
                 <div className={cn('area', 'payment')}>
                     <p className={styles['a-title']}>결제 금액</p>
                     <p className={styles['m-title']}>결제 정보</p>
@@ -192,6 +195,8 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                 </div>
             </div>}
             <Loading open={loading} />
+            {sticker_id !== 0 && <StickerModal open={modal === 'sticker'} handleClose={onCloseModal} order_id={order_id} />}
+            <RejectModal open={modal === 'reject'} handleClose={onCloseModal} order_id={order_id} />
         </>
     );
 };

@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useCallback, useRef } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import classNamesBind from 'classnames/bind';
 // NPM Library
 /* Library */
@@ -17,6 +17,7 @@ import styles from './Aside.module.scss';
 // StyleSheets
 import Direction from '../svg/Direction';
 import Hamburger from '../svg/hamburger.svg';
+import { useDialog } from '../../hooks/useDialog';
 /* Statics */
 
 const cn = classNamesBind.bind(styles);
@@ -66,6 +67,13 @@ const Aside = ({ open, setOpen }) => {
     /*
         Desktop 화면에서 보여줄 사이드 컴포넌트
     */
+    const history = useHistory();
+    const openDialog = useDialog();
+
+    const onClickLogout = useCallback(() => {
+        setOpen(false);
+        openDialog("정말 로그아웃 하시겠습니까?", '', () => history.push(Paths.main.logout), true);
+    }, []);
     const navCategories = useRef([
         { name: '운영 정보 관리', href: Paths.main.operation },
         { name: '메뉴 관리', href: Paths.main.menu },
@@ -97,11 +105,9 @@ const Aside = ({ open, setOpen }) => {
                         </ul>
                     </div>
                 </nav>
-                <Link to={Paths.main.logout} className={styles['logout']}>
-                    <ButtonBase component="div" className={styles['button']}>
-                        로그아웃
-                    </ButtonBase>
-                </Link>
+                <ButtonBase className={styles['button']} onClick={onClickLogout}>
+                    로그아웃
+                </ButtonBase>
             </aside>
             <Backdrop className={styles['backdrop']} open={open} onClick={() => setOpen(false)} />
         </>

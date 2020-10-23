@@ -1,11 +1,37 @@
+import { Dialog, makeStyles, Slide } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { requestGETOrderSticker } from '../../../api/order';
 import { useDialog } from '../../../hooks/useDialog';
+import { DBImageFormat } from '../../../lib/formatter';
+import ErrorCoverImage from '../assets/ErrorCoverImage';
 
-const StickerModal = (open, handleClose, order_id) => {
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const useStyles = makeStyles((theme) => ({
+    dialog: {
+        position: 'relative',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)'
+    },
+    title: {
+        marginLeft: theme.spacing(2),
+        flex: 1,
+    },
+    image: {
+        position: 'absolute',
+        top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)'
+    }
+}));
+
+const StickerModal = ({ open, handleClose, order_id }) => {
+    const classes = useStyles();
     const openDialog = useDialog();
 
     const [loading, setLoading] = useState(false);
+
+    const [sticker, setSticker] = useState({});
 
     const callGETORderSticker = useCallback(async () => {
         const JWT_TOKEN = sessionStorage.getItem('user_token');
@@ -14,7 +40,11 @@ const StickerModal = (open, handleClose, order_id) => {
             setLoading(true);
             try {
                 const result = await requestGETOrderSticker(JWT_TOKEN, order_id);
-                console.log(result);
+                if (result.data.msg === "성공!") {
+                    setSticker(result.data.query.sticker);
+                } else {
+
+                }
             } catch (e) {
                 openDialog("서버에 오류가 발생했습니다.", "잠시 후 다시 시도해 주세요.");
             }
@@ -28,9 +58,13 @@ const StickerModal = (open, handleClose, order_id) => {
     }, [callGETORderSticker]);
 
     return (
-        <div>
-
-        </div>
+        <Dialog className={classes.dialog} color="primary" fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+            <div>
+                <div className={classes.image}>
+                    {!loading && sticker.sticker_logo && <ErrorCoverImage src={DBImageFormat(sticker.sticker_logo)}/>}
+                </div>
+            </div>
+        </Dialog>
     );
 };
 

@@ -22,7 +22,6 @@
             padding: 20px;
             border: solid 1px #ebebeb;
             color: #222;
-            transition: height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
             @include tablet {
                 height: 56px;
             }

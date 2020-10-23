@@ -37,7 +37,7 @@ export default ({ confirm, title, text, handleClick = () => {}, open }) => {
                 <div className={styles['area']}>
                     <div className={cn('content')}>
                         <h3 className={styles['title']}>{title}</h3>
-                        <p className={styles['text']}>{text}</p>
+                        {text && <p className={styles['text']}>{text}</p>}
                     </div>
                     <div className={styles['bottom']}>
                         {confirm &&

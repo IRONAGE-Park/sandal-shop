@@ -44,7 +44,7 @@ export default ({ history }) => {
     const onClickChangePW = useCallback(async () => {
         const { data: result } = await requestPOSTChangePW({ name, email, hp: phone, pw: newPassword, pw_C: newPassword })
         if (result.msg === "성공") {
-            openDialog('비밀번호가 성공적으로 변경되었습니다!', '로그인하세요.');
+            openDialog('비밀번호가 성공적으로 변경되었습니다!');
             history.replace(Paths.auth.signin);
         } else {
             openDialog('Error!', '');
@@ -59,7 +59,7 @@ export default ({ history }) => {
                     안녕하세요, {name} 점주님!
                 </h2>
                 <h4 className={styles['content']}>
-                    인증이 완료되어 비밀번호를 재설정 합니다.
+                    인증이 완료되어 비밀번호를 재설정 합니다.<br />
                     비밀번호를 잊어버리지 않게 주의하세요!
                 </h4>
 

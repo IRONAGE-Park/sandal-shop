@@ -1,9 +1,12 @@
+import { ButtonBase, Dialog, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { requestPUTOrderCancel } from '../../../api/order';
 import { useDialog } from '../../../hooks/useDialog';
 
-const RejectModal = (open, handleClose, order_id) => {
+const RejectModal = ({ open, handleClose, order_id }) => {
     const openDialog = useDialog();
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [loading, setLoading] = useState(false);
 
@@ -24,9 +27,15 @@ const RejectModal = (open, handleClose, order_id) => {
     }, [order_id]);
 
     return (
-        <div>
-
-        </div>
+        <Dialog
+            fullScreen={fullScreen}
+            open={open}
+            onClose={handleClose}
+        >
+            <ButtonBase onClick={() => callPUTOrderCancel('이럼')}>
+                주문 거절
+            </ButtonBase>
+        </Dialog>
     );
 };
 

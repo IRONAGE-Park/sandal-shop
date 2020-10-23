@@ -17,7 +17,9 @@ const DELETE_USER_SUCCESS = 'user/DELETE_USER_SUCCESS';
 const DELETE_USER_FAILURE = 'user/DELETE_USER_FAILURE';
 
 export const getUser = createAction(GET_USER);
-export const updateUser = createAction(UPDATE_USER);
+export const updateUser = createAction(UPDATE_USER, (target, value) => ({
+    [target]: value
+}));
 export const deleteUser = createAction(DELETE_USER);
 
 function *getUserSaga(action) {
@@ -67,6 +69,10 @@ const initialState = {};
 const user = handleActions(
     {
         [GET_USER_SUCCESS]: (state, action) => ({
+            ...state,
+            ...action.payload
+        }),
+        [UPDATE_USER]: (state, action) => ({
             ...state,
             ...action.payload
         }),

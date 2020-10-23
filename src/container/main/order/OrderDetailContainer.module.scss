@@ -3,9 +3,10 @@
 
 .container {
     @include container;
-
+    overflow: hidden;
     @include mobile {
         padding: 0;
+        overflow: auto;
     }
     .sticker {
         position: absolute;
@@ -331,8 +332,6 @@
             }
         }
     }
-    overflow: hidden;
-
 }
 
 .pay-table {

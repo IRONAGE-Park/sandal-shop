@@ -243,4 +243,7 @@
         background-color: $desktop-main-color;
         color: #fff;
     }
+    &.order_cancel {
+        border-color: red;
+    }
 }

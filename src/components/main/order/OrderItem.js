@@ -16,6 +16,7 @@ const OrderItem = ({ item }) => {
         receipt_price, receipt_time,
         sticker_id, total_qty
     } = item;
+    console.log(item);
 
     const onClickDetailView = useCallback(() => {
         history.push(Paths.main.order + '?order_id=' + order_id);
@@ -47,6 +48,7 @@ const OrderItem = ({ item }) => {
                     <div className={cn('m-type-box', { disabled: sticker_id === 0 })}>문구서비스</div>
                     <div className={cn('status', od_status)}>
                         {od_status === "order_apply" && "접수"}
+                        {od_status === "order_cancel" && "취소"}
                     </div>
                 </div>
             </div>

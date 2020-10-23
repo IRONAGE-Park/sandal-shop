@@ -12,6 +12,13 @@ $padding-top: 120px;
     @include mobile {
         padding-top: 72px !important;
     }
+
+    input {
+        transition: all .3s ease-in-out;
+        &:focus {
+            border-color: #999;
+        }
+    }
 }
 .area {
     width: 100%;

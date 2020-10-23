@@ -81,7 +81,7 @@ export const requestPOSTLogin = async ({ email, password }) => {
     const URL = Paths.api + 'shop/login';
 
     const formData = makeFormData({ email, password });
-
+    
     const res = await axios.post(URL, formData);
     return res;
 };

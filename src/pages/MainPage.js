@@ -73,11 +73,11 @@ const MobileTitleObject = {
         back: "goBack"
     },
     [main.order + '/reject']: {
-        title: "주문 상세 보기",
+        title: "주문 거절",
         back: "goBack"
     },
     [main.order + '/sticker']: {
-        title: "주문 상세 보기",
+        title: "문구 스티커 보기",
         back: "goBack"
     },
     [main.order + '/progress']: {
