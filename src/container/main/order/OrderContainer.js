@@ -79,6 +79,7 @@ const OrderContainer = ({ tab }) => {
                     start_date,
                     end_date,
                 );
+                console.log(result);
                 setListfromResult(result);
             } catch (e) {
                 openDialog('잘못된 접근입니다.');

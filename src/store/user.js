@@ -70,7 +70,8 @@ const user = handleActions(
     {
         [GET_USER_SUCCESS]: (state, action) => ({
             ...state,
-            ...action.payload
+            ...action.payload.user,
+            ...action.payload.shop
         }),
         [UPDATE_USER]: (state, action) => ({
             ...state,

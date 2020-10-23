@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { dateToYYYYMMDDHHMMSS } from '../lib/formatter';
 /* Library */
 
 import Paths from '../paths';
@@ -49,7 +50,7 @@ export const requestPUTManageTime = async (JWT_TOKEN, {
 
 export const requestPUTManageHoliday = async (JWT_TOKEN, {
     holiday_flag,
-    req_closed_flag, req_type, req_week, req_day,
+    reg_closed_flag, reg_type, reg_week, reg_day,
     tem_closed_flag, tem_start_date, tem_end_date
 }) => {
     /*
@@ -65,9 +66,8 @@ export const requestPUTManageHoliday = async (JWT_TOKEN, {
 
     const res = await axios.put(URL, {
         holiday_flag,
-        req_closed_flag, req_type, req_week, req_day,
-        tem_closed_flag, tem_start_date, tem_end_date
+        reg_closed_flag, reg_type: reg_type ? reg_type : 0, reg_week: reg_week ? reg_week : 1, reg_day: reg_day ? reg_day : 0,
+        tem_closed_flag, tem_start_date: dateToYYYYMMDDHHMMSS(tem_start_date), tem_end_date: dateToYYYYMMDDHHMMSS(tem_end_date)
     });
-
     return res;
 }

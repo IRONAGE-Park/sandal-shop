@@ -16,6 +16,7 @@
             display: inline-block;
             vertical-align: middle;
             margin-left: 18px;
+            width: calc(100% - 122px);
         }
         .name {
             font-size: $desktop24px;
@@ -25,14 +26,29 @@
                 font-size: $desktop20px;
                 color: #444;
             }
+            .qty {
+                font-weight: normal;
+                white-space: nowrap;
+                // @include mobile {
+                //     display: none;
+                // }
+            }
         }
         .option {
             margin-top: 10px;
             font-size: $desktop16px;
             color: $color-777;
-            @include mobile {
-                color: $color-999;
-            }
+            line-height: 1.5;
+            // @include mobile {
+            //     color: $color-999;
+            // }
+            // .m-qty {
+            //     display: none;
+            //     @include mobile {
+            //         display: inline;
+            //         white-space: nowrap;
+            //     }
+            // }
         }
         .value {
             display: none;

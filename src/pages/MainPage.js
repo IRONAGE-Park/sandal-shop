@@ -139,7 +139,7 @@ const MainPage = ({ location }) => {
                     </IconButton>
                 )}
             />
-            <div className={styles['app']}>
+            {!isEmpty(user) && <div className={styles['app']}>
                 <Header />
                 <Aside open={asideOpen} setOpen={setAsideOpen} />
                 <article className={styles['main']}>
@@ -147,7 +147,7 @@ const MainPage = ({ location }) => {
                         <MainTitle pathname={location.pathname} />
                         <Switch>
                             <Route path={Paths.main.index} component={IntroPage} exact/>
-                            <Route path={Paths.main.account} component={AccountPage} />
+                            <Route path={Paths.main.account + '/:modal?'} component={AccountPage} />
                             <Route path={Paths.main.secession} component={SecessionPage} />
                             <Route path={Paths.main.operation + '/:mode?'} component={OperationPage} />
                             <Route path={Paths.main.menu} component={MenuPage} />
@@ -158,7 +158,7 @@ const MainPage = ({ location }) => {
                         </Switch>
                     </div>
                 </article>
-            </div>
+            </div>}
         </>
     );
 };

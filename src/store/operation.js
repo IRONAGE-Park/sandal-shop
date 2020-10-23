@@ -83,7 +83,9 @@ function *updateOperationHoliSaga(action) {
             JWT_TOKEN,
             holiObject
         } = action.payload;
+        console.log(holiObject)
         const result = yield call(requestPUTManageHoliday, JWT_TOKEN, holiObject);
+        console.log(result);
         if (result.data.msg === "성공") {
             yield put({
                 type: UPDATE_OPERATION_HOLI_SUCCESS,

@@ -18,6 +18,7 @@ const { main } = Paths;
 const MainTitleObject = {
     [main.index]: '샌달 가맹점 관리',
     [main.account]: '내 정보 수정',
+    [main.account + '/modal']: '내 정보 수정',
     [main.secession]: '회원 탈퇴',
     [main.operation]: '운영 정보 관리',
     [main.operation + '/time']: '운영 정보 관리',

@@ -1,13 +1,10 @@
 import React from 'react';
-import qs from 'qs';
 import AccountContainer from '../../container/main/AccountContainer';
 
-const AccountPage = ({ location }) => {
-    const query = qs.parse(location.search, {
-        ignoreQueryPrefix: true,
-    });
+const AccountPage = ({ match }) => {
     
-    return <AccountContainer query={query} />;
+    const { modal } = match.params
+    return <AccountContainer modal={modal} />;
 };
 
 export default AccountPage;

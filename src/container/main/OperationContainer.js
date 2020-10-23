@@ -116,9 +116,9 @@ const OperationContainer = ({ mode }) => {
             reduxDispatch(updateOperationHoli({
                 JWT_TOKEN,
                 holiObject: {
-                    holiday_flag: 1,
-                    reg_closed_flag: 1, reg_type: 0, reg_week: 2, reg_day: 5,
-                    tem_closed_flag: 1, tem_start_date: "2020-09-01", tem_end_date: "2020-09-31",
+                    holiday_flag,
+                    reg_closed_flag, reg_type, reg_week, reg_day,
+                    tem_closed_flag, tem_start_date, tem_end_date,
                     ...direct
                 }
             }));
@@ -300,21 +300,21 @@ const OperationContainer = ({ mode }) => {
                             >
                                 {updateForm ? <>
                                 <SelectBox
-                                    value={reg_type}
+                                    value={reg_type ? reg_type : 1}
                                     handleChange={e => handleChange('reg_type', e.target.value)}
                                     disabled={!reg_closed_flag}
                                     list={Array.from({ length: 3 }).map((v, i) => i + 1)}
                                     name={Array.from({ length: 3 }).map((v, i) => getType(i + 1))}
                                 />
                                 <SelectBox
-                                    value={reg_week}
+                                    value={reg_week ? reg_week : 1}
                                     handleChange={e => handleChange('reg_week', e.target.value)}
                                     disabled={!reg_closed_flag}
                                     list={Array.from({ length: 4 }).map((v, i) => i + 1)}
                                     name={Array.from({ length: 4 }).map((v, i) => getWeek(i + 1))}
                                 />
                                 <SelectBox
-                                    value={reg_day}
+                                    value={reg_day ? reg_day : 1}
                                     handleChange={e => handleChange('reg_day', e.target.value)}
                                     disabled={!reg_closed_flag}
                                     list={Array.from({ length: 7 }).map((v, i) => i + 1)}
@@ -414,7 +414,7 @@ const OperationContainer = ({ mode }) => {
                         className={cn('button', { confirm: updateForm })}
                         onClick={
                             updateForm
-                                ? displayMode
+                                ? displayMode === 'time'
                                     ? callPutOperationTime
                                     : callPutOperationHoli
                                 : () =>

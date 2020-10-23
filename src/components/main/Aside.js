@@ -46,7 +46,7 @@ const UserInfo = () => {
         유저 정보를 바탕으로 렌더링 함
     */
     const user = useSelector(state => state.user);
-    const { name, level } = user;
+    const { name, confirm } = user;
     return (
         <ButtonBase component="div" className={cn('profile')}>
             <div className={cn('content')}>
@@ -55,8 +55,8 @@ const UserInfo = () => {
                     <Direction vector={'RIGHT'} />
                 </h3>
                 <p className={cn('label')}>
-                    {level ? <><b>{name} 점장님</b> 반갑습니다!</>
-                    : '사용 승인 대기 중입니다.'}
+                    {confirm === 1 ? <><b>{name} 점장님</b> 반갑습니다!</>
+                    : confirm === 0 ? '사용 승인 대기 중입니다.' : '이용 정지 상태입니다.'}
                 </p>
             </div>
         </ButtonBase>

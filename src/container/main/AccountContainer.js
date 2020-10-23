@@ -64,7 +64,7 @@ const AccountPhoneInput = ({
     )
 };
 
-const AccountContainer = () => {
+const AccountContainer = ({ modal }) => {
     const USER_TOKEN = useStore();
     const history = useHistory();
     const reduxDispatch = useDispatch();
@@ -185,7 +185,9 @@ const AccountContainer = () => {
         <div className={styles['container']}>
             <div className={styles['content']}>
                 <div className={styles['area']}>
-                    <AccountInput title="가맹점명" text={user.shop_name} handleClick={callUpdateShop} possible>
+                    <AccountInput title="가맹점명" text={user.shop_name} handleClick={callUpdateShop} possible
+                    // modal={modal === 'update_shop'}>
+                    modal={modal === 'modal'}>
                         <div className={styles['relative']}>
                             <input
                                 className={cn('input', 'normal')}
@@ -198,7 +200,9 @@ const AccountContainer = () => {
                             </IconButton>
                         </div>
                     </AccountInput>
-                    <AccountInput title="이름" text={user.name} handleClick={callUpdateName} possible>
+                    <AccountInput title="이름" text={user.name} handleClick={callUpdateName} possible
+                    // modal={modal === 'update_name'}>
+                    modal={modal === 'modal'}>
                         <div className={styles['relative']}>
                             <input
                                 className={cn('input', 'normal')}
@@ -219,7 +223,8 @@ const AccountContainer = () => {
                         text=""
                         possible={passwordCheck}
                         handleClick={callUpdatePassword}
-                    >
+                        // modal={modal === 'update_pw'}>
+                        modal={modal === 'modal'}>
                         <div>
                             <AccountLabelInput
                                 onChange={onChangePasswordOld}
@@ -262,7 +267,8 @@ const AccountContainer = () => {
                         title="휴대폰 번호"
                         text={stringToTel(user.hp)}
                         hadleClick={callUpdatePhoneNumber}
-                    >
+                        // modal={modal === 'update_phone'}>
+                        modal={modal === 'modal'}>
                         <div>
                             <AccountPhoneInput
                                 value={userState.phoneNumber}
@@ -284,7 +290,9 @@ const AccountContainer = () => {
                     </AccountInput>
                 </div>
                 <div className={styles['area']}>
-                    <AccountInput title="가맹점 주소" text={''}>
+                    <AccountInput title="가맹점 주소" text={''}
+                        // modal={modal === 'update_addres'}>
+                        modal={modal === 'modal'}>
                         <div>
                             <div className={styles['address-box']}>
                                 <div className={cn('address-area', 'i')}>

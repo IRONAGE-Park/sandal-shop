@@ -14,9 +14,9 @@ const OrderItem = ({ item }) => {
         order_id, od_status, item_name,
         s_addr1, s_addr2, extra_item_count,
         receipt_price, receipt_time,
-        sticker_id, total_qty
+        sticker_id, total_qty,
+        delivery_req_time
     } = item;
-    console.log(item);
 
     const onClickDetailView = useCallback(() => {
         history.push(Paths.main.order + '?order_id=' + order_id);
@@ -36,7 +36,7 @@ const OrderItem = ({ item }) => {
                 <p className={styles['total-qty']}><b>총 수량 : </b>{total_qty}개</p>
                 <div className={cn('order-info')}>
                     <p className={styles['addr-info']}>{s_addr1} {s_addr2}</p>
-                    <p className={styles['deli-info']}>직접 배달 / ((시간))</p>
+                    <p className={styles['deli-info']}>직접 배달 / {delivery_req_time}</p>
                 </div>
                 <div className={cn('order-payment')}>
                     {/* <p className={styles['pay-info']}>{numberFormat(total_price)}원</p> */}
@@ -47,8 +47,11 @@ const OrderItem = ({ item }) => {
                     <div className={styles['m-type-box']}>예약주문</div>
                     <div className={cn('m-type-box', { disabled: sticker_id === 0 })}>문구서비스</div>
                     <div className={cn('status', od_status)}>
-                        {od_status === "order_apply" && "접수"}
-                        {od_status === "order_cancel" && "취소"}
+                        {od_status === "order_apply" && "주문 접수"}
+                        {od_status === "order_cancel" && "주문 취소"}
+                        {od_status === "shipping" && "배송중"}
+                        {od_status === "delivery_complete" && "배송완료"}
+                        {od_status === "order_complete" && "정산 완료"}
                     </div>
                 </div>
             </div>

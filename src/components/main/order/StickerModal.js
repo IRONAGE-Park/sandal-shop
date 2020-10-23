@@ -18,10 +18,19 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         flex: 1,
     },
+    imageContent: {
+        width: '250px',
+        padding: '20px',
+        textAlign: 'center'
+    },
     image: {
-        position: 'absolute',
-        top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%)'
+        width: '200px', height: '200px',
+        border: 'solid 1px #ccc', overflow: 'hidden'
+    },
+    textContent: {
+        textAlign: 'center',
+        fontSize: '18px',
+        padding: '20px'
     }
 }));
 
@@ -58,12 +67,11 @@ const StickerModal = ({ open, handleClose, order_id }) => {
     }, [callGETORderSticker]);
 
     return (
-        <Dialog className={classes.dialog} color="primary" fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-            <div>
-                <div className={classes.image}>
-                    {!loading && sticker.sticker_logo && <ErrorCoverImage src={DBImageFormat(sticker.sticker_logo)}/>}
-                </div>
+        <Dialog className={classes.dialog} open={open} onClose={handleClose} TransitionComponent={Transition}>
+            <div className={classes.imageContent}>
+                {!loading && sticker.sticker_logo && <ErrorCoverImage className={classes.image} src={DBImageFormat(sticker.sticker_logo)}/>}
             </div>
+            <p className={classes.textContent}>{!loading && sticker.sticker_text}</p>
         </Dialog>
     );
 };

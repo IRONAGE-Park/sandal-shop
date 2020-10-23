@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import qs from 'qs';
 import OrderDetailContainer from '../../container/main/order/OrderDetailContainer';
 import OrderContainer from '../../container/main/order/OrderContainer';
+import { useSelector } from 'react-redux';
+import { useDialog } from '../../hooks/useDialog';
+import Paths from '../../paths';
 
-const OrderPage = ({ match, location }) => {
+const OrderPage = ({ match, location, history }) => {
+    const user = useSelector(state => state.user);
+    const openDialog = useDialog();
+
+    useEffect(() => {
+        if (user.confirm !== 1) {
+            // 권한을 가지지 않은 유저는 접근할 수 없음.
+            openDialog('사용 승인 후 이용하실 수 있습니다.', '');
+            history.push(Paths.main.index);
+        }
+    }, []);
     const query = qs.parse(location.search, {
         ignoreQueryPrefix: true,
     });

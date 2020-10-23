@@ -83,11 +83,30 @@ export const requestPUTUpdatePhoneNumber = async (JWT_TOKEN, shop_hp) => {
 
         문서보기: https://cuzicompany.postman.co/collections/5909966-f695cab7-6878-eb55-7943-ad88e1ccfd65?version=latest&workspace=a40a7d1a-89f5-4f58-87d1-138b39b804b4#c7348ff9-b788-44a0-a00d-a43cace241de
     */
-   const URL = Paths.api + 'shop/mypage/update_shop_hp';
+    const URL = Paths.api + 'shop/mypage/update_shop_hp';
 
-   axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
-   const res = await axios.put(URL, { shop_hp });
+    const res = await axios.put(URL, { shop_hp });
+    return res;
+}
+
+export const requestPUTUpdateAddress = async (JWT_TOKEN, shop_post_num, shop_addr1, shop_addr2, shop_lat, shop_lng) => {
+    /*
+        가맹점 주소 변경 Request API
+
+        로그인 된 JWT_TOKEN과 변경할 주소, 상세 주소, 우편 번호, 위도 / 경도를 첨부하여 요청을 보냄.
+
+        문서보기: 
+    */
+    const URL = Paths.api + 'shop/mypage/update_addr';
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
+
+    const res = await axios.put(URL, {
+        shop_post_num, shop_addr1, shop_addr2,
+        shop_lat, shop_lng
+    });
    return res;
 }
 

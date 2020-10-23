@@ -126,6 +126,10 @@
                                     background-color: #fff;
                                     border-color: $mobile-main-color;
                                     color: $mobile-main-color;
+                                    &.order_cancel {
+                                        color: #A61332;
+                                        border-color: #A61332;
+                                    }
                                 }
                             }
                             .m-type-box {
@@ -244,6 +248,7 @@
         color: #fff;
     }
     &.order_cancel {
-        border-color: red;
+        border-color: #A61332;
+        color: #A61332;
     }
 }
