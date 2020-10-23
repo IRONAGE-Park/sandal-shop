@@ -44,6 +44,10 @@ const MobileTitleObject = {
         title: "내 정보 수정",
         back: main.index
     },
+    [main.account + '/modal']: {
+        title: "내 정보 수정",
+        back: main.index
+    },
     [main.secession]: {
         title: "회원 탈퇴",
         back: main.account

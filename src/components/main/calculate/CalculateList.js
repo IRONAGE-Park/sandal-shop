@@ -75,7 +75,7 @@ const CalculateList = ({ list, type }) => {
                         </div>
                         <div className={cn('total-row')}>
                             <div className={cn('total-name')}>정산액(단가+부가세)</div>
-                            <div className={cn('total-value')}>{numberFormat(total.calculated_price)}</div>
+                            <div className={cn('total-value')}>{numberFormat(total.calculated_price ? total.calculated_price : 0)}</div>
                         </div>
                     </div>
                 </div>

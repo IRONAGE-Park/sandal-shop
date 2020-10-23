@@ -29,7 +29,7 @@ const AccountInput = ({ title, text, children, handleClick = () => {}, possible,
         setTimeout(() => {
             setMode(false);
         }, 150);
-    }, []);
+    }, [history]);
     const onClick = useCallback(() => {
         handleClick();
         onClose();

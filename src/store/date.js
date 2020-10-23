@@ -34,6 +34,7 @@ const date = handleActions(
     {
         [SET]: (state, action) => {
             const { type, start_date, end_date } = action.payload;
+            console.log(action.payload)
             return {
                 ...state,
                 [type]: {

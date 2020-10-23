@@ -23,7 +23,7 @@ const CalculateItem = ({ item }) => {
                 <div className={cn('view-column', 'o-sales')}><p className={styles['value']}>{numberFormat(sales_price - cancel_price)}</p></div>
                 <div className={cn('view-column', 'service')}><p className={styles['value']}>0</p></div>
                 <div className={cn('view-column', 'delivery')}><p className={styles['value']}>{numberFormat(send_cost)}</p></div>
-                <div className={cn('view-column', 'calc-value')}><p className={styles['value']}>{numberFormat(parseInt(calculated_price))}</p></div>
+                <div className={cn('view-column', 'calc-value')}><p className={styles['value']}>{numberFormat(parseInt(calculated_price ? calculated_price : 0))}</p></div>
             </div>
         </li>
     );
