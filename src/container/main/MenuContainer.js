@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Tabs from '../../components/main/assets/Tabs';
+import CustomTabs from '../../components/main/assets/Tabs';
 import MenuList from '../../components/main/menu/MenuList';
 import Paths from '../../paths';
 import { getCategories, getMenuList, updateMenu } from '../../store/menu';
@@ -47,10 +47,10 @@ const MenuContainer = ({ tab }) => {
             <div className={styles['tab']}>
                 {categories !== null &&
                 categories.length &&
-                <Tabs
+                <CustomTabs
                     idx={tab}
                     categories={categories}
-                    onChange={path => history.push(Paths.main.menu + '?tab=' + path)}
+                    onChange={(e,path) => history.push(Paths.main.menu + '?tab=' + path)}
                 />}
             </div>
             <div className={styles['content']}>

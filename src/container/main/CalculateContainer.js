@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames/bind';
 import styles from './CalculateContainer.module.scss';
-import Tabs from '../../components/main/assets/Tabs';
+import CustomTabs from '../../components/main/assets/Tabs';
 import Paths from '../../paths';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/assets/Loading';
@@ -134,14 +134,17 @@ const CalculateContainer = ({ mode }) => {
     return (
         <div className={cn('container')}>
             <div className={cn('tab')}>
-                <Tabs
+                <CustomTabs
                     idx={index}
                     categories={[
                         { ca_name: '일간 배달 매출' },
                         { ca_name: '월간 배달 매출' },
                         { ca_name: '연간 배달 매출' }
                     ]}
-                    onChange={path => history.push(Paths.main.calculate + '/' + getPaths[path])}
+                    onChange={(e,path) => {
+                        history.push(Paths.main.calculate + '/' + getPaths[path])
+                    }
+                    }
                 />
             </div>
             <div className={styles['pc-date-picker']}>

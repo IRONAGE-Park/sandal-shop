@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 import { ButtonBase } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Tabs from '../../components/main/assets/Tabs';
+import CustomTabs from '../../components/main/assets/Tabs';
 import TimeBox from '../../components/main/operation/TimeBox';
 import { isEmpty } from '../../lib/formatChecker';
 import Paths from '../../paths';
@@ -172,10 +172,10 @@ const OperationContainer = ({ mode }) => {
     return (
         <div className={cn('container', { updateForm })}>
             <div className={cn('tab')}>
-                <Tabs
+                <CustomTabs
                     idx={displayMode === 'time' ? 0 : 1}
                     categories={[{ ca_name: '영업시간' }, { ca_name: '휴무일' }]}
-                    onChange={(path) =>
+                    onChange={(e,path) =>
                         history.push(
                             Paths.main.operation +
                                 '/' +

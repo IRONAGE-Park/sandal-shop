@@ -1,50 +1,77 @@
 @import '../../../static/stylesheets/lib/mixin';
 @import '../../../static/stylesheets/lib/variables';
 
-.pc {
-    @include mobile {
-        display: none;
-    }
-}
-.mobile {
-    display: none;
-    .item {
-        padding: 0 10px !important;
-        border: none !important;
-    }
-    @include mobile {
-        display: block;
-    }
-}
-.tab {
-    width: 100%;
-    white-space: nowrap;
-    @include mobile {
-        padding: 0 24px !important;
-    }
-    ul + div {
-        border-radius: 30px;
-    }
-    .item {
-        border: 1px solid $color-ebebeb;
-        color: #aaa;
-        padding: 0 !important;
-        height: 48px;
-        .ca_name {
-            width: 100%;
-            height: 100%;
-            font-size: $desktop18px;
 
-            @include mobile {
-                font-weight: 500;
+
+html{
+    body{
+        .tabs{
+            width: 100%;
+            min-height: 50px;
+            margin:0 auto;
+            background-color: '#fff';
+            @include mobile{
+                // padding:  0 24px;
             }
         }
     }
 }
-html {
-    body {
-        .ca_name {
+html{
+    body{
+        .tab-item{
+            box-sizing: border-box;
+            border:1px solid #EBEBEB;
+            min-height: 50px;
+            max-width: 100%;
             width: 100%;
+            flex : 1 1 auto;
+            font-size: $desktop18px;
+            @include mobile{
+                border:none;
+                background-color: #fff;
+            font-size: $desktop16px;
+
+            }
+        }
+    }
+    
+    :global(.Mui-selected) {
+        border: 1px solid #DBDBDB;
+        background-color: #F9F9F9;
+        box-sizing: border-box;
+        color: #222;
+        font-weight: bold;
+        @include mobile{
+            border:none;
+            background-color: #fff;
+        }
+    }
+
+}
+html{
+    body{
+        :global(.MuiTabs-indicator){
+            display: none;
+            @include mobile{
+                display: inline-block;
+                background-color: #007246;
+
+            }
+        }
+    }
+}
+
+html{
+    body{
+        :global(.MuiTabs-scrollButtons){
+            width: 40px;
+            @include mobile{
+                display: inline-flex;
+                width:20px;
+            }
+        }
+        :global(.Mui-disabled){
+            width: 0;
         }
     }
 }

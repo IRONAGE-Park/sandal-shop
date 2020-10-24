@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames/bind';
 import styles from './OrderContainer.module.scss';
-import Tabs from '../../../components/main/assets/Tabs';
+import CustomTabs from '../../../components/main/assets/Tabs';
 import { useHistory } from 'react-router-dom';
 import Paths from '../../../paths';
 import {
@@ -149,14 +149,14 @@ const OrderContainer = ({ tab }) => {
     return (
         <div className={cn('container')}>
             <div className={cn('tab')}>
-                <Tabs
+                <CustomTabs
                     idx={index}
                     categories={[
                         { ca_name: '신규/처리중' },
                         { ca_name: '완료' },
                         { ca_name: '취소' },
                     ]}
-                    onChange={path => history.push(Paths.main.order + '/' + getPaths[path])}
+                    onChange={(e,path) => history.push(Paths.main.order + '/' + getPaths[path])}
                 />
                 {tab !== 'progress' && <IconButton className={styles['date-icon']} onClick={handleOpen}>
                     <img src ={DateIcon} alt="date"/>
