@@ -26,7 +26,7 @@ const OrderPage = ({ match, location, history }) => {
 
     return (
         order_id ? <OrderDetailContainer order_id={order_id} modal={tab} />
-        : <OrderContainer tab={tab} />
+        : <OrderContainer tab={tab ? tab : 'progress'} />
     );
 };
 

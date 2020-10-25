@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames/bind';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 

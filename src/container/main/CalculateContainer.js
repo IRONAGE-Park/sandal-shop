@@ -138,12 +138,13 @@ const CalculateContainer = ({ mode }) => {
                     categories={[
                         { ca_name: '일간 배달 매출' },
                         { ca_name: '월간 배달 매출' },
-                        { ca_name: '연간 배달 매출' }
+                        { ca_name: '연간 배달 매출' },
                     ]}
-                    onChange={(e,path) => {
-                        history.push(Paths.main.calculate + '/' + getPaths[path])
-                    }
-                    }
+                    onChange={(e, path) => {
+                        history.push(
+                            Paths.main.calculate + '/' + getPaths[path],
+                        );
+                    }}
                 />
             </div>
             <div className={styles['pc-date-picker']}>
@@ -151,57 +152,134 @@ const CalculateContainer = ({ mode }) => {
                     <p className={styles['label']}>기간입력</p>
                     <SelectBox
                         value={calculate_daily.start_date.getFullYear()}
-                        handleChange={e => handleChange('calculate_daily', `${e.target.value}/${(calculate_daily.start_date.getMonth() + 1)}/${calculate_daily.start_date.getDate()}`, calculate_daily.end_date)}
+                        handleChange={(e) =>
+                            handleChange(
+                                'calculate_daily',
+                                `${e.target.value}/${
+                                    calculate_daily.start_date.getMonth() + 1
+                                }/${calculate_daily.start_date.getDate()}`,
+                                calculate_daily.end_date,
+                            )
+                        }
                         disabled={false}
-                        list={Array.from({ length: 60 }).map((v, i) => i + 1970)}
-                        name={Array.from({ length: 60 }).map((v, i) => i + 1970 + '년')}
+                        list={Array.from({ length: 60 }).map(
+                            (v, i) => i + 1970,
+                        )}
+                        name={Array.from({ length: 60 }).map(
+                            (v, i) => i + 1970 + '년',
+                        )}
                     />
-                    {(index === 0 || index === 1) && <SelectBox
-                        value={calculate_daily.start_date.getMonth() + 1}
-                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.start_date.getFullYear()}/${(e.target.value)}/${calculate_daily.start_date.getDate()}`, calculate_daily.end_date)}
-                        disabled={false}
-                        list={Array.from({ length: 12 }).map((v, i) => i + 1)}
-                        name={Array.from({ length: 12 }).map((v, i) => i + 1 + '월')}
-                    />}
-                    {index === 0 && <SelectBox
-                        value={calculate_daily.start_date.getDate()}
-                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.start_date.getFullYear()}/${(calculate_daily.start_date.getMonth() + 1)}/${e.target.value}`, calculate_daily.end_date)}
-                        disabled={false}
-                        list={Array.from({ length: 31 }).map((v, i) => i + 1)}
-                        name={Array.from({ length: 31 }).map((v, i) => i + 1 + '일')}
-                    />}
-                        <div className={styles['line']}/>
+                    {(index === 0 || index === 1) && (
+                        <SelectBox
+                            value={calculate_daily.start_date.getMonth() + 1}
+                            handleChange={(e) =>
+                                handleChange(
+                                    'calculate_daily',
+                                    `${calculate_daily.start_date.getFullYear()}/${
+                                        e.target.value
+                                    }/${calculate_daily.start_date.getDate()}`,
+                                    calculate_daily.end_date,
+                                )
+                            }
+                            disabled={false}
+                            list={Array.from({ length: 12 }).map(
+                                (v, i) => i + 1,
+                            )}
+                            name={Array.from({ length: 12 }).map(
+                                (v, i) => i + 1 + '월',
+                            )}
+                        />
+                    )}
+                    {index === 0 && (
+                        <SelectBox
+                            value={calculate_daily.start_date.getDate()}
+                            handleChange={(e) =>
+                                handleChange(
+                                    'calculate_daily',
+                                    `${calculate_daily.start_date.getFullYear()}/${
+                                        calculate_daily.start_date.getMonth() +
+                                        1
+                                    }/${e.target.value}`,
+                                    calculate_daily.end_date,
+                                )
+                            }
+                            disabled={false}
+                            list={Array.from({ length: 31 }).map(
+                                (v, i) => i + 1,
+                            )}
+                            name={Array.from({ length: 31 }).map(
+                                (v, i) => i + 1 + '일',
+                            )}
+                        />
+                    )}
+                    <div className={styles['line']} />
                     <SelectBox
                         value={calculate_daily.end_date.getFullYear()}
-                        handleChange={e => handleChange('calculate_daily', `${e.target.value}/${(calculate_daily.end_date.getMonth() + 1)}/${calculate_daily.end_date.getDate()}`, calculate_daily.end_date)}
+                        handleChange={(e) =>
+                            handleChange(
+                                'calculate_daily',
+                                `${e.target.value}/${
+                                    calculate_daily.end_date.getMonth() + 1
+                                }/${calculate_daily.end_date.getDate()}`,
+                                calculate_daily.end_date,
+                            )
+                        }
                         disabled={false}
-                        list={Array.from({ length: 60 }).map((v, i) => i + 1970)}
-                        name={Array.from({ length: 60 }).map((v, i) => i + 1970 + '년')}
+                        list={Array.from({ length: 60 }).map(
+                            (v, i) => i + 1970,
+                        )}
+                        name={Array.from({ length: 60 }).map(
+                            (v, i) => i + 1970 + '년',
+                        )}
                     />
-                    {(index === 0 || index === 1) && <SelectBox
-                        value={calculate_daily.end_date.getMonth() + 1}
-                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.end_date.getFullYear()}/${(e.target.value)}/${calculate_daily.end_date.getDate()}`, calculate_daily.end_date)}
-                        disabled={false}
-                        list={Array.from({ length: 12 }).map((v, i) => i + 1)}
-                        name={Array.from({ length: 12 }).map((v, i) => i + 1 + '월')}
-                    />}
-                    {index === 0 && <SelectBox
-                        value={calculate_daily.end_date.getDate()}
-                        handleChange={e => handleChange('calculate_daily', `${calculate_daily.end_date.getFullYear()}/${(calculate_daily.end_date.getMonth() + 1)}/${e.target.value}`, calculate_daily.end_date)}
-                        disabled={false}
-                        list={Array.from({ length: 31 }).map((v, i) => i + 1)}
-                        name={Array.from({ length: 31 }).map((v, i) => i + 1 + '일')}
-                    />}
-                    <Button className={styles['search-btn']}>
-                            조회
-                    </Button>
+                    {(index === 0 || index === 1) && (
+                        <SelectBox
+                            value={calculate_daily.end_date.getMonth() + 1}
+                            handleChange={(e) =>
+                                handleChange(
+                                    'calculate_daily',
+                                    `${calculate_daily.end_date.getFullYear()}/${
+                                        e.target.value
+                                    }/${calculate_daily.end_date.getDate()}`,
+                                    calculate_daily.end_date,
+                                )
+                            }
+                            disabled={false}
+                            list={Array.from({ length: 12 }).map(
+                                (v, i) => i + 1,
+                            )}
+                            name={Array.from({ length: 12 }).map(
+                                (v, i) => i + 1 + '월',
+                            )}
+                        />
+                    )}
+                    {index === 0 && (
+                        <SelectBox
+                            value={calculate_daily.end_date.getDate()}
+                            handleChange={(e) =>
+                                handleChange(
+                                    'calculate_daily',
+                                    `${calculate_daily.end_date.getFullYear()}/${
+                                        calculate_daily.end_date.getMonth() + 1
+                                    }/${e.target.value}`,
+                                    calculate_daily.end_date,
+                                )
+                            }
+                            disabled={false}
+                            list={Array.from({ length: 31 }).map(
+                                (v, i) => i + 1,
+                            )}
+                            name={Array.from({ length: 31 }).map(
+                                (v, i) => i + 1 + '일',
+                            )}
+                        />
+                    )}
+                    <Button className={styles['search-btn']}>조회</Button>
                 </div>
             </div>
 
             <div className={styles['content']}>
-
-                {!loading &&
-                    <CalculateList list={calculateList} type={mode} />}
+                {!loading && <CalculateList list={calculateList} type={mode} />}
             </div>
             <Loading open={loading} />
         </div>

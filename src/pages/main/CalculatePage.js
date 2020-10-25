@@ -17,7 +17,7 @@ const CalculatePage = ({ match, history }) => {
     }, []);
     const { mode } = match.params; // 일간, 월간, 연간 매출 리스트 선택
 
-    return <CalculateContainer mode={mode} />;
+    return <CalculateContainer mode={mode ? mode : 'daily'} />;
 };
 
 export default CalculatePage;
