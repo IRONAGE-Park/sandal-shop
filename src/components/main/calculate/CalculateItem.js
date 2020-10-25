@@ -12,6 +12,7 @@ const CalculateItem = ({ item }) => {
         order_count, sales_price, send_cost,
         order_date
     } = item;
+ 
 
     return (
         <li className={styles['item']}>

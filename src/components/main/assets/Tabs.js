@@ -23,7 +23,6 @@ const CustomTabs = ({ idx, categories, onChange }) => {
             variant="scrollable"
             scrollButtons="auto"
             className={styles['tabs']}
-            centered
         >
             {tabList}
         </Tabs>

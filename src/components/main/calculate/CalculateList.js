@@ -16,11 +16,11 @@ const CalculateList = ({ list, type }) => {
 
     const total = list.reduce((prev, cur) => {
         return {
-            calculated_price: prev.calculated_price + parseInt(cur.calculated_price),
-            cancel_price: prev.cancel_price + cur.cancel_price,
-            order_count: prev.order_count + cur.order_count,
-            sales_price: prev.sales_price + parseInt(cur.sales_price),
-            send_cost: prev.send_cost + parseInt(cur.send_cost)
+            calculated_price: prev.calculated_price + parseInt(cur.calculated_price ? cur.calculated_price : 0),
+            cancel_price: prev.cancel_price + parseInt(cur.cancel_price ? cur.cancel_price : 0),
+            order_count: prev.order_count + parseInt(cur.order_count ? cur.order_count : 0),
+            sales_price: prev.sales_price + parseInt(cur.sales_price) ? cur.sales_price : 0,
+            send_cost: prev.send_cost + parseInt(cur.send_cost ? cur.send_cost : 0)
         }
     }, {
         calculated_price: 0,
@@ -63,7 +63,7 @@ const CalculateList = ({ list, type }) => {
                         </div>
                         <div className={cn('total-row')}>
                             <div className={cn('total-name')}>매출액(단가+부가세+수수료)</div>
-                            <div className={cn('total-value')}>{numberFormat(total.sales_price)}</div>
+                            <div className={cn('total-value')}>{numberFormat(total.sales_price - total.cancel_price)}</div>
                         </div>
                         <div className={cn('total-row')}>
                             <div className={cn('total-name')}>배달 서비스 수수료</div>

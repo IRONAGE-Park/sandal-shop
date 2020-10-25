@@ -1,76 +1,71 @@
 @import '../../../static/stylesheets/lib/mixin';
 @import '../../../static/stylesheets/lib/variables';
 
-
-
-html{
-    body{
-        .tabs{
+html {
+    body {
+        .tabs {
             width: 100%;
             min-height: 50px;
-            margin:0 auto;
+            margin: 0 auto;
             background-color: '#fff';
-            @include mobile{
+            @include mobile {
                 // padding:  0 24px;
             }
         }
     }
 }
-html{
-    body{
-        .tab-item{
+html {
+    body {
+        .tab-item {
             box-sizing: border-box;
-            border:1px solid #EBEBEB;
+            border: 1px solid #ebebeb;
             min-height: 50px;
             max-width: 100%;
             width: 100%;
-            flex : 1 1 auto;
+            flex: 1 1 auto;
             font-size: $desktop18px;
-            @include mobile{
-                border:none;
+            @include mobile {
+                border: none;
                 background-color: #fff;
-            font-size: $desktop16px;
-
+                font-size: $desktop16px;
             }
         }
     }
-    
+
     :global(.Mui-selected) {
-        border: 1px solid #DBDBDB;
-        background-color: #F9F9F9;
+        border: 1px solid #dbdbdb;
+        background-color: #f9f9f9;
         box-sizing: border-box;
         color: #222;
         font-weight: bold;
-        @include mobile{
-            border:none;
+        @include mobile {
+            border: none;
             background-color: #fff;
         }
     }
-
 }
-html{
-    body{
-        :global(.MuiTabs-indicator){
+html {
+    body {
+        :global(.MuiTabs-indicator) {
             display: none;
-            @include mobile{
+            @include mobile {
                 display: inline-block;
                 background-color: #007246;
-
             }
         }
     }
 }
 
-html{
-    body{
-        :global(.MuiTabs-scrollButtons){
+html {
+    body {
+        :global(.MuiTabs-scrollButtons) {
             width: 40px;
-            @include mobile{
+            @include mobile {
                 display: inline-flex;
-                width:20px;
+                width: 20px;
             }
         }
-        :global(.Mui-disabled){
+        :global(.Mui-disabled) {
             width: 0;
         }
     }

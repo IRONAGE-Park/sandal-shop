@@ -41,7 +41,6 @@ const CalculateContainer = ({ mode }) => {
 
     const setListfromResult = useCallback(
         (result) => {
-            console.log(result);
             if (result.data.msg === '성공!') {
                 setCalculateList(result.data.query.orders);
             } else {
