@@ -3,7 +3,7 @@ import { all } from "redux-saga/effects";
 
 import user, { userSaga } from './user';
 import operation, { operationSaga } from './operation';
-import company, { company_saga } from './compony';
+import company, { company_saga } from './company';
 import menu, { menuSaga } from './menu';
 import date from './date';
 import dialog from './dialog';

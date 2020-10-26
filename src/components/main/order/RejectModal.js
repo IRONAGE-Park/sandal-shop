@@ -46,6 +46,7 @@ const RejectModal = ({ open, handleClose, order_id, orderData, setOrderData }) =
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [order_id, rejectReason, rejectReasonTyping, orderData, setOrderData]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const onClickReject = useCallback(() => openDialog("정말 해당 주문을 거절하시겠습니까?", '', () => callPUTOrderCancel(), true), [callPUTOrderCancel]);
 
     return (

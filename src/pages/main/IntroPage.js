@@ -38,11 +38,11 @@ const IntroPage = ({ history }) => {
     const user = useSelector(state => state.user);
 
     useEffect(() => {
-        if (user.confirm === 1) {
+        if (user && user.confirm === 1) {
             // 권한을 가진 유저는 접근할 수 없음.
             history.push(Paths.main.operation);
         }
-    }, []);
+    }, [user, history]);
     
     return (
         <Page>

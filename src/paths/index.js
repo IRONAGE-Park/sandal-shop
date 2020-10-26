@@ -11,6 +11,7 @@ const Paths = {
             id: '/auth/find/id',
             pw: '/auth/find/pw'
         },
+        policy: '/auth/policy'
     },
     main: {
         index: '/main',
@@ -20,12 +21,7 @@ const Paths = {
         menu: '/main/menu',
         order: '/main/order',
         calculate: '/main/calculate',
-        support: {
-            index: '/main/support',
-            notice: '/main/support/notice',
-            faq: '/main/support/faq',
-            qna: '/main/support/qna'
-        },
+        support: '/main/support',
         policy: '/main/policy',
         logout: '/logout',
     },

@@ -14,7 +14,9 @@ const CalculatePage = ({ match, history }) => {
             openDialog('사용 승인 후 이용하실 수 있습니다.', '');
             history.push(Paths.main.index);
         }
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
+    
     const { mode } = match.params; // 일간, 월간, 연간 매출 리스트 선택
 
     return <CalculateContainer mode={mode ? mode : 'daily'} />;

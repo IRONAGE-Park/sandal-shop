@@ -1,5 +1,5 @@
-@import '../../static/stylesheets/lib/variables';
-@import '../../static/stylesheets/lib/mixin';
+@import '../static/stylesheets/lib/variables';
+@import '../static/stylesheets/lib/mixin';
 
 .container {
     @include container;
@@ -8,15 +8,17 @@
     }
     .content {
         padding-top: 80px;
+        font-size: 1.333rem;
+        line-height: 1.8;
         @include notebook {
             padding-top: 60px;
         }
         @include tablet {
             padding-top: 30px;
-        } 
+        }
         @include mobile {
             padding-top: 0;
-            padding:24px;
+            padding: 24px;
             height: 100%;
         }
     }

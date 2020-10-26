@@ -7,12 +7,12 @@ import { ButtonBase, IconButton } from '@material-ui/core';
 import styles from './AccountInput.module.scss';
 import Back from '../../svg/header/back.svg';
 import Direction from '../../svg/Direction';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory }from 'react-router-dom';
 import Paths from '../../../paths';
 
 const cn = classnames.bind(styles);
 
-const AccountInput = ({ title, text, children, handleClick = () => {}, possible, modal }) => {
+const AccountInput = ({ title, text, children, handleClick, possible, modal }) => {
     const history = useHistory();
     const [mode, setMode] = useState(false);
     const [transition, setTransition] = useState(false);
@@ -23,13 +23,15 @@ const AccountInput = ({ title, text, children, handleClick = () => {}, possible,
         setTimeout(() => {
             setTransition(true);
         }, 0);
-    }, []);
+    }, [history]);
+    
     const onClose = useCallback(() => {
         setTransition(false);
         setTimeout(() => {
             setMode(false);
         }, 150);
-    }, [history]);
+    }, []);
+
     const onClick = useCallback(() => {
         handleClick();
         onClose();
@@ -39,7 +41,7 @@ const AccountInput = ({ title, text, children, handleClick = () => {}, possible,
         if (!modal) {
             onClose();
         }
-    }, [modal]);
+    }, [modal, onClose]);
 
     return (
         <div className={styles['input-area']}>
@@ -49,7 +51,7 @@ const AccountInput = ({ title, text, children, handleClick = () => {}, possible,
                 {mode ? (
                     <div className={cn('mobile-modal', { transition, modal })}>
                         <div className={styles['header']}>
-                            <IconButton className={styles['back']} onClick={onClose}>
+                            <IconButton className={styles['back']} onClick={() => history.goBack()}>
                                 <img src={Back} alt="back" />
                             </IconButton>
                             <h1 className={styles['mobile-title']}>{title} 수정</h1>

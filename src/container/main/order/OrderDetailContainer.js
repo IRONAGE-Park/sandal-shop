@@ -149,18 +149,22 @@ const OrderDetailContainer = ({ order_id, modal }) => {
 
     const onClickOrderConfirm = useCallback(() => 
         openDialog("정말 해당 주문을 접수하시겠습니까?", '', () => callPUTOrderConfirm(), true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderConfirm]);
 
     const onClickOrderDeliveryQuick = useCallback(() =>
         openDialog("퀵커스 배달을 요청하시겠습니까?", '', () => callPUTOrderDeliveryQuick(), true)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderDeliveryQuick]);
 
     const onClickOrderDeliveryDirect = useCallback(() =>
         openDialog("배달을 완료하셨습니까?", '', () => callPUTOrderDeliveryDirect(), true)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderDeliveryDirect]);
 
     const onClickOrderDeliveryDirectMessage = useCallback(() =>
         openDialog("직접 배달을 하시겠습니까?", '', () => callPUTOrderDeliveryDirectMessage(), true)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderDeliveryDirectMessage]);
 
     useEffect(() => {

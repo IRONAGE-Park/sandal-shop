@@ -9,17 +9,15 @@ import Paths from '../paths';
 
 axios.defaults.headers['Context-Type'] = 'application/json';
 
-export const requestGETMypageInfo = async (JWT_TOKEN) => {
+export const requestGETMypageInfo = async () => {
     /*
-        가맹점 마이 페이지 정보 Request API
+        가맹점 회사 정보 Request API
 
-        로그인 된 JWT_TOKEN을 첨부하여 마이 페이지 정보를 가져오는 요청을 보냄.
+        회사 정보를 가져오는 요청을 보냄.
 
         문서보기: https://cuzicompany.postman.co/collections/5909966-f695cab7-6878-eb55-7943-ad88e1ccfd65?version=latest&workspace=a40a7d1a-89f5-4f58-87d1-138b39b804b4#046b19d9-8979-413d-92aa-a865c00d02ba
     */
     const URL = Paths.api + 'shop/mypage/company_info';
-
-    axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
     const res = await axios.get(URL);
     return res;

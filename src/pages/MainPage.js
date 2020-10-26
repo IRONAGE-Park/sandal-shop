@@ -7,7 +7,6 @@ import { isEmpty } from '../lib/formatChecker';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../store/user';
-import {getCompany} from '../store/compony';
 /* Redux */
 
 import IntroPage from './main/IntroPage';
@@ -19,7 +18,7 @@ import OrderPage from './main/OrderPage';
 import CalculatePage from './main/CalculatePage';
 import SupportPage from './main/SupportPage';
 import ErrorPage from './ErrorPage';
-import PolicyPage from './main/PolicyPage';
+import PolicyPage from './PolicyPage';
 /* Pages */
 
 import Header from '../components/main/Header';
@@ -40,82 +39,94 @@ const { main } = Paths;
 
 const MobileTitleObject = {
     [main.index]: {
-        title: "샌달 가맹점 관리"
+        title: '샌달 가맹점 관리',
     },
     [main.account]: {
-        title: "내 정보 수정",
-        back: main.index
+        title: '내 정보 수정',
+        back: main.index,
     },
     [main.account + '/modal']: {
-        title: "내 정보 수정",
-        back: main.index
+        title: '내 정보 수정',
+        back: main.index,
     },
     [main.secession]: {
-        title: "회원 탈퇴",
-        back: main.account
+        title: '회원 탈퇴',
+        back: main.account,
     },
     [main.operation]: {
-        title: "운영 정보 관리"
+        title: '운영 정보 관리',
     },
     [main.operation + '/time']: {
-        title: "운영 정보 관리"
+        title: '운영 정보 관리',
     },
     [main.operation + '/holi']: {
-        title: "운영 정보 관리"
+        title: '운영 정보 관리',
     },
     [main.operation + '/time_update']: {
-        title: "영업시간 변경",
-        back: main.operation
+        title: '영업시간 변경',
+        back: main.operation,
     },
     [main.operation + '/holi_update']: {
-        title: "휴무일 변경",
-        back: main.operation + '/holi'
+        title: '휴무일 변경',
+        back: main.operation + '/holi',
     },
     [main.menu]: {
-        title: "메뉴 관리",
+        title: '메뉴 관리',
     },
     [main.order]: {
-        title: "주문 상세 보기",
-        back: "goBack"
+        title: '주문 상세 보기',
+        back: 'goBack',
     },
     [main.order + '/reject']: {
-        title: "주문 거절",
-        back: "goBack"
+        title: '주문 거절',
+        back: 'goBack',
     },
     [main.order + '/sticker']: {
-        title: "문구 스티커 보기",
-        back: "goBack"
+        title: '문구 스티커 보기',
+        back: 'goBack',
     },
     [main.order + '/progress']: {
-        title: "주문 내역",
+        title: '주문 내역',
     },
     [main.order + '/complete']: {
-        title: "주문 내역",
+        title: '주문 내역',
     },
     [main.order + '/cancel']: {
-        title: "주문 내역",
+        title: '주문 내역',
     },
     [main.calculate]: {
-        title: "배달 매출 현황"
+        title: '배달 매출 현황',
     },
     [main.calculate + '/daily']: {
-        title: "배달 매출 현황"
+        title: '배달 매출 현황',
     },
     [main.calculate + '/monthly']: {
-        title: "배달 매출 현황"
+        title: '배달 매출 현황',
     },
     [main.calculate + '/yearly']: {
-        title: "배달 매출 현황"
+        title: '배달 매출 현황',
     },
-    [main.policy] :{
-        title: '약관 및 정책'
+    [main.support]: {
+        title: '고객센터'
     },
-    [main.policy +'/privacy']:{
-        title:'개인정보 처리방침'
+    [main.support + '/notice']: {
+        title: '고객센터'
     },
-    [main.policy +'/tos'] :{
-        title: '이용약관'
-    }
+    [main.support + '/faq']: {
+        title: '고객센터'
+    },
+    [main.support + '/qna']: {
+        title: '고객센터'
+    },
+    [main.policy]: {
+        title: '개인정보 처리방침',
+    },
+    [main.policy + '/privacy']: {
+        title: '개인정보 처리방침',
+    },
+    [main.policy + '/tos']: {
+        title: '이용약관',
+    },
 };
 
 /*
@@ -139,7 +150,6 @@ const MainPage = ({ location }) => {
             if (JWT_TOKEN) {
                 /* 토큰이 존재함 => 로그인 된 상태. */
                 reduxDispatch(getUser(JWT_TOKEN));
-                reduxDispatch(getCompany(JWT_TOKEN));
             }
         }
     }, [user, reduxDispatch]);
@@ -147,6 +157,8 @@ const MainPage = ({ location }) => {
     useEffect(() => {
         setAsideOpen(false);
     }, [location]);
+
+    console.log(location);
 
     return (
         <>
@@ -172,7 +184,7 @@ const MainPage = ({ location }) => {
                             <Route path={Paths.main.menu} component={MenuPage} />
                             <Route path={Paths.main.order + '/:tab?'} component={OrderPage} />
                             <Route path={Paths.main.calculate + '/:mode?'} component={CalculatePage} />
-                            <Route path={Paths.main.support.index} component={SupportPage} />
+                            <Route path={Paths.main.support + '/:mode?/:modal?'} component={SupportPage} />
                             <Route path={Paths.main.policy +'/:mode?'} component={PolicyPage} />
                             <Route component={ErrorPage} />
                         </Switch>

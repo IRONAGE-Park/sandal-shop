@@ -14,6 +14,7 @@ import Find from '../container/auth/FindContainer';
 
 import styles from './Auth.module.scss';
 import MobileHeader from '../components/assets/MobileHeader';
+import PolicyPage from './PolicyPage';
 /* Stylesheets */
 
 const cx = classnames.bind(styles);
@@ -60,6 +61,18 @@ const MobileTitleObject = {
     [auth.find.pw + '/complete']: {
         title: "비밀번호 재설정",
         back: auth.find.index
+    },
+    [auth.policy]: {
+        title: "약관 및 동의",
+        back: auth.signin
+    },
+    [auth.policy + '/privacy']: {
+        title: "약관 및 동의",
+        back: auth.signin
+    },
+    [auth.policy + '/tos']: {
+        title: "약관 및 동의",
+        back: auth.signin
     }
 }
 
@@ -89,6 +102,8 @@ const AuthPage = ({ history, location }) => {
                     <Route path={Paths.auth.signin} component={SignIn} />
                     <Route path={Paths.auth.signup} component={SignUp} />
                     <Route path={Paths.auth.find.index} component={Find} />
+                    <Route path={Paths.auth.policy +'/:mode?'} component={PolicyPage} />
+                    <Route render={({ history }) => history.push(Paths.auth.signin)} />
                 </Switch>
             </div>
         </>

@@ -4,7 +4,8 @@ import classnames from 'classnames/bind';
 /* Library */
 
 import { inputReducer } from '../../lib/reducer';
-import { requestPOSTLogin } from '../../api/auth';
+import { requestPOSTLogin, requestPOSTPushToken } from '../../api/auth';
+import { getMobileOperatingSystem } from '../../lib/os';
 /* Custom Library */
 
 import AuthInput from '../../components/auth/AuthInput';
@@ -38,6 +39,32 @@ export default ({ history }) => {
     });
     const [saveEmail, setSaveEmail] = useState(inputState.email !== '');
 
+    const LoginOs = useCallback((JWT_TOKEN) => {
+        window.setToken = async (token) => {
+            try {
+                const res = await requestPOSTPushToken(JWT_TOKEN, token);
+                if (res.data.msg !== "success") {
+                    alert(res.data.msg);
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+        const login_os = getMobileOperatingSystem();
+        if (login_os === 'Android') {
+            if (typeof window.myJs !== 'undefined') {
+                window.myJs.requestToken();
+            }
+        } else if (login_os === 'iOS') {
+            if (typeof window.webkit !== 'undefined') {
+                if (typeof window.webkit.messageHandlers !== 'undefined') {
+                    window.webkit.messageHandlers.requestToken.postMessage("");
+                }
+            }
+        }
+    }, []);
+
     const onToggleEmail = useCallback(() => setSaveEmail(!saveEmail), [saveEmail]);
     const onChangeInput = useCallback(e => inputDispatch(e.target), []);
     const onClickLogin = useCallback(async () => {
@@ -52,6 +79,8 @@ export default ({ history }) => {
                 openDialog(result.data.msg, "비밀번호를 확인해 주세요.");
             } else if (result.data.access_token) {
                 // 로그인 성공 했을 때.
+                LoginOs(result.data.access_token); // 푸쉬 토큰 보냄
+
                 sessionStorage.setItem('user_token', result.data.access_token);
                 if (saveEmail) {
                     // 이메일 저장하기를 했을 때,
@@ -67,7 +96,7 @@ export default ({ history }) => {
         } else {
             openDialog("정보가 일치하지 않습니다.", "이메일과 비밀번호를 확인해 주세요.");
         }
-    }, [inputState, saveEmail, openDialog, history]);
+    }, [inputState, saveEmail, LoginOs, openDialog, history]);
 
     return (
         <div className={styles['signin']}>

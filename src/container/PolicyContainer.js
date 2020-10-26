@@ -1,26 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import {useSelector} from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import classnames from 'classnames/bind';
 import styles from './PolicyContainer.module.scss';
-import CustomTabs from '../../components/main/assets/Tabs';
-import Paths from '../../paths';
+import CustomTabs from '../components/main/assets/Tabs';
 import { useHistory } from 'react-router-dom';
-import Loading from '../../components/assets/Loading';
 
 
 const cn = classnames.bind(styles);
 
 const getPaths = ['privacy', 'tos'];
 
-
-const PolicyContainer = ({ mode }) => {
+const PolicyContainer = ({ mode, url }) => {
     const history = useHistory();
 
-
-    const [loading, setLoading] = useState(false);
-
-    const {company} = useSelector( state=>state.company);
-
+    const { company } = useSelector(state => state.company);
     const index = getPaths.findIndex(path => path === mode); // 현재 보여줘야 할 내용 결정.
 
     return (
@@ -32,28 +25,23 @@ const PolicyContainer = ({ mode }) => {
                         { ca_name: '개인정보 처리방침' },
                         { ca_name: '이용 약관' },
                     ]}
-                    onChange={(e, path) => {
-                        history.push(Paths.main.policy + '/' + getPaths[path]);
-                    }}
+                    onChange={(e, path) => history.push(url + getPaths[path])}
                 />
             </div>
             <div className={styles['content']}>
                 {mode === 'privacy' && company && (
-                    <p
-                        dangerouslySetInnerHTML={{
-                            __html: company.private_policy_user,
+                    <p dangerouslySetInnerHTML={{
+                            __html: company.private_policy_shop,
                         }}
                     />
                 )}
                 {mode === 'tos' && company && (
-                    <p
-                        dangerouslySetInnerHTML={{
-                            __html: company.use_terms_user,
+                    <p dangerouslySetInnerHTML={{
+                            __html: company.use_terms_shop,
                         }}
                     />
                 )}
             </div>
-            <Loading open={loading} />
         </div>
     );
 };

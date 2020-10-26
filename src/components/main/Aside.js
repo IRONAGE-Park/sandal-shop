@@ -73,16 +73,18 @@ const Aside = ({ open, setOpen }) => {
     const onClickLogout = useCallback(() => {
         setOpen(false);
         openDialog("정말 로그아웃 하시겠습니까?", '', () => history.push(Paths.main.logout), true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     const navCategories = useRef([
         { name: '운영 정보 관리', href: Paths.main.operation },
         { name: '메뉴 관리', href: Paths.main.menu },
         { name: '주문 목록', href: Paths.main.order },
         { name: '배달 매출 현황', href: Paths.main.calculate },
+        { name: '공지사항', href: Paths.main.support + '/notice' },
+        { name: '자주 묻는 질문', href: Paths.main.support + '/faq' },
+        { name: '1:1 문의', href: Paths.main.support + '/qna' },
         { name: '약관 및 정책', href: Paths.main.policy },
-        // { name: '공지사항', href: Paths.main.support.notice },
-        // { name: '자주 묻는 질문', href: Paths.main.support.faq },
-        // { name: '1:1 문의', href: Paths.main.support.qna },
     ]);
 
     return (

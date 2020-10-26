@@ -10,8 +10,7 @@ export const getCompany = createAction(GET_COMPANY_INFO);
 
 function* get_company_info_saga(action) {
     try {
-        const res = yield call(requestGETMypageInfo, action.payload);
-        console.log(res);
+        const res = yield call(requestGETMypageInfo);
         if(res.data.msg === '성공' ) {
             yield put({
                 type: GET_COMPANY_INFO_SUCCESS,

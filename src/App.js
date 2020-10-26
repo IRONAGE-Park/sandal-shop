@@ -17,6 +17,8 @@ import LogoutContainer from './container/LogoutContainer';
 
 
 import './static/stylesheets/Root.scss';
+import { useDispatch } from 'react-redux';
+import { getCompany } from './store/company';
 /* StyleSheets */
 
 /* 
@@ -28,8 +30,10 @@ import './static/stylesheets/Root.scss';
 const App = () => {
     const history = useHistory();
     const location = useLocation();
+    const reduxDispatch = useDispatch();
 
     const judgementLogon = useCallback(() => {
+        reduxDispatch(getCompany());
         const JWT_TOKEN = sessionStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인된 상태. */
@@ -39,10 +43,11 @@ const App = () => {
             }
         } else {
             if (location.pathname.indexOf(Paths.auth.index) !== 0) {
+                // 개인정보 처리 방침 페이지는 리다이렉트 시키지 않음.
                 history.push(Paths.auth.signin);
             }
         }
-    }, [history, location])
+    }, [history, location, reduxDispatch]);
     
     useEffect(() => {
         judgementLogon();

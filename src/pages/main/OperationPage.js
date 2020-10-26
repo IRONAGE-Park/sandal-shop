@@ -15,7 +15,8 @@ const OperationPage = ({ match, history }) => {
             openDialog('사용 승인 후 이용하실 수 있습니다.', '');
             history.push(Paths.main.index);
         }
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
 
     const { mode } = match.params; // 영업시간 / 휴무일 / 변경 상태 유무
     return (<OperationContainer mode={mode ? mode : "time"} />);

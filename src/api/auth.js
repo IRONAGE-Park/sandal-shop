@@ -177,3 +177,20 @@ export const requestPOSTChangePW = async ({ name, email, hp, pw, pw_c }) => {
     const res = await axios.post(URL, formData);
     return res;
 };
+
+export const requestPOSTPushToken = async (JWT_TOKEN, native_token) => {
+    /*
+        가맹점 로그인 후 푸쉬 토큰 전송 Request API
+
+        가맹점에서 정상적으로 로그인한 후에 그 기기로 푸쉬 알림을 보내기 위한
+        토큰 등록 요청을 보냄.
+
+        문서보기: https://cuzicompany.postman.co/collections/5909966-f695cab7-6878-eb55-7943-ad88e1ccfd65?version=latest&workspace=a40a7d1a-89f5-4f58-87d1-138b39b804b4#c2ef2c2c-fdd0-4603-9223-a41e28460917
+    */
+    const URL = Paths.api + 'user/pushToken';
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
+
+    const res = await axios.post(URL, { native_token });
+    return res;
+}

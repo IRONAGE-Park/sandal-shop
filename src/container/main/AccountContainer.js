@@ -13,7 +13,7 @@ import { useStore } from '../../hooks/useStore';
 import { useDialog } from '../../hooks/useDialog';
 
 import RemoveIcon from '../../components/svg/remove.svg';
-import { requestPUTUpdateName, requestPUTUpdatePassword, requestPUTUpdatePhoneNumber, requestPUTUpdateShop } from '../../api/mypage';
+import { requestPUTUpdateAddress, requestPUTUpdateName, requestPUTUpdatePassword, requestPUTUpdatePhoneNumber, requestPUTUpdateShop } from '../../api/mypage';
 import { updateUser } from '../../store/user';
 import { isCellPhoneForm } from '../../lib/formatChecker';
 import { requestPOSTCheckPhoneAuth, requestPOSTReceivePhoneAuth } from '../../api/auth';
@@ -124,24 +124,18 @@ const AccountContainer = ({ modal }) => {
     const addrDispatch = useCallback(obj => userDispatch(obj), []);
     const [isAddressSearch, setIsAddressSearch] = useState(false); // 주소 검색을 한 적이 있으면 인풋 고정.
 
-
     const [timer, setTimer] = useState(0); // 인증 시간(180 초)
 
     const onSearchAddress = useCallback(() => {
         /* 주소를 선택 창을 띄움 */
         const themeObj = {
-            //bgColor: "", //바탕 배경색
             searchBgColor: '#007246', //검색창 배경색
-            //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
-            //pageBgColor: "", //페이지 배경색
-            //textColor: "", //기본 글자색
             queryTextColor: '#FFFFFF', //검색창 글자색
-            //postcodeTextColor: "", //우편번호 글자색
             emphTextColor: '#008726', //강조 글자색
             outlineColor: '#EBEBEB', //테두리
         };
         new daum.Postcode({
-            oncomplete: async ({ roadAddress, zonecode }) => {
+            oncomplete: ({ roadAddress, zonecode }) => {
                 try {
                     // const res = await requestGetLocationByAddress(roadAddress);
                     requestGETLocation(roadAddress, result => {
@@ -230,6 +224,7 @@ const AccountContainer = ({ modal }) => {
                 openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [USER_TOKEN, userState, openDialog]);
     const callUpdateName = useCallback(async () => {
         const { name } = userState;
@@ -246,6 +241,7 @@ const AccountContainer = ({ modal }) => {
                 openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [USER_TOKEN, user, userState, openDialog]);
     const callUpdatePhoneNumber = useCallback(async () => {
         if (phoneAuth) {
@@ -262,8 +258,11 @@ const AccountContainer = ({ modal }) => {
                 } catch (e) {
                     openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
                 }
+            } else {
+                openDialog("변경 전과 정보가 같습니다.");
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [USER_TOKEN, user, userState, phoneAuth, openDialog]);
     const callUpdatePassword = useCallback(async () => {
         if (passwordCheck) {
@@ -280,13 +279,42 @@ const AccountContainer = ({ modal }) => {
             }
         }
     }, [USER_TOKEN, userState, passwordCheck, openDialog]);
+    const callUpdateAddress = useCallback(async () => {
+        const {
+            address, detailAddress,
+            post_num, shop_lat, shop_lng
+        } = userState;
+        if (address && detailAddress && post_num && shop_lat && shop_lng) {
+            try {
+                const res = await requestPUTUpdateAddress(USER_TOKEN, post_num, address, detailAddress, shop_lat, shop_lng);
+                console.log(res);
+                if (res.data.msg === "성공") {
+                    openDialog("성공적으로 변경되었습니다!", "");
+                } else {
+                    openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
+                }
+            } catch (e) {
+                openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
+            }
+        } else {
+            openDialog("주소가 검색되지 않았습니다.");
+        }
+    }, [userState, USER_TOKEN, openDialog]);
     const onClickUpdate = useCallback(async () => {
         callUpdateShop();
         callUpdateName();
         callUpdatePhoneNumber();
         callUpdatePassword();
-        history.push(Paths.main.operation);
-    }, [callUpdateName, callUpdatePassword, callUpdatePhoneNumber, callUpdateShop]);
+        callUpdateAddress();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [callUpdateName, callUpdatePassword, callUpdatePhoneNumber, callUpdateShop, callUpdateAddress]);
+
+
+    const onKeyDown = useCallback((e, callBack) => {
+        if (e.key === 'Enter') {
+            callBack();
+        }
+    }, []);
 
     useEffect(() => {
         const { password, passwordConfirm } = userState;
@@ -308,7 +336,6 @@ const AccountContainer = ({ modal }) => {
             <div className={styles['content']}>
                 <div className={styles['area']}>
                     <AccountInput title="가맹점명" text={user.shop_name} handleClick={callUpdateShop} possible
-                    // modal={modal === 'update_shop'}>
                     modal={modal === 'modal'}>
                         <div className={styles['relative']}>
                             <input
@@ -316,6 +343,7 @@ const AccountContainer = ({ modal }) => {
                                 type="text"
                                 onChange={onChangeShop}
                                 value={userState.shop_name}
+                                onKeyDown={e => onKeyDown(e, callUpdateShop)}
                             />
                             <IconButton onClick={() => onRemoveValue('shop_name')} className={cn('remove-button')}>
                                 <img src={RemoveIcon} alt="remove" />
@@ -323,7 +351,6 @@ const AccountContainer = ({ modal }) => {
                         </div>
                     </AccountInput>
                     <AccountInput title="이름" text={user.name} handleClick={callUpdateName} possible
-                    // modal={modal === 'update_name'}>
                     modal={modal === 'modal'}>
                         <div className={styles['relative']}>
                             <input
@@ -331,6 +358,7 @@ const AccountContainer = ({ modal }) => {
                                 type="text"
                                 onChange={onChangeName}
                                 value={userState.name}
+                                onKeyDown={e => onKeyDown(e, callUpdateName)}
                             />
                             <IconButton onClick={() => onRemoveValue('name')} className={cn('remove-button')}>
                                 <img src={RemoveIcon} alt="remove" />
@@ -345,7 +373,6 @@ const AccountContainer = ({ modal }) => {
                         text=""
                         possible={passwordCheck}
                         handleClick={callUpdatePassword}
-                        // modal={modal === 'update_pw'}>
                         modal={modal === 'modal'}>
                         <div>
                             <AccountLabelInput
@@ -390,14 +417,13 @@ const AccountContainer = ({ modal }) => {
                         text={stringToTel(user.hp)}
                         hadleClick={callUpdatePhoneNumber}
                         possible={phoneAuth}
-                        // modal={modal === 'update_phone'}>
                         modal={modal === 'modal'}>
                         <div>
                             <AccountPhoneInput
                                 value={userState.phoneNumber}
                                 onChange={onChangePhoneNumber}
                                 placeholder="휴대폰 번호 인증"
-                                buttonName={authState === 0 ? '인증번호 발송' : authState == 1 ? "인증번호 재발송": "인증 완료"}
+                                buttonName={authState === 0 ? '인증번호 발송' : authState === 1 ? "인증번호 재발송": "인증 완료"}
                                 onClick={authState === 0 ? onAuthSend : authState === 1 ? onAuthReSend : () => {}}
                                 buttonEnabled={userState.phoneNumber.length !== 0}
                             />
@@ -418,8 +444,7 @@ const AccountContainer = ({ modal }) => {
                 </div>
                 <div className={styles['area']}>
                     <AccountInput title="가맹점 주소" text={''}
-                        // modal={modal === 'update_addres'}>
-                        handleClick={callUpdateName}
+                        handleClick={callUpdateAddress}
                         possible
                         modal={modal === 'modal'}>
                         <div>
@@ -430,6 +455,7 @@ const AccountContainer = ({ modal }) => {
                                         type="text"
                                         onChange={onChangeAddress}
                                         value={userState.address}
+                                        onKeyDown={e => onKeyDown(e, onSearchAddress)}
                                     />
                                 </div>
                                 <div className={cn('address-area', 'b')}>
@@ -446,6 +472,7 @@ const AccountContainer = ({ modal }) => {
                                     className={cn('input', 'detail-address')}
                                     type="text"
                                     onChange={onChangeDetailAddress}
+                                    onKeyDown={e => onKeyDown(e, callUpdateAddress)}
                                     value={userState.detailAddress}
                                     placeholder="상세 주소를 입력하세요."
                                 />

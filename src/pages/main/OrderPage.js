@@ -16,7 +16,9 @@ const OrderPage = ({ match, location, history }) => {
             openDialog('사용 승인 후 이용하실 수 있습니다.', '');
             history.push(Paths.main.index);
         }
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
+
     const query = qs.parse(location.search, {
         ignoreQueryPrefix: true,
     });

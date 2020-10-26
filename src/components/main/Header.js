@@ -6,7 +6,6 @@ import { ButtonBase } from '@material-ui/core';
 
 import styles from './Header.module.scss';
 import logo from '../svg/sandal_logo.svg';
-// import logo from '../../components/svg/다람쥐.svg'
 /* Statics */
 
 import Paths from '../../paths';
@@ -30,7 +29,6 @@ const Timer = () => {
         }, 60 * 1000);
         return () => clearInterval(interval);
     }, []);
-    
     return (
         <div className={styles['timer']}>
             <span className={styles['date']}>{dateToMMDD(date)}</span>
@@ -46,6 +44,7 @@ const Timer = () => {
     헤더 로고와 헤더가 보유한 카테고리 리스트 렌더링.
     카테고리 리스트는 각 카테고리로 이동할 수 있는 링크 컴포넌트 연결
 */
+
 export default () => {
     const history = useHistory();
     const openDialog = useDialog();
