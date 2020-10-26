@@ -26,6 +26,7 @@ const Paths = {
             faq: '/main/support/faq',
             qna: '/main/support/qna'
         },
+        policy: '/main/policy',
         logout: '/logout',
     },
     api: PROTOCOL_ENV + 'api.ajoonamu.com/api/',

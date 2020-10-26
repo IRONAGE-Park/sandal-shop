@@ -7,6 +7,7 @@ import { isEmpty } from '../lib/formatChecker';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../store/user';
+import {getCompany} from '../store/compony';
 /* Redux */
 
 import IntroPage from './main/IntroPage';
@@ -18,6 +19,7 @@ import OrderPage from './main/OrderPage';
 import CalculatePage from './main/CalculatePage';
 import SupportPage from './main/SupportPage';
 import ErrorPage from './ErrorPage';
+import PolicyPage from './main/PolicyPage';
 /* Pages */
 
 import Header from '../components/main/Header';
@@ -101,6 +103,15 @@ const MobileTitleObject = {
     },
     [main.calculate + '/yearly']: {
         title: "배달 매출 현황"
+    },
+    [main.policy] :{
+        title: '약관 및 정책'
+    },
+    [main.policy +'/privacy']:{
+        title:'개인정보 처리방침'
+    },
+    [main.policy +'/tos'] :{
+        title: '이용약관'
     }
 };
 
@@ -125,6 +136,7 @@ const MainPage = ({ location }) => {
             if (JWT_TOKEN) {
                 /* 토큰이 존재함 => 로그인 된 상태. */
                 reduxDispatch(getUser(JWT_TOKEN));
+                reduxDispatch(getCompany(JWT_TOKEN));
             }
         }
     }, [user, reduxDispatch]);
@@ -158,6 +170,7 @@ const MainPage = ({ location }) => {
                             <Route path={Paths.main.order + '/:tab?'} component={OrderPage} />
                             <Route path={Paths.main.calculate + '/:mode?'} component={CalculatePage} />
                             <Route path={Paths.main.support.index} component={SupportPage} />
+                            <Route path={Paths.main.policy +'/:mode?'} component={PolicyPage} />
                             <Route component={ErrorPage} />
                         </Switch>
                     </div>
