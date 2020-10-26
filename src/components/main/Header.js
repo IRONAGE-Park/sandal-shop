@@ -30,6 +30,7 @@ const Timer = () => {
         }, 60 * 1000);
         return () => clearInterval(interval);
     }, []);
+    
     return (
         <div className={styles['timer']}>
             <span className={styles['date']}>{dateToMMDD(date)}</span>
@@ -51,6 +52,7 @@ export default () => {
 
     const onClickLogout = useCallback(() => {
         openDialog("정말 로그아웃 하시겠습니까?", '', () => history.push(Paths.main.logout), true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

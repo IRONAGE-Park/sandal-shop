@@ -17,6 +17,7 @@ import { IconButton } from '@material-ui/core';
 import DateIcon from '../../../components/svg/date.svg';
 import BottomModal from '../../../components/assets/BottomModal';
 import { dateSet } from '../../../store/date';
+import PcDatePicker from '../../../components/assets/PcDatePicker';
 
 const cn = classnames.bind(styles);
 
@@ -24,35 +25,63 @@ const getPaths = ['progress', 'complete', 'cancel'];
 
 const OrderContainer = ({ tab }) => {
 
-    const [open, setOpen] = useState(false);
     const history = useHistory();
-    const reduxDispatch = useDispatch();
+    const dispatch = useDispatch();
     const openDialog = useDialog();
-    const reduxDate = useSelector((state) => state.date); // 각 조회할 날짜들을 갖고 있는 객체.
+    const date = useSelector(state => state.date); // 각 조회할 날짜들을 갖고 있는 객체.
 
+    const { order_complete, order_cancel } = date; // 리덕스에 저장된 배달 매출 현황 날짜
+
+    const [orderComplete, setOrderComplete] = useState(order_complete); // 주문 완료 목록 세팅용 상태
+    const [orderCancel, setOrderCancel] = useState(order_cancel); // 주문 취소 목록 세팅용 상태
 
     const [loading, setLoading] = useState(false);
     const [orderList, setOrderList] = useState([]);
 
     const index = getPaths.findIndex(path => path === tab);
 
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const handleChange = useCallback((start, end) => {
+        const start_date = new Date(start);
+        const end_date = new Date(end);
 
-    const setStartDate = date => {
-        if (tab !== 'progress') {
-            reduxDispatch(dateSet('order_' + tab, date, reduxDate['order_' + tab].end_date));
+        if (start_date.getTime() > end_date.getTime()) {
+            openDialog("시작 날짜가 종료 날짜를 초과할 수 없습니다.");
+            end_date.setTime(start_date.getTime());
         }
-    }
-    const setEndDate = date => {
-        if (tab !== 'progress') {
-            reduxDispatch(dateSet('order_' + tab, reduxDate['order_' + tab].start_date, date));
+        if (end_date.getTime() > Date.now()) {
+            openDialog("날짜가 당일을 초과할 수 없습니다.");
+        } else {
+            switch (index) {
+                case 1:
+                    setOrderComplete({ start_date, end_date });
+                    break;
+                case 2:
+                    setOrderCancel({ start_date, end_date });
+                    break;
+                default: break;
+                    // 잘못된 접근 예외 처리
+            }
         }
-    }
+    }, [index, openDialog]);
+
+    const handleClickLookUp = useCallback(() => {
+        switch (index) {
+            case 1:
+                dispatch(dateSet('order_complete', orderComplete.start_date, orderComplete.end_date));
+                break;
+            case 2:
+                dispatch(dateSet('order_cancel', orderCancel.start_date, orderCancel.end_date));
+                break;
+            default: break;
+        }
+    }, [dispatch, index, orderCancel, orderComplete]);
 
     const setListfromResult = useCallback(
-        (result) => {
+        result => {
             if (result.data.msg === '성공!') {
                 setOrderList(result.data.query.orders);
             } else {
@@ -76,8 +105,7 @@ const OrderContainer = ({ tab }) => {
             }
             setLoading(false);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [openDialog, setListfromResult]);
 
     const callGETOrderListComplete = useCallback(async () => {
         /*
@@ -88,7 +116,7 @@ const OrderContainer = ({ tab }) => {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
             try {
-                const { start_date, end_date } = reduxDate.order_complete;
+                const { start_date, end_date } = order_complete;
                 const result = await requestGETOrderListComplete(
                     JWT_TOKEN,
                     start_date,
@@ -100,8 +128,7 @@ const OrderContainer = ({ tab }) => {
             }
             setLoading(false);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [openDialog, order_complete, setListfromResult]);
 
     const callGETOrderListCancel = useCallback(async () => {
         /*
@@ -112,7 +139,7 @@ const OrderContainer = ({ tab }) => {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
             try {
-                const { start_date, end_date } = reduxDate.order_cancel;
+                const { start_date, end_date } = order_cancel;
                 const result = await requestGETOrderListCancel(
                     JWT_TOKEN,
                     start_date,
@@ -124,8 +151,7 @@ const OrderContainer = ({ tab }) => {
             }
             setLoading(false);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [openDialog, order_cancel, setListfromResult]);
 
     useEffect(() => {
         switch (index) {
@@ -156,21 +182,29 @@ const OrderContainer = ({ tab }) => {
                         { ca_name: '완료' },
                         { ca_name: '취소' },
                     ]}
-                    onChange={(e,path) => history.push(Paths.main.order + '/' + getPaths[path])}
+                    onChange={(e, path) => history.push(Paths.main.order + '/' + getPaths[path])}
                 />
                 {tab !== 'progress' && <IconButton className={styles['date-icon']} onClick={handleOpen}>
                     <img src ={DateIcon} alt="date"/>
                 </IconButton>}
             </div>
+            {index !== 0 && <PcDatePicker
+                dateRange={index === 1 ? orderComplete : orderCancel}
+                type='DAY'
+                handleChange={handleChange}
+                handleClick={handleClickLookUp}
+            />}
             <div className={styles['content']}>
                 {!loading && <OrderList list={orderList} />}
             </div>
-            <Loading open={loading} />
-            {tab && tab !== 'progress' && <BottomModal
-                open={open} handleClose={handleClose} onClick={handleClose}
-                startDate={reduxDate['order_' + tab].start_date} setStartDate={setStartDate}
-                endDate={reduxDate['order_' + tab].end_date} setEndDate={setEndDate}
+            {index !== 0 && <BottomModal
+                open={open} handleClose={handleClose}
+                dateRange={index === 1 ? orderComplete : orderCancel}
+                type='DAY'
+                handleChange={handleChange}
+                handleClick={handleClickLookUp}
             />}
+            <Loading open={loading} />
         </div>
     );
 };

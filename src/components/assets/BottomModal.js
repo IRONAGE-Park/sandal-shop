@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styles from './BottomModal.module.scss';
 import classnames from 'classnames/bind';
 import DatePicker from './DatePicker';
-import { Backdrop, ButtonBase, Button } from '@material-ui/core';
+import { Backdrop, ButtonBase } from '@material-ui/core';
 
 const cn = classnames.bind(styles);
 
-const BottomModal = ({ open, handleClose, onClick, startDate, setStartDate, endDate, setEndDate }) => {
+const BottomModal = ({ open, handleClose, dateRange, type, handleChange, handleClick }) => {
+    const { start_date, end_date } = dateRange;
+
+    const onClick = useCallback(() => {
+        handleClick();
+        handleClose();
+    }, [handleClick, handleClose]);
+    
     return (
         <>
             <div className={cn('bottom-modal', { on: open })}>
@@ -15,8 +22,9 @@ const BottomModal = ({ open, handleClose, onClick, startDate, setStartDate, endD
                     <div className={styles['date-cell']}>
                         <div className={styles['box']}>
                             <DatePicker
-                                maxDate={endDate}
-                                date={startDate} setDate={setStartDate}
+                                maxDate={end_date}
+                                type={type}
+                                date={start_date} setDate={date => handleChange(date, end_date)}
                                 position="top-start"
                             />
                         </div>
@@ -24,16 +32,17 @@ const BottomModal = ({ open, handleClose, onClick, startDate, setStartDate, endD
 
                         <div className={styles['box']}>
                             <DatePicker
-                                minDate={startDate}
+                                minDate={start_date}
                                 maxDate={new Date()}
-                                date={endDate} setDate={setEndDate}
+                                type={type}
+                                date={end_date} setDate={date => handleChange(start_date, date)}
                                 position="bottom-end"
                             />
                         </div>
                     </div>
-                    <Button className={styles['btn-box']}>
+                    <ButtonBase className={styles['btn-box']}>
                         <div className={styles['link-btn']} onClick={onClick}>조회</div>
-                    </Button>
+                    </ButtonBase>
                 </div>
             </div>
             <Backdrop open={open} className={styles['dim']} onClick={handleClose} />

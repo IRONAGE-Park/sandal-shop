@@ -6,22 +6,22 @@ import './DatePicker.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomDatePicker = ({
-    date,
-    setDate,
+    date, setDate,
     position = 'auto',
-    minDate,
-    maxDate,
+    minDate, maxDate,
+    type
 }) => {
     return (
         <div className={styles['date-picker']}>
             <DatePicker
                 locale={ko}
-                dateFormat="yyyy-MM-dd"
+                dateFormat={type === 'YEAR' ? "yyyy" : (type === 'MONTH' ? "yyyy-MM" : "yyyy-MM-dd")}
                 selected={date}
-                onChange={(date) => setDate(date)}
-                minDate={minDate}
-                maxDate={maxDate}
-                className={styles['test']}
+                onChange={date => setDate(date)}
+                minDate={minDate} maxDate={maxDate}
+                showYearPicker={type === 'YEAR'}
+                showMonthYearPicker={type === 'MONTH'}
+                className={styles['content']}
                 popperPlacement={position}
                 popperModifiers={{
                     preventOverflow: {

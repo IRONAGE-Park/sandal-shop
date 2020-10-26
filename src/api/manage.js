@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { dateToYYYYMMDDHHMMSS } from '../lib/formatter';
 /* Library */
+
+import { dateToYYYYMMDDHHMMSS } from '../lib/formatter';
+/* Custom Library */
 
 import Paths from '../paths';
 /* Paths Object */

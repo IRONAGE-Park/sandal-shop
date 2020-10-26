@@ -1,0 +1,64 @@
+@import '../../static/stylesheets/lib/mixin';
+@import '../../static/stylesheets/lib/variables';
+
+.pc-date-picker {
+    @include mobile {
+        display: none;
+    }
+    @include tablet {
+        padding: 20px;
+    }
+    position: relative;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid $color-dbdbdb;
+    border-top: none;
+    background-color: $color-f9f9f9;
+    .date-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .label {
+            display: inline-block;
+            font-size: $desktop16px;
+            color: #555;
+            font-weight: 500;
+            margin-right: 36px;
+            @include tablet {
+                display: none;
+            }
+            @include mobile {
+                color: #000;
+                margin-right: 20px;
+            }
+            @media screen and (max-width: 450px) {
+                display: block;
+                margin-bottom: 8px;
+                font-size: $desktop16px;
+            }
+        }
+    }
+    .search-btn {
+        width: 120px;
+        height: 48px;
+        font-size: $desktop18px;
+        font-weight: 500;
+        background-color: #fff;
+        border: 1px solid $desktop-main-color;
+        color: $desktop-main-color;
+        border-radius: 0;
+        margin-left: 30px;
+        @include tablet {
+            margin-left: 10px;
+        }
+    }
+    .line {
+        display: inline-block;
+        width: 12px;
+        height: 1px;
+        border: 1px solid #999;
+        vertical-align: middle;
+        margin: 0 15px;
+    }
+}

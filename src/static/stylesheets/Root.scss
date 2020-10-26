@@ -19,13 +19,12 @@ html, body {
     }
 }
 
-ul {
-    list-style: none;
-}
-
 a {
     text-decoration: none;
     color: inherit;
+}
+ul {
+    list-style: none;
 }
 select {
     /*ios대응*/
@@ -34,8 +33,7 @@ select {
     appearance: none;
     outline: none;
     /*화살표 배경 넣기*/
-    background: url('../../components/svg/select_arrow.svg') no-repeat
-        95% 50% #fff;
+    background: url('../../components/svg/select_arrow.svg') no-repeat calc(100% - 8px) 50% #fff;
     /*화살표 select박스 오른쪽 중앙 배치,배경 흰색*/
 }
 select::-ms-expand {

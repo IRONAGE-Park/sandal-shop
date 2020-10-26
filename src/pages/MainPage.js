@@ -93,6 +93,9 @@ const MobileTitleObject = {
     [main.order + '/cancel']: {
         title: "주문 내역",
     },
+    [main.calculate]: {
+        title: "배달 매출 현황"
+    },
     [main.calculate + '/daily']: {
         title: "배달 매출 현황"
     },

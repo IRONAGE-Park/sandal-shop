@@ -22,7 +22,7 @@ export const requestGETOrderListProgress = async (JWT_TOKEN) => {
     return res;
 }
 
-export const requestGETOrderListComplete = async (JWT_TOKEN, start_date, end_date) => {
+export const requestGETOrderListComplete = async (JWT_TOKEN, s_date, e_date) => {
     /*
         가맹점 완료 주문 리스트 Request API
 
@@ -34,6 +34,8 @@ export const requestGETOrderListComplete = async (JWT_TOKEN, start_date, end_dat
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
+    const start_date = new Date(s_date);
+    const end_date = new Date(e_date);
     end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
@@ -44,7 +46,7 @@ export const requestGETOrderListComplete = async (JWT_TOKEN, start_date, end_dat
     return res;
 }
 
-export const requestGETOrderListCancel = async (JWT_TOKEN, start_date, end_date) => {
+export const requestGETOrderListCancel = async (JWT_TOKEN, s_date, e_date) => {
     /*
         가맹점 취소 주문 리스트 Request API
 
@@ -56,6 +58,8 @@ export const requestGETOrderListCancel = async (JWT_TOKEN, start_date, end_date)
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
+    const start_date = new Date(s_date);
+    const end_date = new Date(e_date);
     end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {

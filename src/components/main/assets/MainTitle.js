@@ -32,6 +32,7 @@ const MainTitleObject = {
     [main.order + '/progress']: '주문 목록',
     [main.order + '/complete']: '주문 목록',
     [main.order + '/cancel']: '주문 목록',
+    [main.calculate]: '배달 매출 현황',
     [main.calculate + '/daily']: '배달 매출 현황',
     [main.calculate + '/monthly']: '배달 매출 현황',
     [main.calculate + '/yearly']: '배달 매출 현황', 
