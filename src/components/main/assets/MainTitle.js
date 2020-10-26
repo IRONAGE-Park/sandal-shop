@@ -36,6 +36,10 @@ const MainTitleObject = {
     [main.calculate + '/daily']: '배달 매출 현황',
     [main.calculate + '/monthly']: '배달 매출 현황',
     [main.calculate + '/yearly']: '배달 매출 현황', 
+    [main.policy] : '약관 및 정책',
+    [main.policy +'/privacy']:'개인정보 처리방침',
+    [main.policy +'/tos'] : '이용약관',
+    
 };
 
 const MainTitle = ({ pathname }) => {
