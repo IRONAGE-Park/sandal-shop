@@ -7,8 +7,59 @@
         @include tab;
         &.only_mobile {
             @include mobile {
-
                 display: none;
+            }
+        }
+    }
+
+    .m-label {
+        display: none;
+        @include mobile {
+            display: block;
+            font-weight: bold;
+            font-size: $desktop20px;
+            color: $color-333;
+            padding: 12px 24px;
+            background-color: $color-f9f9f9;
+        }
+    }
+    .m-selector {
+        display: none;
+        @include mobile {
+            display: block;
+            padding: 24px;
+            select {
+                width: 100%; height: 48px;
+                border: solid 1px $color-dbdbdb;
+                border-radius: 10px;
+                padding: 0 24px;
+                font-size: $desktop20px;
+                font-weight: 500;
+                color: $color-555;
+            }
+        }
+    }
+    .sub-tab {
+        display: table;
+        width: 100%; height: 64px;
+        border: solid 1px $color-ebebeb;
+        @include mobile {
+            display: none;
+        }
+        .wrap {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            font-size: $desktop18px;
+            color: #777;
+            .selector {
+                display: inline-block;
+                transition: all .15s ease-in-out;
+                cursor: pointer;
+                &.selected {
+                    font-weight: bold;
+                    color: $desktop-main-color;
+                }
             }
         }
     }
@@ -17,14 +68,32 @@
         margin-top: 80px;
         @include mobile {
             margin-top: 0;
+            height: 100%;
         }
         
+        .write-area {
+            text-align: right;
+            margin-bottom: 20px;
+            button {
+                width: 80px; height: 40px;
+                border: solid 1px #ccc;
+                font-size: $desktop14px;
+                color: $color-333;
+                transition: all .15s ease-in-out;
+                &:hover {
+                    transform: scale(1.05);
+                    border-color: transparent;
+                    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.15);
+                }
+            }
+        }
         .table {
             text-align: center;
             border-top: solid 2px $color-222;
             border-bottom: solid 1px $color-ebebeb;
             @include mobile {
                 border-top: solid 1px $color-ebebeb;
+                height: 100%;
             }
             .header {
                 display: table;
@@ -58,16 +127,63 @@
             }
             .body {
                 position: relative;
+                @include mobile {
+                    height: 100%;
+                }
                 .item {
                     display: table;
                     width: 100%; height: 60px;
                     font-size: $desktop16px;
+                    transition: all .15s ease-in-out;
                     @include mobile {
                         display: block;
                         height: auto;
                         text-align: left;
                         padding: 24px;
                     }
+                    &.selected {
+                        background-color: $color-f9f9f9;
+                    }
+                }
+                .answer {
+                    text-align: left;
+                    padding: 40px;
+                    background-color: $color-f9f9f9;
+                    border-bottom: solid 2px #ccc;
+                    font-size: $desktop16px;
+                    line-height: 1.5;
+                    @include mobile {
+                        padding: 24px;
+                        border-width: 1px;
+                    }
+                    &::before {
+                        content: 'A.';
+                        display: inline-block;
+                        font-weight: bold;
+                        font-size: $desktop18px;
+                        margin-right: 10px;
+                        @include mobile {
+                            content: none;
+                        }
+                    }
+                }
+                .q-question, .q-answer {
+                    text-align: left;
+                    padding: 40px;
+                    font-size: $desktop14px;
+                    line-height: 1.5;
+                    color: #666;
+                    @include mobile {
+                        padding: 24px;
+                        border-width: 1px;
+                    }
+                }
+                .q-question {
+                    border-top: solid 1px $color-ebebeb;
+                    border-bottom: solid 1px $color-ebebeb;
+                }
+                .q-answer {
+                    border-bottom: solid 2px #ccc;
                 }
                 &.empty {
                     min-height: 220px;
@@ -103,11 +219,64 @@
                         font-size: $desktop20px;
                     }
                 }
+                &.subject {
+                    width: 50%;
+                    @include mobile {
+                        width: 100%;
+                        font-size: $desktop20px;
+                    }
+                }
                 &.number {
                     width: 10%;
                     color: $color-aaa;
                     @include mobile {
                         display: none;
+                    }
+                }
+                &.question {
+                    width: 70%;
+                    padding: 0 40px;
+                    text-align: left;
+                    font-weight: 500;
+                    &::before {
+                        content: 'Q.';
+                        display: inline-block;
+                        font-weight: bold;
+                        font-size: $desktop18px;
+                        margin-right: 10px;
+                        @include mobile {
+                            content: none;
+                        }
+                    }
+                    @include mobile {
+                        padding: 0;
+                        width: 100%;
+                        font-size: $desktop20px;
+                    }
+                }
+                &.direction {
+                    width: 10%;
+                    @include mobile {
+                        width: 20px;
+                        position: absolute;
+                        top: 50%; right: 24px;
+                        transform: translateY(-50%);
+                    }
+                    &.only_mobile {
+                        @include mobile {
+                            display: none;
+                        }
+                    }
+                }
+                &.state {
+                    width: 10%;
+                    @include mobile {
+                        position: absolute;
+                        width: auto;
+                        padding: 6px 12px;
+                        top: 50%; right: 24px;
+                        transform: translateY(-50%);
+                        border: solid 1px $color-dbdbdb;
                     }
                 }
             }
@@ -139,6 +308,18 @@
         border-top: solid 1px $color-ebebeb;
         @include mobile {
             border-width: 2px;
+        }
+    }
+}
+
+.selector {
+    & + & {
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 1px; height: 12px;
+            border-right: solid 1px $color-dbdbdb;
+            margin: 0 16px;
         }
     }
 }

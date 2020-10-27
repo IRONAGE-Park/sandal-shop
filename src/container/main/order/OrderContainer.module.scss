@@ -3,7 +3,6 @@
 
 .container {
     @include container;
-    letter-spacing: -0.05em;
     .date-icon {
         display: none;
         @include mobile {

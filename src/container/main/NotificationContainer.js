@@ -9,7 +9,7 @@ import { Button } from '@material-ui/core';
 
 //api
 import {
-    requestNotice,
+    // requestNotice,
     // reqNoticeReadAll,
     // reqNoticeList,
     // reqNoticeRead,

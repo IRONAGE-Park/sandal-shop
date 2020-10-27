@@ -26,7 +26,7 @@ const Timer = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setDate(new Date());
-        }, 60 * 1000);
+        }, 5 * 1000);
         return () => clearInterval(interval);
     }, []);
     return (

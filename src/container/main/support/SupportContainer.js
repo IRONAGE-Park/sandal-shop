@@ -54,6 +54,8 @@ const SupportContainer = ({ mode, modal, id }) => {
             setLoading(true);
             try {
                 const res = await requestGETFAQList(JWT_TOKEN, faqType);
+
+                console.log(res);
                 if (res.data.msg === "성공") {
                     setFaqList(res.data.query);
                 } else {
@@ -123,7 +125,7 @@ const SupportContainer = ({ mode, modal, id }) => {
                {modal === 'view' ? <NoticeDetailContainer viewId={id} />
                : index === 0 ? <NoticeContainer noticeList={noticeList} />
                : (index === 1 ? <FAQContainer faqList={faqList} faqType={faqType} setFaqType={setFaqType} />
-                : <QNAContainer qnaList={qnaList} />)} 
+                : <QNAContainer qnaList={qnaList} modal={modal} />)} 
             </>}
             <Loading open={loading} />
         </div>

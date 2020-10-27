@@ -44,6 +44,7 @@ const MainTitleObject = {
     [main.support + '/notice/view']: '공지사항',
     [main.support + '/faq']: '고객센터',
     [main.support + '/qna']: '고객센터',
+    [main.support + '/qna/write']: '고객센터',
 };
 
 const MainTitle = ({ pathname }) => {

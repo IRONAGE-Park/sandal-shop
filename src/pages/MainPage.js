@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 /* Library */
 
@@ -7,8 +7,10 @@ import { isEmpty } from '../lib/formatChecker';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../store/user';
-import { get_notice, read_check } from '../store/notice';
-
+import {
+    get_notice,
+//     read_check
+} from '../store/notice';
 /* Redux */
 
 import IntroPage from './main/IntroPage';
@@ -130,6 +132,9 @@ const MobileTitleObject = {
     [main.support + '/qna']: {
         title: '고객센터'
     },
+    [main.support + '/qna/write']: {
+        title: '문의작성'
+    },
     [main.policy]: {
         title: '개인정보 처리방침',
     },
@@ -160,15 +165,15 @@ const MainPage = ({ location }) => {
     const user = useSelector(state => state.user);
     const [asideOpen, setAsideOpen] = useState(false);
 
-    const callNoticeApi =async ()=>{
-        try{
+    const callNoticeApi = useCallback(async () => {
+        try {
             const res = await requestNotice();
             reduxDispatch(get_notice(res.notification));
         }
-        catch(e){
+        catch (e) {
             alert(e);
         }
-    }
+    }, [reduxDispatch]);
 
     useEffect(() => {
         if (isEmpty(user)) {
@@ -179,7 +184,7 @@ const MainPage = ({ location }) => {
                 callNoticeApi();
             }
         }
-    }, [user, reduxDispatch]);
+    }, [user, reduxDispatch, callNoticeApi]);
 
     useEffect(() => {
         setAsideOpen(false);

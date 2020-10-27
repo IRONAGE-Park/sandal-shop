@@ -15,6 +15,7 @@
 html,
 body {
     font-size: $root-font-size-desktop;
+    letter-spacing: -0.05rem;
     @include tablet {
         font-size: $root-font-size-tablet;
     }

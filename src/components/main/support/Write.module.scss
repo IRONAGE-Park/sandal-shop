@@ -1,0 +1,120 @@
+@import '../../../static/stylesheets/lib/mixin';
+@import '../../../static/stylesheets/lib/variables';
+
+.reject {
+    width: 560px;
+    position: relative;
+    padding-bottom: 96px;
+    .header {
+        display: table;
+        height: 80px;
+        background-color: #333;
+        width: 100%;
+        .title {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: $desktop24px;
+            padding: 0 40px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .close {
+            width: 40px; height: 40px;
+            position: absolute;
+            top: 18px; right: 30px;
+        }
+    }
+    .content {
+        padding: 40px;
+        padding-bottom: 0;
+        .c-title {
+            font-size: $desktop18px;
+            color: $color-222;
+            font-weight: 500;
+        }
+        .c-input {
+            border: solid 1px $color-dbdbdb;
+            width: 100%;
+            font-size: $desktop18px;
+            margin-top: 10px;
+        }
+        .c-files {
+            width: 100%;
+            margin-top: 10px;
+            .file-list {
+                display: inline-block;
+                vertical-align: middle;
+                width: calc(100% - 96px); height: 48px;
+                border: solid 1px $color-dbdbdb;
+                padding: 0 20px;
+                font-size: $desktop16px;
+                color: $color-555;
+                overflow-x: auto;
+                white-space: nowrap;
+                .file-item {
+                    display: inline-block;
+                    vertical-align: middle;
+                    line-height: 46px;
+                    .delete {
+                        margin-left: 10px;
+                        border: solid 1px $color-dbdbdb;
+                        padding: 4px;
+                        img {
+                            width: 6px; height: 6px;
+                        }
+                    }
+                }
+            }
+            .q-files {
+                display: none;
+            }
+            .file-finder {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: $desktop16px;
+                color: $color-222;
+                width: 96px; height: 48px;
+                background-color: $color-f9f9f9;
+                border: solid 1px $color-dbdbdb;
+                .file-setter {
+                    display: table;
+                    width: 100%; height: 100%;
+                    .font {
+                        display: table-cell;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+        input {
+            height: 48px;
+            padding: 0 20px;
+        }
+        textarea {
+            height: 144px;
+            padding: 20px;
+            resize: none;
+        }
+        .warning {
+            margin-top: 10px;
+            font-size: $desktop14px;
+            color: $color-999;
+        }
+    }
+    .button {
+        position: absolute;
+        bottom: 0;
+        width: 100%; height: 56px;
+        background-color: $desktop-main-color;
+        color: #fff;
+        font-weight: 500;
+        font-size: $desktop18px;
+    }
+}
+
+.file-item {
+    & + & {
+        margin-left: 16px;
+    }
+}

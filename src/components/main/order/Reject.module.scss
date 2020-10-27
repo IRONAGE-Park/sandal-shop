@@ -2,8 +2,9 @@
 @import '../../../static/stylesheets/lib/variables';
 
 .reject {
-    width: 560px; height: 520px;
+    width: 560px;
     position: relative;
+    padding-bottom: 96px;
     .header {
         display: table;
         height: 80px;
