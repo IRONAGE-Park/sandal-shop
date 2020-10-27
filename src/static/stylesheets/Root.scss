@@ -3,13 +3,17 @@
 
 * {
     box-sizing: border-box;
-    padding: 0; margin: 0;
-    outline: none; border: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
     border-radius: 0;
-    font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", 나눔고딕, "NanumGothic", "맑은 고딕", "Malgun Gothic", Ngothic, sans-serif;
+    font-family: '애플 SD 산돌고딕 Neo', 'Apple SD Gothic Neo', 나눔고딕,
+        'NanumGothic', '맑은 고딕', 'Malgun Gothic', Ngothic, sans-serif;
 }
 
-html, body {
+html,
+body {
     font-size: $root-font-size-desktop;
     @include tablet {
         font-size: $root-font-size-tablet;
@@ -33,7 +37,8 @@ select {
     appearance: none;
     outline: none;
     /*화살표 배경 넣기*/
-    background: url('../../components/svg/select_arrow.svg') no-repeat calc(100% - 8px) 50% #fff;
+    background: url('../../components/svg/select_arrow.svg') no-repeat
+        calc(100% - 8px) 50% #fff;
     /*화살표 select박스 오른쪽 중앙 배치,배경 흰색*/
 }
 select::-ms-expand {

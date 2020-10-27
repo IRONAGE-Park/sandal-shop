@@ -41,6 +41,7 @@ const MainTitleObject = {
     [main.policy + '/tos']: '약관 및 정책',
     [main.support]: '고객센터',
     [main.support + '/notice']: '고객센터',
+    [main.support + '/notice/view']: '공지사항',
     [main.support + '/faq']: '고객센터',
     [main.support + '/qna']: '고객센터',
 };

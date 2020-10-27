@@ -5,7 +5,7 @@ html {
     body {
         .tabs {
             width: 100%;
-            min-height: 50px;
+            min-height: 48px;
             margin: 0 auto;
             background-color: '#fff';
             @include mobile {

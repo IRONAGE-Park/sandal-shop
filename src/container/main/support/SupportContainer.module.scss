@@ -1,0 +1,144 @@
+@import '../../../static/stylesheets/lib/variables';
+@import '../../../static/stylesheets/lib/mixin';
+
+.container {
+    @include container;
+    .tab {
+        @include tab;
+        &.only_mobile {
+            @include mobile {
+
+                display: none;
+            }
+        }
+    }
+
+    .content {
+        margin-top: 80px;
+        @include mobile {
+            margin-top: 0;
+        }
+        
+        .table {
+            text-align: center;
+            border-top: solid 2px $color-222;
+            border-bottom: solid 1px $color-ebebeb;
+            @include mobile {
+                border-top: solid 1px $color-ebebeb;
+            }
+            .header {
+                display: table;
+                width: 100%; height: 56px;
+                font-size: $desktop16px;
+                font-weight: 500;
+                color: #000;
+                border-bottom: solid 1px $color-999;
+                @include mobile {
+                    display: none;
+                }
+                &.mobile-view {
+                    @include mobile {
+                        display: block;
+                        height: auto;
+                        text-align: left;
+                        padding: 30px 24px;
+                        background-color: $color-f9f9f9;
+                        border-bottom: none;
+                    }
+                }
+                .column.created_at {
+                    color: #000;
+                }
+                .column.title {
+                    color: #000;
+                }
+                .column.number {
+                    color: #000;
+                }
+            }
+            .body {
+                position: relative;
+                .item {
+                    display: table;
+                    width: 100%; height: 60px;
+                    font-size: $desktop16px;
+                    @include mobile {
+                        display: block;
+                        height: auto;
+                        text-align: left;
+                        padding: 24px;
+                    }
+                }
+                &.empty {
+                    min-height: 220px;
+                }
+            }
+            .text {
+                padding: 40px 30px;
+                font-size: $desktop14px;
+                color: $color-555;
+                line-height: 1.5;
+                text-align: left;
+            }
+            .column {
+                vertical-align: middle;
+                display: table-cell;
+                @include mobile {
+                    display: block;
+                }
+                &.created_at {
+                    width: 20%;
+                    color: $color-777;
+                    @include mobile {
+                        width: 100%;
+                        margin-top: 12px;
+                    }
+                }
+                &.title {
+                    width: 70%;
+                    color: $color-222;
+                    font-weight: 500;
+                    @include mobile {
+                        width: 100%;
+                        font-size: $desktop20px;
+                    }
+                }
+                &.number {
+                    width: 10%;
+                    color: $color-aaa;
+                    @include mobile {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .button-area {
+            margin-top: 80px;
+            text-align: center;
+            @include mobile {
+                display: none;
+            }
+            .button {
+                width: 320px; height: 48px;
+                border: solid 1px $color-dbdbdb;
+                font-size: $desktop16px;
+                color: $color-333;
+                transition: all .15s ease-in-out;
+                &:hover {
+                    transform: scale(1.05);
+                    border-color: transparent;
+                    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.15);
+                }
+            }
+        }
+    }
+}
+
+.item {
+    & + & {
+        border-top: solid 1px $color-ebebeb;
+        @include mobile {
+            border-width: 2px;
+        }
+    }
+}

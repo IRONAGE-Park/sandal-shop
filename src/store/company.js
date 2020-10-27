@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { requestGETMypageInfo } from '../api/mypage';
+import { requestGETMypageInfo } from '../api/company';
 
 const GET_COMPANY_INFO = 'company/GET_COMPANY_INFO';
 const GET_COMPANY_INFO_SUCCESS = 'company/GET_COMPANY_INFO_SUCCESS';
@@ -11,10 +11,10 @@ export const getCompany = createAction(GET_COMPANY_INFO);
 function* get_company_info_saga(action) {
     try {
         const res = yield call(requestGETMypageInfo);
-        if(res.data.msg === '성공' ) {
+        if(res.data.msg === 'success') {
             yield put({
                 type: GET_COMPANY_INFO_SUCCESS,
-                payload: res.data.query
+                payload: res.data.query.company
             });
         } else {
             yield put({

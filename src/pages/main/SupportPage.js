@@ -1,10 +1,9 @@
 import React from 'react';
 import qs from 'qs';
-import SupportContainer from '../../container/main/SupportContainer';
+import SupportContainer from '../../container/main/support/SupportContainer';
 
 const SupportPage = ({ match, location }) => {
     const { mode, modal } = match.params;
-
 
     const query = qs.parse(location.search, {
         ignoreQueryPrefix: true

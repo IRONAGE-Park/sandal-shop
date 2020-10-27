@@ -89,7 +89,7 @@ const OperationContainer = ({ mode }) => {
         ? tem_end_date.split('-').map(line => parseInt(line)) : [1970, 1, 1];
     // 임시 휴무 종료일
 
-    const callPutOperationTime = useCallback((e, direct = {}) => {
+    const callPUTOperationTime = useCallback((e, direct = {}) => {
         const JWT_TOKEN = sessionStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토근이 존재함 => 로그인 된 상태. */
@@ -109,7 +109,7 @@ const OperationContainer = ({ mode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [operation]);
 
-    const callPutOperationHoli = useCallback((e, direct = {}) => {
+    const callPUTOperationHoli = useCallback((e, direct = {}) => {
         const JWT_TOKEN = sessionStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토근이 존재함 => 로그인 된 상태. */
@@ -143,11 +143,11 @@ const OperationContainer = ({ mode }) => {
             target, value
         });
         if (type === 'TIME') {
-            callPutOperationTime(null, { [target]: value });
+            callPUTOperationTime(null, { [target]: value });
         } else {
-            callPutOperationHoli(null, { [target]: value });
+            callPUTOperationHoli(null, { [target]: value });
         }
-    }, [callPutOperationHoli, callPutOperationTime]);
+    }, [callPUTOperationHoli, callPUTOperationTime]);
 
     useEffect(() => {
         // 렌더링 됐을 때 만약 리덕스에 운영정보 데이터가 없으면 받아옴.
@@ -415,8 +415,8 @@ const OperationContainer = ({ mode }) => {
                         onClick={
                             updateForm
                                 ? displayMode === 'time'
-                                    ? callPutOperationTime
-                                    : callPutOperationHoli
+                                    ? callPUTOperationTime
+                                    : callPUTOperationHoli
                                 : () =>
                                       history.push(
                                           Paths.main.operation +

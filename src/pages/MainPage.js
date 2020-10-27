@@ -112,6 +112,10 @@ const MobileTitleObject = {
     [main.support + '/notice']: {
         title: '고객센터'
     },
+    [main.support + '/notice/view']: {
+        title: '공지사항',
+        back: main.support
+    },
     [main.support + '/faq']: {
         title: '고객센터'
     },
@@ -157,8 +161,6 @@ const MainPage = ({ location }) => {
     useEffect(() => {
         setAsideOpen(false);
     }, [location]);
-
-    console.log(location);
 
     return (
         <>
