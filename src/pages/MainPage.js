@@ -7,6 +7,8 @@ import { isEmpty } from '../lib/formatChecker';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../store/user';
+import { get_notice, read_check } from '../store/notice';
+
 /* Redux */
 
 import IntroPage from './main/IntroPage';
@@ -19,6 +21,7 @@ import CalculatePage from './main/CalculatePage';
 import SupportPage from './main/SupportPage';
 import ErrorPage from './ErrorPage';
 import PolicyPage from './PolicyPage';
+import NotificationPage from './main/NotificationPage';
 /* Pages */
 
 import Header from '../components/main/Header';
@@ -34,6 +37,11 @@ import Hamburger from '../components/svg/mobile_hamburger.svg';
 
 import Paths from '../paths';
 /* Paths */
+
+/* api */
+
+import {requestNotice} from '../api/notification';
+
 
 const { main } = Paths;
 
@@ -131,6 +139,10 @@ const MobileTitleObject = {
     [main.policy + '/tos']: {
         title: '이용약관',
     },
+    [main.notification]: {
+        title: '알림',
+        back:'goBack'
+    },
 };
 
 /*
@@ -148,12 +160,23 @@ const MainPage = ({ location }) => {
     const user = useSelector(state => state.user);
     const [asideOpen, setAsideOpen] = useState(false);
 
+    const callNoticeApi =async ()=>{
+        try{
+            const res = await requestNotice();
+            reduxDispatch(get_notice(res.notification));
+        }
+        catch(e){
+            alert(e);
+        }
+    }
+
     useEffect(() => {
         if (isEmpty(user)) {
             const JWT_TOKEN = sessionStorage.getItem('user_token');
             if (JWT_TOKEN) {
                 /* 토큰이 존재함 => 로그인 된 상태. */
                 reduxDispatch(getUser(JWT_TOKEN));
+                callNoticeApi();
             }
         }
     }, [user, reduxDispatch]);
@@ -188,6 +211,7 @@ const MainPage = ({ location }) => {
                             <Route path={Paths.main.calculate + '/:mode?'} component={CalculatePage} />
                             <Route path={Paths.main.support + '/:mode?/:modal?'} component={SupportPage} />
                             <Route path={Paths.main.policy +'/:mode?'} component={PolicyPage} />
+                            <Route path={Paths.main.notification} component={NotificationPage} />
                             <Route component={ErrorPage} />
                         </Switch>
                     </div>

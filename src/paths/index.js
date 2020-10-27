@@ -23,6 +23,7 @@ const Paths = {
         calculate: '/main/calculate',
         support: '/main/support',
         policy: '/main/policy',
+        notification: '/main/notification',
         logout: '/logout',
     },
     api: PROTOCOL_ENV + 'api.ajoonamu.com/api/',

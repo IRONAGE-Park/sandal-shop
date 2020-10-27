@@ -75,6 +75,7 @@
             box-sizing: border-box;
             transition: all 0.3s;
             .content {
+                position: relative;
                 padding: 38px 24px;
                 .name {
                     font-size: 1.833rem;
@@ -96,6 +97,7 @@
                     border-radius: 12px;
                     border: solid 1px #EBEBEB;
                 }
+
             }
             &:hover {
                 color: #222;
@@ -180,6 +182,25 @@
         @include mobile {
             display: block;
             z-index: 2300;
+        }
+    }
+}
+
+html{
+    body{
+        .notification-bell{
+            display: none;
+           position: absolute;
+            top:50px;
+            transform: translateY(-50%);
+            right:24px;
+            z-index: 500;
+            img{
+                width: 24px; height: 24px;
+            }
+            @include mobile{
+                display: block;
+            }
         }
     }
 }
