@@ -7,7 +7,8 @@ import classNamesBind from 'classnames/bind';
 import { useSelector } from 'react-redux';
 /* Redux */
 
-import { Backdrop, ButtonBase } from '@material-ui/core';
+import { Backdrop, ButtonBase,IconButton } from '@material-ui/core';
+import BellImg from '../svg/notification-bell.svg';
 /* Components */
 
 import Paths from '../../paths';
@@ -19,6 +20,8 @@ import Direction from '../svg/Direction';
 import Hamburger from '../svg/hamburger.svg';
 import { useDialog } from '../../hooks/useDialog';
 /* Statics */
+
+
 
 const cn = classNamesBind.bind(styles);
 
@@ -90,13 +93,29 @@ const Aside = ({ open, setOpen }) => {
     return (
         <>
             <aside className={cn('aside', { open })}>
-                <ButtonBase className={styles['tablet-nav-button']} onClick={() => setOpen(!open)}>
-                    <img className={styles['hamburger']} src={Hamburger} alt="hamburder" />
+                <ButtonBase
+                    className={styles['tablet-nav-button']}
+                    onClick={() => setOpen(!open)}
+                >
+                    <img
+                        className={styles['hamburger']}
+                        src={Hamburger}
+                        alt="hamburder"
+                    />
                 </ButtonBase>
                 <nav className={cn('content')}>
                     <Link to={Paths.main.account}>
                         <UserInfo />
                     </Link>
+                    <IconButton
+                        className={styles['notification-bell']}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            history.push(Paths.main.notification);
+                        }}
+                    >
+                        <img src={BellImg} alt="bell" />
+                    </IconButton>
                     <div className={cn('category')}>
                         <ul className={cn('list')}>
                             {navCategories.current.map((category) => (
@@ -108,11 +127,18 @@ const Aside = ({ open, setOpen }) => {
                         </ul>
                     </div>
                 </nav>
-                <ButtonBase className={styles['button']} onClick={onClickLogout}>
+                <ButtonBase
+                    className={styles['button']}
+                    onClick={onClickLogout}
+                >
                     로그아웃
                 </ButtonBase>
             </aside>
-            <Backdrop className={styles['backdrop']} open={open} onClick={() => setOpen(false)} />
+            <Backdrop
+                className={styles['backdrop']}
+                open={open}
+                onClick={() => setOpen(false)}
+            />
         </>
     );
 };
