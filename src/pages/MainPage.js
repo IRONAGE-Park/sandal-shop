@@ -88,7 +88,7 @@ const MobileTitleObject = {
         back: 'goBack',
     },
     [main.order + '/reject']: {
-        title: '주문 거절',
+        title: '주문 상세 보기',
         back: 'goBack',
     },
     [main.order + '/sticker']: {
@@ -133,7 +133,7 @@ const MobileTitleObject = {
         title: '고객센터'
     },
     [main.support + '/qna/write']: {
-        title: '문의작성'
+        title: '고객센터'
     },
     [main.policy]: {
         title: '개인정보 처리방침',

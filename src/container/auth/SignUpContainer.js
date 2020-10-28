@@ -21,7 +21,7 @@ const reducer = (state, action) => ({
     ...action
 });
 
-export default ({ history }) => {
+export default ({ history, match }) => {
     const openDialog = useDialog();
 
     const [shop, setShop] = useState(''); // 가맹점 명
@@ -85,6 +85,7 @@ export default ({ history }) => {
                     phone={phone} setPhone={setPhone}
                     addrState={addrState} addrDispatch={addrDispatch}
                     setActiveConfirm={setActiveConfirm}
+                    modal={match.params.modal}
                 />}
                 <div className={styles['area']}>
                     <div className={styles['content']}>

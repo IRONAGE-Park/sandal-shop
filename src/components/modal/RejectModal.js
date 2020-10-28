@@ -1,10 +1,11 @@
-import { ButtonBase, Dialog, IconButton, useMediaQuery, useTheme } from '@material-ui/core';
+import { ButtonBase, Dialog, IconButton, Slide, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { useCallback, useState } from 'react';
-import { requestPUTOrderCancel } from '../../../api/order';
-import { useDialog } from '../../../hooks/useDialog';
+import { requestPUTOrderCancel } from '../../api/order';
+import { useDialog } from '../../hooks/useDialog';
 import styles from './Reject.module.scss';
-import CloseIcon from '../../svg/modal/CloseIcon';
-import Loading from '../../assets/Loading';
+import CloseIcon from '../svg/modal/CloseIcon';
+import Back from '../svg/header/back.svg';
+import Loading from '../assets/Loading';
 
 const rejectReasonList = [
     '거리가 너무 멀어서',
@@ -12,6 +13,11 @@ const rejectReasonList = [
     '주문 수량을 맞출 수 없어서',
     '가게 사정상 운영 시간을 앞당김'
 ];
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="left" ref={ref} {...props} />;
+});
+
 
 const RejectModal = ({ open, handleClose, order_id, orderData, setOrderData }) => {
     const openDialog = useDialog();
@@ -54,9 +60,16 @@ const RejectModal = ({ open, handleClose, order_id, orderData, setOrderData }) =
             fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
+            TransitionComponent={Transition}
+            style={{
+                zIndex: 2000
+            }}
         >
             <div className={styles['reject']}>
                 <div className={styles['header']}>
+                    <IconButton component="div" className={styles['m-close']} onClick={handleClose}>
+                        <img src={Back} alt="back" />
+                    </IconButton>
                     <p className={styles['title']}>주문 거절 사유</p>
                     <IconButton className={styles['close']} onClick={handleClose}>
                         <CloseIcon />

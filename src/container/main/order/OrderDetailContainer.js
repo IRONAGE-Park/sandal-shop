@@ -10,8 +10,8 @@ import { numberFormat, stringToTel } from '../../../lib/formatter';
 import Paths from '../../../paths';
 import OrderProductList from '../../../components/main/order/OrderProductList';
 import { isEmpty } from '../../../lib/formatChecker';
-import StickerModal from '../../../components/main/order/StickerModal';
-import RejectModal from '../../../components/main/order/RejectModal';
+import StickerModal from '../../../components/modal/StickerModal';
+import RejectModal from '../../../components/modal/RejectModal';
 
 const cn = classnames.bind(styles);
 

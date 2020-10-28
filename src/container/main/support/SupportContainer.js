@@ -14,6 +14,8 @@ import NoticeDetailContainer from './NoticeDetailContainer';
 
 const getPaths = ['notice', 'faq', 'qna'];
 
+const getFaqTypeIndex = ['회원가입', '쿠폰', '결제', '포인트', '배달', '문구서비스'];
+
 const cn = classnames.bind(styles);
 
 const SupportContainer = ({ mode, modal, id }) => {
@@ -53,9 +55,8 @@ const SupportContainer = ({ mode, modal, id }) => {
         if (JWT_TOKEN) {
             setLoading(true);
             try {
-                const res = await requestGETFAQList(JWT_TOKEN, faqType);
-
-                console.log(res);
+                const faqTypeIndex = getFaqTypeIndex.findIndex(f => faqType === f);
+                const res = await requestGETFAQList(JWT_TOKEN, faqTypeIndex);
                 if (res.data.msg === "성공") {
                     setFaqList(res.data.query);
                 } else {

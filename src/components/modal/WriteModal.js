@@ -1,17 +1,24 @@
-import { ButtonBase, Dialog, IconButton, useMediaQuery, useTheme } from '@material-ui/core';
-import React, { useCallback, useState } from 'react';
-import { useDialog } from '../../../hooks/useDialog';
+import { ButtonBase, Dialog, IconButton, Slide, useMediaQuery, useTheme } from '@material-ui/core';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDialog } from '../../hooks/useDialog';
 import styles from './Write.module.scss';
-import CloseIcon from '../../svg/modal/CloseIcon';
-import RemoveIcon from '../../svg/remove.svg';
-import Loading from '../../assets/Loading';
-import { requestPOSTQNAStore } from '../../../api/support';
+import CloseIcon from '../svg/modal/CloseIcon';
+import RemoveIcon from '../svg/remove.svg';
+import Back from '../svg/header/back.svg';
+import Loading from '../assets/Loading';
+import { requestPOSTQNAStore } from '../../api/support';
+import Paths from '../../paths';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="left" ref={ref} {...props} />;
+});
 
 const WriteModal = ({ open, handleClose }) => {
     const openDialog = useDialog();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down(768));
+
+    const titleRef = useRef(null);
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -38,12 +45,11 @@ const WriteModal = ({ open, handleClose }) => {
                 const res = await requestPOSTQNAStore(JWT_TOKEN, title, content, files);
                 if (res.data.msg === "성공") {
                     openDialog('성공적으로 작성하였습니다!', '답변이 올 때까지는 조금 시간이 소요됩니다.');
-                    handleClose();
+                    window.location.href = Paths.main.support + '/qna';
                 } else {
                     openDialog('작성하는 도중 오류가 발생했습니다!', '다시 시도해 주세요.');
                 }
             } catch (e) {
-                console.log(e);
                 openDialog("서버에 오류가 발생했습니다.", "잠시 후 다시 시도해 주세요.");
             }
             setLoading(false);
@@ -54,14 +60,32 @@ const WriteModal = ({ open, handleClose }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const onClickWrite = useCallback(() => openDialog("정말 해당 문의를 작성하시겠습니까?", '', () => callPOSTQnaWrite(), true), [callPOSTQnaWrite]);
 
+    useEffect(() => {
+        if (open) {
+            // 모달이 켜졌을 때 포커싱
+            setTimeout(() => {
+                if (titleRef.current) {
+                    titleRef.current.focus();
+                }
+            }, 150);
+        }
+    }, [open]);
+    
     return (
         <Dialog
             fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
+            TransitionComponent={Transition}
+            style={{
+                zIndex: 2000
+            }}
         >
-            <div className={styles['reject']}>
+            <div className={styles['write']}>
                 <div className={styles['header']}>
+                    <IconButton component="div" className={styles['m-close']} onClick={handleClose}>
+                        <img src={Back} alt="back" />
+                    </IconButton>
                     <p className={styles['title']}>1:1 문의 작성</p>
                     <IconButton className={styles['close']} onClick={handleClose}>
                         <CloseIcon />
@@ -71,7 +95,7 @@ const WriteModal = ({ open, handleClose }) => {
                     <div className={styles['c-title']}>
                         문의 제목
                     </div>
-                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={styles['c-input']} />
+                    <input ref={titleRef} type="text" value={title} onChange={e => setTitle(e.target.value)} className={styles['c-input']} />
                 </div>
                 <div className={styles['content']}>
                     <div className={styles['c-title']}>

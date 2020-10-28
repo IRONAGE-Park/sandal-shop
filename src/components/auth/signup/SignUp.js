@@ -8,7 +8,7 @@ import { requestPOSTLogin } from '../../../api/auth';
 /* API */
 
 import { ButtonBase } from '@material-ui/core';
-import ShowAgree from '../../modal/ShowAgree';
+import AgreeModal from '../../modal/AgreeModal';
 import AuthInput from '../AuthInput';
 import PasswordAuth from '../PasswordAuth';
 import PhoneAuth from '../PhoneAuth';
@@ -22,9 +22,10 @@ import { useDialog } from '../../../hooks/useDialog';
 import styles from './SignUp.module.scss';
 import { isEmailForm } from '../../../lib/formatChecker';
 import {
-    // requestGetLocationByAddress,
     requestGETLocation
 } from '../../../api/address';
+import { useHistory } from 'react-router-dom';
+import Paths from '../../../paths';
 /* Stylesheets */
 
 const cn = classnames.bind(styles);
@@ -36,40 +37,42 @@ export default ({
     email, setEmail,
     phone, setPhone,
     addrState, addrDispatch,
-    setActiveConfirm
+    setActiveConfirm,
+    modal
 }) => {
     const openDialog = useDialog();
+    const history = useHistory();
     const [agreeTitle, setAgreeTitle] = useState(''); // 동의 모달
     const [emailOverlap, setEmailOverlap] = useState(false); // 이메일 중복 여부
     const [passwordCheck, setPasswordCheck] = useState(false); // 비밀번호/확인 일치 여부
     const [phoneAuth, setPhoneAuth] = useState(false); // 휴대폰 인증 여부
     const [allChecked, setAllChecked] = useState(false); // 전체 동의
     const [isAddressSearch, setIsAddressSearch] = useState(false); // 주소 검색을 한 적이 있으면 인풋 고정.
+    const { addr, detail_addr, post_num } = addrState;
+    
+    const onOpenModal = useCallback(title => {
+        setAgreeTitle(title);
+        history.push(Paths.auth.signup + '/agree');
+    }, [history]);
+    const onCloseModal = useCallback(() => history.goBack(), [history]);
+
     const [checkList, setCheckList] = useState([
-        { id: 1, title: '개인정보처리방침 필수 동의', detail: () => setAgreeTitle('개인정보처리방침'), checked: false },
-        { id: 2, title: '이용약관 필수 동의', detail: () => setAgreeTitle('이용약관'), checked: false },
+        { id: 1, title: '개인정보처리방침 필수 동의', detail: () => onOpenModal('개인정보처리방침'), checked: false },
+        { id: 2, title: '이용약관 필수 동의', detail: () => onOpenModal('이용약관'), checked: false },
         { id: 3, title: '이벤트 알림 선택 동의', text: 'SMS, 이메일을 통해 할인/이벤트/쿠폰 정보를 받아보실 수 있습니다.', checked: false },
     ]); // 동의 요소 리스트
-    const { addr, detail_addr, post_num } = addrState;
-
 
     const onSearchAddress = useCallback(() => {
         /* 주소를 선택 창을 띄움 */
         const themeObj = {
-            //bgColor: "", //바탕 배경색
             searchBgColor: '#007246', //검색창 배경색
-            //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
-            //pageBgColor: "", //페이지 배경색
-            //textColor: "", //기본 글자색
             queryTextColor: '#FFFFFF', //검색창 글자색
-            //postcodeTextColor: "", //우편번호 글자색
             emphTextColor: '#008726', //강조 글자색
             outlineColor: '#EBEBEB', //테두리
         };
         new daum.Postcode({
             oncomplete: async ({ roadAddress, zonecode }) => {
                 try {
-                    // const res = await requestGetLocationByAddress(roadAddress);
                     requestGETLocation(roadAddress, result => {
                         addrDispatch({
                             addr: roadAddress,
@@ -269,9 +272,10 @@ export default ({
                     </div>
                 </div>
             </div>
-            <ShowAgree
+            <AgreeModal
                 title={agreeTitle}
-                handleClose={() => setAgreeTitle('')}
+                open={modal === 'agree'}
+                handleClose={onCloseModal}
             />
         </form>
     );

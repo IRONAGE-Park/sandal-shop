@@ -3,9 +3,9 @@
 .dialog {
     .title {
         position: relative;
-        background-color: #007246;
+        background-color: $mobile-main-color;
         h2 {
-            font-size: 2rem;
+            font-size: $desktop24px;
             color: #fff;
         }
         .close {
@@ -13,18 +13,17 @@
         }
     }
     .content {
-        overflow: auto;
-        white-space: pre-wrap;
-        font-size: 1.5rem;
+        font-size: $desktop16px;
+        line-height: 1.5;
+        padding: 24px 0;
     }
     .button-area {
         padding: 0;
         .button {
-            width: 100%;
-            height: 64px;
-            font-size: 2.333rem;
+            width: 100%; height: 64px;
+            font-size: $desktop24px;
             color: #fff;
-            background-color: #007246;
+            background-color: $mobile-main-color;
             border-radius: 0;
         }
     }

@@ -100,7 +100,7 @@ const AuthPage = ({ history, location }) => {
                 <AuthHeader />
                 <Switch>
                     <Route path={Paths.auth.signin} component={SignIn} />
-                    <Route path={Paths.auth.signup} component={SignUp} />
+                    <Route path={Paths.auth.signup + '/:modal?'} component={SignUp} />
                     <Route path={Paths.auth.find.index} component={Find} />
                     <Route path={Paths.auth.policy +'/:mode?'} component={PolicyPage} />
                     <Route render={({ history }) => history.push(Paths.auth.signin)} />

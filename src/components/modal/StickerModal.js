@@ -1,8 +1,8 @@
 import { Dialog, makeStyles, Slide } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
-import { requestGETOrderSticker } from '../../../api/order';
-import { useDialog } from '../../../hooks/useDialog';
-import { DBImageFormat } from '../../../lib/formatter';
+import { requestGETOrderSticker } from '../../api/order';
+import { useDialog } from '../../hooks/useDialog';
+import { DBImageFormat } from '../../lib/formatter';
 import ErrorCoverImage from '../assets/ErrorCoverImage';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

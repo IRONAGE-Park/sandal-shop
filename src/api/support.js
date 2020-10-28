@@ -44,7 +44,7 @@ export const requestGETFAQList = async (JWT_TOKEN, faq_type) => {
 
         문서보기:
     */
-    const URL = Paths.api + 'shop/faq/list';
+    const URL = Paths.api + 'shop/faq/list?faq_type=' + faq_type;
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
     const res = await axios.get(URL, { params: { faq_type } });

@@ -2,10 +2,11 @@ import React, { Fragment, useCallback, useState } from 'react';
 import classnames from 'classnames/bind';
 import Message from '../../../components/assets/Message';
 import styles from './SupportContainer.module.scss';
-import { ButtonBase } from '@material-ui/core';
+import { ButtonBase, IconButton } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import { dateToYYYYMMDD } from '../../../lib/formatter';
 import Direction from '../../../components/svg/Direction';
-import WriteModal from '../../../components/main/support/WriteModal';
+import WriteModal from '../../../components/modal/WriteModal';
 import { useHistory } from 'react-router-dom';
 import Paths from '../../../paths';
 
@@ -35,14 +36,15 @@ const QNAContainer = ({ qnaList, modal }) => {
         }
     }, [selectedItem]);
 
-    console.log(qnaList);
-
     return (
         <div className={styles['content']}>
             <div className={styles['write-area']}>
                 <ButtonBase className={styles['button']} onClick={onOpenModal}>
                     문의 작성
                 </ButtonBase>
+                <IconButton className={styles['m-button']} onClick={onOpenModal}>
+                    <EditIcon fontSize="large" />
+                </IconButton>
             </div>
             <div className={styles['table']}>
                 <div className={styles['header']}>

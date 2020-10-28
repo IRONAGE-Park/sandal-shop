@@ -1,5 +1,5 @@
 import React from 'react';
-import NoImage from '../../../static/images/noimage.png';
+import NoImage from '../../static/images/noimage.png';
 
 export default ({ className, src, vertical_rate = '100%' }) => {
     return (

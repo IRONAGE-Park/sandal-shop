@@ -7,9 +7,9 @@ html {
             width: 100%;
             min-height: 48px;
             margin: 0 auto;
-            background-color: '#fff';
+            background-color: #fff;
             @include mobile {
-                // padding:  0 24px;
+                box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.05);
             }
         }
     }

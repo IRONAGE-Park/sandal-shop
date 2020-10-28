@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import NoImage from '../../../static/images/noimage.png';
+import NoImage from '../../static/images/noimage.png';
 
 export default ({ className, src, alt }) => {
     const [imageSrc, setImageSrc] = useState(src);

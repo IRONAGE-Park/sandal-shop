@@ -1,6 +1,6 @@
 import React from 'react';
 import { DBImageFormat, numberFormat } from '../../../lib/formatter';
-import CoverImage from '../assets/CoverImage';
+import CoverImage from '../../assets/CoverImage';
 import Toggle from '../assets/Toggle';
 import styles from './Menu.module.scss';
 
