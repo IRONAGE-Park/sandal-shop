@@ -181,10 +181,10 @@ const CalculateContainer = ({ mode }) => {
                     ]}
                     onChange={(e, path) => history.push(Paths.main.calculate + '/' + getPaths[path])}
                 />
-                <IconButton className={styles['date-icon']} onClick={handleOpen}>
-                    <img src ={DateIcon} alt="date"/>
-                </IconButton>
             </div>
+            <IconButton className={styles['date-icon']} onClick={handleOpen}>
+                <img src ={DateIcon} alt="date"/>
+            </IconButton>
             <PcDatePicker
                 dateRange={index === 0 ? calculateDaily : (index === 1 ? calculateMonthly : calculateYearly)}
                 type={index === 0 ? 'DAY' : (index === 1 ? 'MONTH' : 'YEAR')}

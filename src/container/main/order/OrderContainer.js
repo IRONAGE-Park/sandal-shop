@@ -184,10 +184,10 @@ const OrderContainer = ({ tab }) => {
                     ]}
                     onChange={(e, path) => history.push(Paths.main.order + '/' + getPaths[path])}
                 />
-                {tab !== 'progress' && <IconButton className={styles['date-icon']} onClick={handleOpen}>
-                    <img src ={DateIcon} alt="date"/>
-                </IconButton>}
             </div>
+            {tab !== 'progress' && <IconButton className={styles['date-icon']} onClick={handleOpen}>
+                <img src ={DateIcon} alt="date"/>
+            </IconButton>}
             {index !== 0 && <PcDatePicker
                 dateRange={index === 1 ? orderComplete : orderCancel}
                 type='DAY'
