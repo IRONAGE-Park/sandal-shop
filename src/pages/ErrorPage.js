@@ -36,7 +36,7 @@ const ErrorPage = ({ history, location }) => {
                 <h1 className={styles['title']}>페이지를 찾을 수 없습니다.</h1>
                 <p className={styles['text']}>에러코드 : 404</p>
                 <p className={styles['path']}>접속한 경로 : {location.pathname}</p>
-                <ButtonBase className={styles['button']} onClick={() => history.push('/')}>
+                <ButtonBase className={styles['button']} onClick={() => history.goBack()}>
                     이전 페이지
                 </ButtonBase>
             </div>
