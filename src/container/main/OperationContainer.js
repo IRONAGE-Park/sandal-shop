@@ -19,9 +19,8 @@ const cn = classnames.bind(styles);
 
 const getType = type => {
     switch (type) {
-        case 1: return "매월";
-        case 2: return "격월";
-        case 3: return "매분기";
+        case 0: return "매월";
+        case 1: return "매주";
         default: return "매월";
     }
 }
@@ -36,14 +35,14 @@ const getWeek = week => {
 }
 const getDay = day => {
     switch (day) {
+        case 0: return "일요일";
         case 1: return "월요일";
         case 2: return "화요일";
         case 3: return "수요일";
         case 4: return "목요일";
         case 5: return "금요일";
         case 6: return "토요일";
-        case 7: return "일요일";
-        default: return "월요일";
+        default: return "일요일";
     }
 }
 
@@ -79,7 +78,6 @@ const OperationContainer = ({ mode }) => {
         reg_closed_flag, reg_type, reg_week, reg_day,
         tem_closed_flag, tem_start_date, tem_end_date
     } = operation; // 휴무일 데이터
-
 
     const [tem_start_year, tem_start_month, tem_start_day] = typeof tem_start_date === 'string'
         ? tem_start_date.split('-').map(line => parseInt(line)) : [1970, 1, 1];
@@ -300,29 +298,29 @@ const OperationContainer = ({ mode }) => {
                             >
                                 {updateForm ? <>
                                 <SelectBox
-                                    value={reg_type ? reg_type : 1}
-                                    handleChange={e => handleChange('reg_type', e.target.value)}
+                                    value={reg_type ? reg_type : 0}
+                                    handleChange={e => handleChange('reg_type', parseInt(e.target.value))}
                                     disabled={!reg_closed_flag}
-                                    list={Array.from({ length: 3 }).map((v, i) => i + 1)}
-                                    name={Array.from({ length: 3 }).map((v, i) => getType(i + 1))}
+                                    list={Array.from({ length: 2 }).map((v, i) => i)}
+                                    name={Array.from({ length: 2 }).map((v, i) => getType(i))}
                                 />
-                                <SelectBox
+                                {reg_type !== 1 && <SelectBox
                                     value={reg_week ? reg_week : 1}
-                                    handleChange={e => handleChange('reg_week', e.target.value)}
+                                    handleChange={e => handleChange('reg_week', parseInt(e.target.value))}
                                     disabled={!reg_closed_flag}
                                     list={Array.from({ length: 4 }).map((v, i) => i + 1)}
                                     name={Array.from({ length: 4 }).map((v, i) => getWeek(i + 1))}
-                                />
+                                />}
                                 <SelectBox
-                                    value={reg_day ? reg_day : 1}
-                                    handleChange={e => handleChange('reg_day', e.target.value)}
+                                    value={reg_day ? reg_day : 0}
+                                    handleChange={e => handleChange('reg_day', parseInt(e.target.value))}
                                     disabled={!reg_closed_flag}
-                                    list={Array.from({ length: 7 }).map((v, i) => i + 1)}
-                                    name={Array.from({ length: 7 }).map((v, i) => getDay(i + 1))}
+                                    list={Array.from({ length: 7 }).map((v, i) => i)}
+                                    name={Array.from({ length: 7 }).map((v, i) => getDay(i))}
                                 />
                                 </>: <>
                                 <p className={styles['reg-date']}>{getType(reg_type)}</p>
-                                <p className={styles['reg-date']}>{getWeek(reg_week)}</p>
+                                {reg_type !== 1 && <p className={styles['reg-date']}>{getWeek(reg_week)}</p>}
                                 <p className={styles['reg-date']}>{getDay(reg_day)}</p>
                                 </>}
                             </div>
