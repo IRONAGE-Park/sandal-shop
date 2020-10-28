@@ -160,7 +160,7 @@ const MobileTitleObject = {
 
 const MainPage = ({ location }) => {
     const reduxDispatch = useDispatch();
-    const { title, back } = MobileTitleObject[location.pathname] ? MobileTitleObject[location.pathname] : {};
+    const { title, back } = MobileTitleObject[location.pathname] ? MobileTitleObject[location.pathname] : { title: '오류 안내', back: 'goBack' };
 
     const user = useSelector(state => state.user);
     const [asideOpen, setAsideOpen] = useState(false);

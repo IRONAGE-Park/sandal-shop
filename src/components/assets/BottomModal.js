@@ -29,7 +29,6 @@ const BottomModal = ({ open, handleClose, dateRange, type, handleChange, handleC
                             />
                         </div>
                         <div className={styles['line']}></div>
-
                         <div className={styles['box']}>
                             <DatePicker
                                 minDate={start_date}

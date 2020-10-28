@@ -53,7 +53,7 @@ const MainTitle = ({ pathname }) => {
         페이지마다 변경되는 메인 페이지 상단 제목 컴포넌트.
         title을 props로 받아오면 그대로 렌더링해 줌.
     */
-   const title = MainTitleObject[pathname] ? MainTitleObject[pathname] : "";
+   const title = MainTitleObject[pathname] ? MainTitleObject[pathname] : "오류 안내";
     return (
         <div className={styles['title']}>
             <h2 className={styles['content']}>{title}</h2>

@@ -1,7 +1,6 @@
 @import '../../static/stylesheets/lib/mixin';
 @import '../../static/stylesheets/lib/variables';
 
-
 .bottom-modal {
     display: block;
     position: fixed;
@@ -88,27 +87,26 @@ html {
     }
 }
 
+.btn-box {
+    padding: 0 !important;
+    width: 100%;
+    height: 56px;
+    border: 1px solid red;
+    border-radius: 10px !important;
+    overflow: hidden;
 
-    .btn-box {
-        padding:0 !important;
+    .link-btn {
+        border-radius: 10px !important;
         width: 100%;
-        height: 56px;
-        border:1px solid red;
-        border-radius: 10px !important;
-        overflow: hidden;
-    
-        .link-btn{
-        border-radius: 10px !important;
-            width: 100%;
-            height: 50px;
-            display: flex;
-            box-sizing: border-box;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color:white;
-            font-size: 16px;
-            background-color: #007246;
-            transition: background-color .15s ease-in-out;
-        }
+        height: 50px;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+        background-color: #007246;
+        transition: background-color 0.15s ease-in-out;
     }
+}

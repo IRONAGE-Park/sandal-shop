@@ -15,9 +15,12 @@ const UPDATE_OPERATION_HOLI = 'operation/UPDATE_OPERATION_HOLI';
 const UPDATE_OPERATION_HOLI_SUCCESS = 'operation/UPDATE_OPERATION_HOLI_SUCCESS';
 const UPDATE_OPERATION_HOLI_FAILURE = 'operation/UPDATE_OPERATION_HOLI_FAILURE';
 
+const DELETE_OPERATION = 'operation/DELETE_OPERATION';
+
 export const getOperation = createAction(GET_OPERATION);
 export const updateOperationTime = createAction(UPDATE_OPERATION_TIME);
-export const updateOperationHoli = createAction(UPDATE_OPERATION_HOLI)
+export const updateOperationHoli = createAction(UPDATE_OPERATION_HOLI);
+export const deleteOperation = createAction(DELETE_OPERATION);
 
 function *getOperationSaga(action) {
     yield put(startLoading(GET_OPERATION));
@@ -126,7 +129,8 @@ const operation = handleActions(
         [UPDATE_OPERATION_HOLI_SUCCESS]: (state, action) => ({
             ...state,
             ...action.payload
-        })
+        }),
+        [DELETE_OPERATION]: (state, action) => initialState
     },
     initialState
 );

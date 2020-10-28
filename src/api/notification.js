@@ -24,6 +24,6 @@ const sample = {
     ],
 };
 
-export const requestNotice =()=>{
+export const requestNotice = () => {
     return sample;
-}
+};

@@ -2,10 +2,13 @@ import { createAction, handleActions } from 'redux-actions';
 import { calculateDate } from '../lib/calculateDate';
 
 const SET = 'date/SET';
+const DELETE = 'date/DELETE';
 
 export const dateSet = createAction(SET, (type, start_date, end_date) => ({
     type, start_date, end_date
 }));
+
+export const dateDelete = createAction(DELETE);
 
 const initialState = {
     // 주문 완료에서 사용할 일자
@@ -40,7 +43,8 @@ const date = handleActions(
                     start_date, end_date
                 }
             }
-        }
+        },
+        [DELETE]: (state, action) => initialState,
     },
     initialState
 );

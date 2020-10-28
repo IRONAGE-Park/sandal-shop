@@ -17,9 +17,12 @@ const UPDATE_MENU = 'menu/UPDATE_MENU';
 const UPDATE_MENU_SUCCESS = 'menu/UPDATE_MENU_SUCCESS';
 const UPDATE_MENU_FAILURE = 'menu/UPDATE_MENU_FAILURE';
 
+const DELETE_MENU = 'menu/DELETE_MENU';
+
 export const getCategories = createAction(GET_CATEGORIES);
 export const getMenuList = createAction(GET_MENULIST);
 export const updateMenu = createAction(UPDATE_MENU);
+export const deleteMenu = createAction(DELETE_MENU);
 
 function *getCategoriesSaga(action) {
     yield put(startLoading(GET_CATEGORIES));
@@ -141,7 +144,8 @@ const menu = handleActions(
                 ...state,
                 menus: newMenus
             }
-        }
+        },
+        [DELETE_MENU]: (state, action) => initialState
     },
     initialState
 )

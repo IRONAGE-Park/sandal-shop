@@ -65,11 +65,7 @@ const notice = handleActions(
             ...state,
             notice_check: action.payload,
         }),
-
-        [INIT]: (state, action) => ({
-            notification: [],
-            notice_check: false,
-        }),
+        [INIT]: (state, action) => initState,
     },
     initState,
 );

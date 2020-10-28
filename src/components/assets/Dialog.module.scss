@@ -3,7 +3,8 @@
 
 .dialog {
     position: fixed;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 
     width: 360px;
@@ -22,7 +23,8 @@
         visibility: visible;
     }
     .area {
-        width: 100%; height: 100%;
+        width: 100%;
+        height: 100%;
         border: solid 1px #dbdbdb;
         padding-bottom: 64px;
         @include mobile {
@@ -54,14 +56,17 @@
     .bottom {
         position: absolute;
         display: table;
-        left: 0; bottom: 0;
-        width: 100%; height: 64px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 64px;
         @include mobile {
             height: 54px;
         }
 
         .button {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             font-size: 1.5rem;
             border: solid 1px #dbdbdb;
             &.active {
