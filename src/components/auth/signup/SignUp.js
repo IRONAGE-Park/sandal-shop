@@ -1,5 +1,5 @@
 /* global daum */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames/bind';
 /* Library */
 
@@ -42,6 +42,10 @@ export default ({
 }) => {
     const openDialog = useDialog();
     const history = useHistory();
+
+    const emailInputRef = useRef(null);
+    const addressDetailInputRef = useRef(null);
+
     const [agreeTitle, setAgreeTitle] = useState(''); // 동의 모달
     const [emailOverlap, setEmailOverlap] = useState(false); // 이메일 중복 여부
     const [passwordCheck, setPasswordCheck] = useState(false); // 비밀번호/확인 일치 여부
@@ -49,7 +53,7 @@ export default ({
     const [allChecked, setAllChecked] = useState(false); // 전체 동의
     const [isAddressSearch, setIsAddressSearch] = useState(false); // 주소 검색을 한 적이 있으면 인풋 고정.
     const { addr, detail_addr, post_num } = addrState;
-    
+
     const onOpenModal = useCallback(title => {
         setAgreeTitle(title);
         history.push(Paths.auth.signup + '/agree');
@@ -81,6 +85,7 @@ export default ({
                             shop_lng: result[0].x
                         });
                     });
+                    addressDetailInputRef.current.focus();
                 } catch (e) {
                     openDialog('주소 검색에 실패했습니다.', '잠시 후에 다시 시도해 주세요.')
                 }
@@ -114,11 +119,12 @@ export default ({
                     openDialog(
                         '중복된 이메일입니다.',
                         '다른 이메일로 시도해 주세요.',
+                        () => emailInputRef.current.focus()
                     );
                 } else if (res.data.msg === '가맹점 계정이 아닙니다. 가맹점 계정으로 로그인 하시거나 가맹점 회원가입으로 새로 진행해주세요.') {
-                    openDialog("가맹점 계정이 아닙니다.", "유저 계정과 다른 새로운 가맹점 계정을 생성해 주세요.")
+                    openDialog("가맹점 계정이 아닙니다.", "유저 계정과 다른 새로운 가맹점 계정을 생성해 주세요.", () => emailInputRef.current.focus())
                 } else if (res.data.msg === '탈퇴한 이메일입니다.') {
-                    openDialog(res.data.msg, '다른 이메일로 시도해 주세요.');
+                    openDialog(res.data.msg, '다른 이메일로 시도해 주세요.', () => emailInputRef.current.focus());
                 } else {
                     openDialog(
                         '사용 가능한 이메일입니다.',
@@ -136,6 +142,7 @@ export default ({
             openDialog(
                 '잘못된 이메일 형식입니다.',
                 '이메일 형식을 확인해 주세요.',
+                () => emailInputRef.current.focus()
             );
         }
     }, [email, openDialog, setEmailOverlap]);
@@ -172,6 +179,7 @@ export default ({
                         handleChange={e => setShop(e.target.value)}
                         value={shop}
                         label="가맹점 명"
+                        autoFocus
                     />
                 </div>
             </div>
@@ -191,9 +199,17 @@ export default ({
                     <AuthInput
                         type="email"
                         name="email"
-                        handleChange={(e) => setEmail(e.target.value)}
+                        handleChange={e => setEmail(e.target.value)}
                         value={email}
                         label="이메일"
+                        reference={emailInputRef}
+                        onKeyDown={e => {
+                            if (e.key === 'Enter') {
+                                if (email !== '' && !emailOverlap) {
+                                    onClickEmailOverlapCheck();
+                                }
+                            }
+                        }}
                     >
                         <ButtonBase
                             className={cn('interaction', 'button', {
@@ -234,6 +250,11 @@ export default ({
                         value={addr}
                         label="가맹점 주소"
                         readOnly={isAddressSearch}
+                        onKeyDown={e => {
+                            if (e.key === 'Enter') {
+                                onSearchAddress();
+                            }
+                        }}
                     >
                         <ButtonBase
                             className={cn('interaction', 'button', 'small')}
@@ -249,6 +270,7 @@ export default ({
                         onChange={onChangeAddress}
                         value={detail_addr}
                         placeholder="상세 주소를 입력하세요."
+                        ref={addressDetailInputRef}
                     />
                 </div>
             </div>

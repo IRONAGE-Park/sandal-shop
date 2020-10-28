@@ -10,7 +10,8 @@ export const isCellPhoneForm = (asValue, hyphen = false) => {
 };
 
 export const isPasswordForm = (asValue) => {
-    const regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
+    // const regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
+    const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/; // 8자 이상 영문, 숫자, 특수문자 조합
 	return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
 };
 

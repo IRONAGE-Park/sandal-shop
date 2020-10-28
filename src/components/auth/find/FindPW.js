@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 /* Library */
 
 import { requestPOSTChangePW, requestPOSTFindPW } from '../../../api/auth';
@@ -15,10 +15,13 @@ import { useDialog } from '../../../hooks/useDialog';
 /* Hooks */
 
 import styles from './FindInput.module.scss';
+import { isPasswordForm } from '../../../lib/formatChecker';
 /* Stylesheets */
 
 export default ({ history }) => {
     const openDialog = useDialog();
+
+    const passwordInputRef = useRef(null);
 
     const [name, setName] = useState(''); // 유저 명
     const [email, setEmail] = useState(''); // 가맹점 명
@@ -42,12 +45,16 @@ export default ({ history }) => {
     }, [name, email, phone, history, openDialog]);
 
     const onClickChangePW = useCallback(async () => {
-        const { data: result } = await requestPOSTChangePW({ name, email, hp: phone, pw: newPassword, pw_C: newPassword })
-        if (result.msg === "성공") {
-            openDialog('비밀번호가 성공적으로 변경되었습니다!');
-            history.replace(Paths.auth.signin);
+        if (isPasswordForm(newPassword)) {
+            const { data: result } = await requestPOSTChangePW({ name, email, hp: phone, pw: newPassword, pw_c: newPassword })
+            if (result.msg === "성공") {
+                openDialog('비밀번호가 성공적으로 변경되었습니다!');
+                history.replace(Paths.auth.signin);
+            } else {
+                openDialog('Error!', 'Lost to Information.');
+            }
         } else {
-            openDialog('Error!', '');
+            openDialog("비밀번호 형식에 맞지 않습니다!", '8자 이상으로 문자, 숫자 및 특수문자가 모두 포함되어야 합니다.', () => passwordInputRef.current.focus());
         }
     }, [name, email, phone, newPassword, history, openDialog])
 
@@ -63,10 +70,10 @@ export default ({ history }) => {
                     비밀번호를 잊어버리지 않게 주의하세요!
                 </h4>
 
-                <PasswordAuth value={newPassword} handleChange={e => setNewPassword(e.target.value)} setSame={setPwSame} NEW />
+                <PasswordAuth value={newPassword} handleChange={e => setNewPassword(e.target.value)} setSame={setPwSame} NEW reference={passwordInputRef} />
                 <div className={styles['button']}>
                     <ConfirmButton
-                        handleClick={pwSame ? onClickChangePW : () => openDialog('정보를 똑바로 입력하세요.', '다시 입력하세요.')}
+                        handleClick={pwSame ? onClickChangePW : () => {}}
                         active={pwSame}
                     >
                         비밀번호 변경 후 로그인
@@ -86,6 +93,7 @@ export default ({ history }) => {
                         handleChange={(e) => setName(e.target.value)}
                         value={name}
                         label="이름"
+                        autoFocus
                     />
                 </div>
                 <div className={styles['domain']}>
@@ -104,7 +112,7 @@ export default ({ history }) => {
                     <ConfirmButton
                         handleClick={
                             name !== '' && email !== '' && phoneAuth
-                            ? onClickFindPW : () => openDialog('정보를 똑바로 입력하세요.', '다시 입력하세요.')
+                            ? onClickFindPW : () => {}
                         }
                         active={name !== '' && phoneAuth}
                     >

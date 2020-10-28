@@ -1,5 +1,5 @@
 /* global daum */
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import classnames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ import { useDialog } from '../../hooks/useDialog';
 import RemoveIcon from '../../components/svg/remove.svg';
 import { requestPUTUpdateAddress, requestPUTUpdateName, requestPUTUpdatePassword, requestPUTUpdatePhoneNumber, requestPUTUpdateShop } from '../../api/mypage';
 import { updateUser } from '../../store/user';
-import { isCellPhoneForm } from '../../lib/formatChecker';
+import { isCellPhoneForm, isPasswordForm } from '../../lib/formatChecker';
 import { requestPOSTCheckPhoneAuth, requestPOSTReceivePhoneAuth } from '../../api/auth';
 import { requestGETLocation } from '../../api/address';
 
@@ -73,11 +73,12 @@ const AccountPhoneInput = ({
     children,
     inputDisabled,
     buttonDisabled,
-    buttonEnabled
+    buttonEnabled,
+    reference
 }) => {
     return (
         <div className={styles['phone-box']}>
-            <input className={cn('input', 'normal', 'phone')} type="text" value={value} onChange={onChange} placeholder={placeholder} disabled={inputDisabled}/>
+            <input ref={reference} className={cn('input', 'normal', 'phone')} type="number" value={value} onChange={onChange} placeholder={placeholder} disabled={inputDisabled}/>
             <ButtonBase onClick={onClick} className={cn('phone-button', { enabled: buttonEnabled, disabled: buttonDisabled })} disabled={buttonDisabled} disableRipple={buttonDisabled}>
                 {buttonName}
             </ButtonBase>
@@ -102,6 +103,11 @@ const AccountContainer = ({ modal }) => {
         address: '', detailAddress: '',
         post_num: '', shop_lat: '', shop_lng: ''
     });
+
+    const passwordInputRef = useRef(null);
+    const phoneInputRef = useRef(null);
+    const authInputRef = useRef(null);
+    const addressDetailInputRef = useRef(null);
 
     const { phoneNumber, authNumber } = userState;
     const [passwordCheck, setPasswordCheck] = useState(false);
@@ -146,6 +152,7 @@ const AccountContainer = ({ modal }) => {
                             shop_lng: result[0].x
                         });
                     });
+                    addressDetailInputRef.current.focus();
                 } catch (e) {
                     openDialog('주소 검색에 실패했습니다.', '잠시 후에 다시 시도해 주세요.')
                 }
@@ -167,14 +174,14 @@ const AccountContainer = ({ modal }) => {
                 } else {
                     setTimer(3 * 60); // 3분
                     setAuthState(1); // 인증 메세지 보냄 상태로 변경
-                    openDialog('인증번호가 성공적으로 발송되었습니다!', '인증번호를 확인 후 입력해 주세요!');
+                    openDialog('인증번호가 성공적으로 발송되었습니다!', '인증번호를 확인 후 입력해 주세요!', () => authInputRef.current.focus());
                 }
             } catch (e) {
                 openDialog('잘못된 접근입니다.', '잠시 후 재시도 해주세요.');
                 history.replace(Paths.auth.index);
             }
         } else {
-            openDialog('휴대폰 형식에 맞지 않습니다!', '휴대폰 번호를 확인해 주세요.');
+            openDialog('휴대폰 형식에 맞지 않습니다!', '휴대폰 번호를 확인해 주세요.', () => phoneInputRef.current.focus());
         }
     }, [phoneNumber, openDialog, history]);
 
@@ -186,6 +193,7 @@ const AccountContainer = ({ modal }) => {
             () => {
                 setAuthState(0);
                 onAuthSend();
+                authInputRef.current.focus();
             }
         )
     , [openDialog, onAuthSend]);
@@ -201,7 +209,7 @@ const AccountContainer = ({ modal }) => {
             } else if (res.data.msg === '유효하지 않는 인중번호 입니다. 인증번호를 재발송 해주세요.') {
                 openDialog('유효하지 않는 인증번호입니다.', '인증번호를 재발송해 주세요.');
             } else {
-                openDialog('인증번호가 틀렸습니다!', '인증번호를 다시 한 번 확인해 주세요!');
+                openDialog('인증번호가 틀렸습니다!', '인증번호를 다시 한 번 확인해 주세요!', authInputRef.current.focus());
             }
         } catch (e) {
             openDialog('잘못된 접근입니다.', '잠시 후 재시도 해주세요.');
@@ -267,15 +275,19 @@ const AccountContainer = ({ modal }) => {
     const callUpdatePassword = useCallback(async () => {
         if (passwordCheck) {
             const { passwordOld, password, passwordConfirm } = userState;
-            try {
-                const res = await requestPUTUpdatePassword(USER_TOKEN, passwordOld, password, passwordConfirm);
-                if (res.data.msg === "성공") {
-                    openDialog("성공적으로 변경되었습니다!", "");
-                } else {
-                    openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
+            if (isPasswordForm(password)) {
+                try {
+                    const res = await requestPUTUpdatePassword(USER_TOKEN, passwordOld, password, passwordConfirm);
+                    if (res.data.msg === "성공") {
+                        openDialog("성공적으로 변경되었습니다!", "");
+                    } else {
+                        openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
+                    }
+                } catch (e) {
+                    openDialog('현재 비밀번호가 일치하지 않습니다.', '비밀번호를 다시 한 번 확인해 주세요.', () => passwordInputRef.current.focus());
                 }
-            } catch (e) {
-                openDialog('현재 비밀번호가 일치하지 않습니다.', '비밀번호를 다시 한 번 확인해 주세요.');
+            } else {
+                openDialog("비밀번호 형식에 맞지 않습니다!", '8자 이상으로 문자, 숫자 및 특수문자가 모두 포함되어야 합니다.', () => passwordInputRef.current.focus());
             }
         }
     }, [USER_TOKEN, userState, passwordCheck, openDialog]);
@@ -287,7 +299,6 @@ const AccountContainer = ({ modal }) => {
         if (address && detailAddress && post_num && shop_lat && shop_lng) {
             try {
                 const res = await requestPUTUpdateAddress(USER_TOKEN, post_num, address, detailAddress, shop_lat, shop_lng);
-                console.log(res);
                 if (res.data.msg === "성공") {
                     openDialog("성공적으로 변경되었습니다!", "");
                 } else {
@@ -426,12 +437,14 @@ const AccountContainer = ({ modal }) => {
                                 buttonName={authState === 0 ? '인증번호 발송' : authState === 1 ? "인증번호 재발송": "인증 완료"}
                                 onClick={authState === 0 ? onAuthSend : authState === 1 ? onAuthReSend : () => {}}
                                 buttonEnabled={userState.phoneNumber.length !== 0}
+                                reference={phoneInputRef}
                             />
                             <AccountPhoneInput
                                 value={userState.authNumber}
                                 onChange={onChangeAuthNumber}
                                 onClick={authState === 1 ? onAuthCheck : () => {}}
                                 buttonName={'인증하기'}
+                                reference={authInputRef}
                             >
                                 {authState === 1 && <Timer timer={timer} setTimer={setTimer} setAuthState={setAuthState} />}
                             </AccountPhoneInput>
@@ -456,6 +469,7 @@ const AccountContainer = ({ modal }) => {
                                         onChange={onChangeAddress}
                                         value={userState.address}
                                         onKeyDown={e => onKeyDown(e, onSearchAddress)}
+                                        
                                     />
                                 </div>
                                 <div className={cn('address-area', 'b')}>
@@ -475,6 +489,7 @@ const AccountContainer = ({ modal }) => {
                                     onKeyDown={e => onKeyDown(e, callUpdateAddress)}
                                     value={userState.detailAddress}
                                     placeholder="상세 주소를 입력하세요."
+                                    ref={addressDetailInputRef}
                                 />
                             </div>
                         </div>

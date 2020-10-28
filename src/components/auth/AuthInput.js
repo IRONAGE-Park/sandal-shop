@@ -7,7 +7,7 @@ import styles from "./AuthInput.module.scss";
 
 const cn = classnames.bind(styles);
 
-export default ({ type, name, handleChange, value, label, responseLabel, children, readOnly, disabled, onKeyDown }) => {
+export default ({ type, name, handleChange, value, label, responseLabel, children, readOnly, disabled, onKeyDown, autoFocus, reference }) => {
     return (
         <div className={cn('input-area')}>
             {!responseLabel && <p className={cn('label', 'mobile')}>{label}</p>}
@@ -20,6 +20,8 @@ export default ({ type, name, handleChange, value, label, responseLabel, childre
                 readOnly={readOnly}
                 onKeyDown={onKeyDown}
                 disabled={disabled}
+                autoFocus={autoFocus}
+                ref={reference}
             />
             <input
                 type={type}

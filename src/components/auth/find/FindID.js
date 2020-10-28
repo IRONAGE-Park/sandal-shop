@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import classnames from 'classnames/bind';
 /* Library */
 
@@ -23,6 +23,8 @@ const cn = classnames.bind(styles);
 export default ({ history }) => {
     const openDialog = useDialog();
 
+    const nameInputRef = useRef(null);
+
     const [name, setName] = useState(''); // 유저 명
     const [phone, setPhone] = useState(''); // 휴대폰 번호
     const [phoneAuth, setPhoneAuth] = useState(false); // 휴대폰 인증 여부
@@ -36,7 +38,7 @@ export default ({ history }) => {
             setEmail(query.user.email);
             history.push(`${Paths.auth.find.id}/complete`);
         } else {
-            openDialog(msg, '정보를 다시 확인해 주세요.');
+            openDialog(msg, '정보를 다시 확인해 주세요.', () => nameInputRef.current.focus());
         }
     }, [name, phone, history, openDialog]);
 
@@ -56,6 +58,8 @@ export default ({ history }) => {
                         handleChange={(e) => setName(e.target.value)}
                         value={name}
                         label="이름"
+                        autoFocus
+                        reference={nameInputRef}
                     />
                 </div>
                 <div className={styles['domain']}>
@@ -63,7 +67,7 @@ export default ({ history }) => {
                 </div>
                 <div className={styles['content']}>
                     <ConfirmButton
-                        handleClick={name !== '' && phoneAuth ? onClickFindID : () => openDialog('정보를 똑바로 입력하세요.', '다시 입력하세요.')}
+                        handleClick={name !== '' && phoneAuth ? onClickFindID : () => {}}
                         active={name !== '' && phoneAuth}
                     >
                         확인

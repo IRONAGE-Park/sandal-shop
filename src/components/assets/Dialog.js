@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import classnames from 'classnames/bind';
 import { makeStyles } from '@material-ui/core/styles';
 /* Library */
@@ -30,6 +30,23 @@ export default ({ confirm, title, text, handleClick = () => {}, open }) => {
         handleClick();
         onClose();
     }, [handleClick, onClose]);
+
+    const onKeyDown = useCallback(e => {
+        if (open) {
+            if (e.key === 'Enter') {
+                onClick();
+            } else if (e.key === 'Escape') {
+                onClose();
+            }
+            e.stopPropagation();
+        }
+    }, [onClick, onClose, open]);
+
+    useEffect(() => {
+        document.addEventListener('keydown', onKeyDown, true);
+        return () => document.removeEventListener('keydown', onKeyDown, true);
+    }, [onKeyDown]);
+
 
     return (
         <>

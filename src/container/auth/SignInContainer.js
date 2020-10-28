@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames/bind';
 /* Library */
@@ -33,6 +33,9 @@ const getLocalSaveEmail = () => {
 
 export default ({ history }) => {
     const openDialog = useDialog();
+
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const [inputState, inputDispatch] = useReducer(inputReducer, {
         email: getLocalSaveEmail(), pw: ''
@@ -69,34 +72,40 @@ export default ({ history }) => {
     const onChangeInput = useCallback(e => inputDispatch(e.target), []);
     const onClickLogin = useCallback(async () => {
         const { email, pw: password } = inputState;
-        const result = await requestPOSTLogin({ email, password });
-        if (result.status === 200) {
-            if (result.data.msg === "회원가입 되어있지 않은 이메일입니다.") {
-                // 회원가입 안되있는 이메일
-                openDialog(result.data.msg, "이메일과 비밀번호를 확인해 주세요.");
-            } else if (result.data.msg === "비밀번호가 틀렸습니다.") {
-                // 비밀번호가 틀렸을 때
-                openDialog(result.data.msg, "비밀번호를 확인해 주세요.");
-            } else if (result.data.access_token) {
-                // 로그인 성공 했을 때.
-                LoginOs(result.data.access_token); // 푸쉬 토큰 보냄
-
-                sessionStorage.setItem('user_token', result.data.access_token);
-                if (saveEmail) {
-                    // 이메일 저장하기를 했을 때,
-                    localStorage.setItem('save_email', email); // 로컬 스토리지에 이메일을 추가함
-                } else {
-                    // 이메일 저장하기를 안 했을 때,
-                    localStorage.removeItem('save_email'); // 로컬 스토리지에 저장된 이메일을 삭제함
-                }
-                history.push(Paths.main.index);
-            } else {
-                openDialog("가맹점 계정이 아닙니다.", "가맹점 계정으로 로그인 하시거나 가맹점 회원가입으로 새로 진행해 주세요.");
-            }
+        if (email === '') {
+            openDialog("이메일을 입력해 주세요.", "", () => emailRef.current.focus());
+        } else if (password === '') {
+            openDialog("비밀번호를 입력해 주세요.", "", () => passwordRef.current.focus());
         } else {
-            openDialog("정보가 일치하지 않습니다.", "이메일과 비밀번호를 확인해 주세요.");
+            const result = await requestPOSTLogin({ email, password });
+            if (result.status === 200) {
+                if (result.data.msg === "회원가입 되어있지 않은 이메일입니다.") {
+                    // 회원가입 안되있는 이메일
+                    openDialog(result.data.msg, "이메일과 비밀번호를 확인해 주세요.", () => emailRef.current.focus());
+                } else if (result.data.msg === "비밀번호가 틀렸습니다.") {
+                    // 비밀번호가 틀렸을 때
+                    openDialog(result.data.msg, "비밀번호를 확인해 주세요.", () => passwordRef.current.focus());
+                } else if (result.data.access_token) {
+                    // 로그인 성공 했을 때.
+                    LoginOs(result.data.access_token); // 푸쉬 토큰 보냄
+    
+                    sessionStorage.setItem('user_token', result.data.access_token);
+                    if (saveEmail) {
+                        // 이메일 저장하기를 했을 때,
+                        localStorage.setItem('save_email', email); // 로컬 스토리지에 이메일을 추가함
+                    } else {
+                        // 이메일 저장하기를 안 했을 때,
+                        localStorage.removeItem('save_email'); // 로컬 스토리지에 저장된 이메일을 삭제함
+                    }
+                    history.push(Paths.main.index);
+                } else {
+                    openDialog("가맹점 계정이 아닙니다.", "가맹점 계정으로 로그인 하시거나 가맹점 회원가입으로 새로 진행해 주세요.", () => emailRef.current.focus());
+                }
+            } else {
+                openDialog("정보가 일치하지 않습니다.", "이메일과 비밀번호를 확인해 주세요.", () => emailRef.current.focus());
+            }
         }
-    }, [inputState, saveEmail, LoginOs, openDialog, history]);
+    }, [inputState, saveEmail, LoginOs, openDialog, history, emailRef, passwordRef]);
 
     return (
         <div className={styles['signin']}>
@@ -109,19 +118,27 @@ export default ({ history }) => {
                                 name="email"
                                 handleChange={onChangeInput}
                                 value={inputState.email}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        onClickLogin();
+                                    }
+                                }}
                                 label="이메일"
+                                reference={emailRef}
+                                autoFocus
                             />
                             <AuthInput
                                 type="password"
                                 name="pw"
                                 handleChange={onChangeInput}
                                 value={inputState.pw}
-                                onKeyDown={(e) => {
+                                onKeyDown={e => {
                                     if (e.key === 'Enter') {
                                         onClickLogin();
                                     }
                                 }}
                                 label="비밀번호"
+                                reference={passwordRef}
                             />
                         </div>
                         <div className={styles['sub']}>

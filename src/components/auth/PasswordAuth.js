@@ -16,7 +16,7 @@ const cn = classnames.bind(styles);
 const SAME_TEXT = '비밀번호가 일치합니다.';
 const DIFF_TEXT = '비밀번호가 일치하지 않습니다.';
 
-export default ({ value, handleChange, setSame, NEW }) => {
+export default ({ value, handleChange, setSame, reference, NEW }) => {
 
     const [firstState, dispatch] = useReducer(inputReducer, {
         pw: '', pw_chk: ''
@@ -53,6 +53,7 @@ export default ({ value, handleChange, setSame, NEW }) => {
                 handleChange={e => onChange(e, handleChange)}
                 value={value}
                 label={NEW ? "새 비밀번호" : "비밀번호"}
+                reference={reference}
             />
             <AuthInput
                 type="password"

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import classnames from 'classnames/bind';
 import { useHistory } from 'react-router-dom';
 /* Library */
@@ -54,6 +54,8 @@ export default ({ phone: phoneNumber, setPhone: setPhoneNumber, setAuth }) => {
     const [authNumber, setAuthNumber] = useState(''); // 인증번호
     const [timer, setTimer] = useState(0); // 인증 시간(180 초)
 
+    const phoneInputRef = useRef(null);
+    const authInputRef = useRef(null);
     
     const onAuthSend = useCallback(async () => {
         /* 인증번호 발송 버튼을 누름 */
@@ -65,14 +67,14 @@ export default ({ phone: phoneNumber, setPhone: setPhoneNumber, setAuth }) => {
                 } else {
                     setTimer(3 * 60); // 3분
                     setAuthState(1); // 인증 메세지 보냄 상태로 변경
-                    openDialog('인증번호가 성공적으로 발송되었습니다!', '인증번호를 확인 후 입력해 주세요!');
+                    openDialog('인증번호가 성공적으로 발송되었습니다!', '인증번호를 확인 후 입력해 주세요!', () => authInputRef.current.focus());
                 }
             } catch (e) {
                 openDialog('잘못된 접근입니다.', '잠시 후 재시도 해주세요.');
                 history.replace(Paths.auth.index);
             }
         } else {
-            openDialog('휴대폰 형식에 맞지 않습니다!', '휴대폰 번호를 확인해 주세요.');
+            openDialog('휴대폰 형식에 맞지 않습니다!', '휴대폰 번호를 확인해 주세요.', () => phoneInputRef.current.focus());
         }
     }, [phoneNumber, openDialog, history]);
 
@@ -84,6 +86,7 @@ export default ({ phone: phoneNumber, setPhone: setPhoneNumber, setAuth }) => {
             () => {
                 setAuthState(0);
                 onAuthSend();
+                authInputRef.current.focus();
             }
         )
     , [openDialog, onAuthSend]);
@@ -99,7 +102,7 @@ export default ({ phone: phoneNumber, setPhone: setPhoneNumber, setAuth }) => {
             } else if (res.data.msg === '유효하지 않는 인중번호 입니다. 인증번호를 재발송 해주세요.') {
                 openDialog('유효하지 않는 인증번호입니다.', '인증번호를 재발송해 주세요.');
             } else {
-                openDialog('인증번호가 틀렸습니다!', '인증번호를 다시 한 번 확인해 주세요!');
+                openDialog('인증번호가 틀렸습니다!', '인증번호를 다시 한 번 확인해 주세요!', () => authInputRef.current.focus());
             }
         } catch (e) {
             openDialog('잘못된 접근입니다.', '잠시 후 재시도 해주세요.');
@@ -110,12 +113,13 @@ export default ({ phone: phoneNumber, setPhone: setPhoneNumber, setAuth }) => {
     return (
         <div className={styles['phone-auth']}>
             <AuthInput
-                type="text"
+                type="number"
                 name="phone"
                 handleChange={e => setPhoneNumber(e.target.value)}
                 disabled={authState === 2}
                 value={phoneNumber}
                 label="휴대폰 번호 인증"
+                reference={phoneInputRef}
             >
                 <ButtonBase
                     className={cn('interaction', { active: authState })}
@@ -127,11 +131,12 @@ export default ({ phone: phoneNumber, setPhone: setPhoneNumber, setAuth }) => {
             </AuthInput>
             <div className={cn('auth', { view: authState === 1})}>
                 <AuthInput
-                    type="text"
+                    type="number"
                     name="phone_auth"
                     handleChange={e => setAuthNumber(e.target.value)}
                     value={authNumber}
                     disabled={authState !== 1}
+                    reference={authInputRef}
                 >
                     <ButtonBase
                         className={cn('interaction', { disable: authState !== 1 })}
