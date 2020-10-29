@@ -3,6 +3,10 @@
 
 .container {
     @include container;
+    @include mobile {
+        padding-top: 10px;
+        background-color: $color-f9f9f9;
+    }
     .content {
         .area {
             padding: 40px 0;
@@ -168,6 +172,11 @@
                     color: $color-999;
                     font-size: $desktop16px;
                     font-weight: 500;
+                    transition: all .15s ease-in-out;
+                    &:hover {
+                        color: $color-222;
+                        font-weight: bold;
+                    }
                     @include mobile {
                         display: none;
                     }
@@ -198,16 +207,17 @@
                 font-size: $desktop16px;
                 color: $color-333;
                 border: solid 1px $color-dbdbdb;
+                transition: all .15s ease-in-out;
+                &:hover {
+                    transform: scale(1.02);
+                    box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.05);
+                    border-color: transparent;
+                }
             }
             @include mobile {
                 display: none;
             }
         }
-    }
-    @include mobile {
-        padding-top: 40px;
-        height: 100vh;
-        background-color: $color-f9f9f9;
     }
 }
 

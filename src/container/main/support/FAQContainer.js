@@ -8,16 +8,7 @@ import Direction from '../../../components/svg/Direction';
 
 const cn = classnames.bind(styles);
 
-const type_categories = [
-    "회원가입",
-    "쿠폰",
-    "결제",
-    "포인트",
-    "배달",
-    "문구서비스"
-];
-
-const FAQContainer = ({ faqList, faqType, setFaqType }) => {
+const FAQContainer = ({ faqList, faqType }) => {
 
     const [selectedItem, setSelectedItem] = useState(-1);
 
@@ -31,20 +22,6 @@ const FAQContainer = ({ faqList, faqType, setFaqType }) => {
 
     return (
         <>
-            <div className={styles['m-label']}>자주 묻는 질문</div>
-            <div className={styles['m-selector']}>
-                <select value={faqType} onChange={e => setFaqType(e.target.value)}>
-                    {type_categories.map(type => <option key={type} value={type}>{type}</option>)}
-                </select>
-            </div>
-            <div className={styles['sub-tab']}>
-                <div className={styles['wrap']}>
-                    {type_categories.map(type =>
-                    <p className={cn('selector', { selected: type === faqType })}
-                    key={type}
-                    onClick={() => setFaqType(type)}>{type}</p>)}
-                </div>
-            </div>
             <div className={styles['content']}>
                 <div className={styles['m-label']}>{faqType}</div>
                 <div className={styles['table']}>

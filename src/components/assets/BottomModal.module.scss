@@ -25,7 +25,7 @@
     }
     .table {
         .title {
-            font-size: 16px;
+            font-size: $desktop18px;
             margin-bottom: 10px;
         }
         .month-cell {
@@ -42,7 +42,7 @@
                 justify-content: center;
                 align-items: center;
                 border: 1px solid #dbdbdb;
-                font-size: 16px;
+                font-size: $desktop16px;
                 &:first-child {
                     border-bottom-left-radius: 10px;
                     border-top-left-radius: 10px;
@@ -105,7 +105,7 @@ html {
         justify-content: center;
         align-items: center;
         color: white;
-        font-size: 16px;
+        font-size: $desktop18px;
         background-color: #007246;
         transition: background-color 0.15s ease-in-out;
     }

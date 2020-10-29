@@ -8,7 +8,7 @@
     padding-right: 24px;
     color: $color-222;
     font-size: $desktop16px;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     &.disabled {
         color: $color-999;
     }
@@ -17,9 +17,6 @@
     }
     @include mobile {
         height: 40px;
-        padding :0;
-        padding-left: 2%;
-        padding-right: 5%;
         color: $color-555;
         & + & {
             margin-left: 16px;
@@ -31,4 +28,3 @@
         }
     }
 }
-

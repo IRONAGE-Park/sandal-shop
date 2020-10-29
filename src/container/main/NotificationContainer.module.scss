@@ -1,30 +1,28 @@
 @import '../../static/stylesheets/lib/variables';
 @import '../../static/stylesheets/lib/mixin';
 
-.container{
+.container {
     @include container;
-    position: relative;        
+    position: relative;
     @include mobile {
-        padding-top:0;
-   
+        padding-top: 0;
     }
-
 }
-html{
-    body{
-        .read-btn{
+html {
+    body {
+        .read-btn {
             display: none;
             position: fixed;
-            top: 0; right: 12px;
-            width: 40px; height: 40px;
+            top: 0;
+            right: 12px;
+            width: 40px;
+            height: 40px;
             padding: 0;
             z-index: 2500;
             font-size: $desktop14px;
-            @include mobile{
+            @include mobile {
                 display: block;
-
             }
-       
         }
     }
 }

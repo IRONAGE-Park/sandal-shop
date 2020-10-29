@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import styles from './Notification.module.scss';
+import styles from './NotificationContainer.module.scss';
 import cn from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 

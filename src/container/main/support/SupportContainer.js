@@ -110,7 +110,7 @@ const SupportContainer = ({ mode, modal, id }) => {
     }, [index, modal, callGETFAQ]);
     
     return (
-        <div className={styles['container']}>
+        <div className={cn('container', { no_tab: id })}>
             <div className={cn('tab', { only_mobile: id })}>
                 <CustomTabs
                     idx={index}
@@ -122,6 +122,22 @@ const SupportContainer = ({ mode, modal, id }) => {
                     onChange={(e, path) => history.push(Paths.main.support + '/' + getPaths[path])}
                 />
             </div>
+            {index === 1 && <>
+            <div className={styles['m-label']}>자주 묻는 질문</div>
+            <div className={styles['m-selector']}>
+                <select value={faqType} onChange={e => setFaqType(e.target.value)}>
+                    {getFaqTypeIndex.map(type => <option key={type} value={type}>{type}</option>)}
+                </select>
+            </div>
+            <div className={styles['sub-tab']}>
+                <div className={styles['wrap']}>
+                    {getFaqTypeIndex.map(type =>
+                    <p className={cn('selector', { selected: type === faqType })}
+                    key={type}
+                    onClick={() => setFaqType(type)}>{type}</p>)}
+                </div>
+            </div>
+            </>}
             {!loading && <>
                {modal === 'view' ? <NoticeDetailContainer viewId={id} />
                : index === 0 ? <NoticeContainer noticeList={noticeList} />

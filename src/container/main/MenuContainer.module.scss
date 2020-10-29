@@ -6,4 +6,10 @@
     .tab {
         @include tab;
     }
+    .content {
+        @include mobile {
+            min-height: 100%;
+            padding-bottom: 20px;
+        }
+    }
 }

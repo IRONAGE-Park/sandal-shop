@@ -219,14 +219,12 @@ const AccountContainer = ({ modal }) => {
 
     const callUpdateShop = useCallback(async () => {
         const { shop_name } = userState;
-        if (shop_name) {
+        if (user.shop_name !== shop_name) {
             try {
                 const res = await requestPUTUpdateShop(USER_TOKEN, shop_name);
                 if (res.data.msg === "성공") {
                     openDialog("성공적으로 변경되었습니다!", '');
                     reduxDispatch(updateUser('shop_name', shop_name));
-                } else {
-                    openDialog('잘못된 접근입니다.', '잠시 후 다시 시도해 주세요.');
                 }
             } catch (e) {
                 openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
@@ -242,8 +240,6 @@ const AccountContainer = ({ modal }) => {
                 if (res.data.msg === "성공") {
                     openDialog("성공적으로 변경되었습니다!", "");
                     reduxDispatch(updateUser('name', name));
-                } else {
-                    openDialog('잘못된 접근입니다.', '잠시 후 다시 시도해 주세요.');
                 }
             } catch (e) {
                 openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
@@ -260,8 +256,6 @@ const AccountContainer = ({ modal }) => {
                     if (res.data.msg === "성공") {
                         openDialog("성공적으로 변경되었습니다!", "");
                         reduxDispatch(updateUser('hp', phoneNumber));
-                    } else {
-                        openDialog('잘못된 접근입니다.', '잠시 후 다시 시도해 주세요.');
                     }
                 } catch (e) {
                     openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
@@ -280,8 +274,6 @@ const AccountContainer = ({ modal }) => {
                     const res = await requestPUTUpdatePassword(USER_TOKEN, passwordOld, password, passwordConfirm);
                     if (res.data.msg === "성공") {
                         openDialog("성공적으로 변경되었습니다!", "");
-                    } else {
-                        openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
                     }
                 } catch (e) {
                     openDialog('현재 비밀번호가 일치하지 않습니다.', '비밀번호를 다시 한 번 확인해 주세요.', () => passwordInputRef.current.focus());
@@ -301,14 +293,10 @@ const AccountContainer = ({ modal }) => {
                 const res = await requestPUTUpdateAddress(USER_TOKEN, post_num, address, detailAddress, shop_lat, shop_lng);
                 if (res.data.msg === "성공") {
                     openDialog("성공적으로 변경되었습니다!", "");
-                } else {
-                    openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
                 }
             } catch (e) {
                 openDialog('내 정보 변경 도중 오류가 발생했습니다.', '잠시 후 다시 시도해 주세요.');
             }
-        } else {
-            openDialog("주소가 검색되지 않았습니다.");
         }
     }, [userState, USER_TOKEN, openDialog]);
     const onClickUpdate = useCallback(async () => {

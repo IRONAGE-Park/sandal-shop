@@ -3,6 +3,11 @@
 
 .container {
     @include container;
+    @include mobile {
+        &.no_tab {
+            padding-top: 0;
+        }
+    }
     .tab {
         @include tab;
         &.only_mobile {
@@ -56,7 +61,7 @@
                 display: inline-block;
                 transition: all .15s ease-in-out;
                 cursor: pointer;
-                &.selected {
+                &:hover, &.selected {
                     font-weight: bold;
                     color: $desktop-main-color;
                 }
@@ -68,14 +73,14 @@
         margin-top: 80px;
         @include mobile {
             margin-top: 0;
-            height: 100%;
         }
         
         .write-area {
             text-align: right;
             margin-bottom: 20px;
             @include mobile {
-                position: absolute;
+                position: fixed;
+                background-color: #fff;
                 bottom: 60px; right: 24px;
                 margin-bottom: 0;
                 z-index: 1500;
@@ -112,7 +117,6 @@
             border-bottom: solid 1px $color-ebebeb;
             @include mobile {
                 border-top: solid 1px $color-ebebeb;
-                height: 100%;
             }
             .header {
                 display: table;
@@ -147,7 +151,7 @@
             .body {
                 position: relative;
                 @include mobile {
-                    height: 100%;
+                    padding-bottom: 20px;
                 }
                 .item {
                     display: table;
