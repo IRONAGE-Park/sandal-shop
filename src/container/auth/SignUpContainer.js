@@ -14,6 +14,7 @@ import styles from './SignUp.module.scss';
 
 import Paths from '../../paths';
 import { requestPOSTRegist } from '../../api/auth';
+import { isPasswordForm } from '../../lib/formatChecker';
 /* Paths */
 
 const reducer = (state, action) => ({
@@ -42,24 +43,28 @@ export default ({ history, match }) => {
     const onClickSignUpConfirm = useCallback(async () => {
         /* 가입하기 버튼을 누르면 가입 요청을 보내는 함수. */
         if (activeConfirm) {
-            try {
-                const res = await requestPOSTRegist({
-                    email, name: name, shop_hp: phone,
-                    password: password, password_confirm: password,
-                    shop_name: shop, shop_post_num: post_num,
-                    shop_addr1: addr, shop_addr2: detail_addr, shop_extra: '',
-                    shop_lat, shop_lng
-                });
-                if (res.data.user) {
-                    setComplete(true); // 가입 성공.
-                    history.push(`${Paths.auth.signup}/complete`);
-                } else if (res.data.msg === "이미 존재하는 이메일 주소이거나 소비자용 계정으로 가입을 시도하셔서 실패하셨습니다.") {
-                    openDialog("이미 존재하는 계정입니다.", "가입하셨거나 소비자용 계정이 아닌지 확인해 주세요.");
-                } else {
-                    openDialog("가입할 수 없는 계정입니다.", "계정 정보를 다시 한 번 확인해 주세요.");
-                }
-            } catch (e) {
-                openDialog("서버에 오류가 발생하였습니다", "잠시 후 다시 시도해 주세요.")
+            if (isPasswordForm(password)) {
+                try {
+                    const res = await requestPOSTRegist({
+                        email, name: name, shop_hp: phone,
+                        password: password, password_confirm: password,
+                        shop_name: shop, shop_post_num: post_num,
+                        shop_addr1: addr, shop_addr2: detail_addr, shop_extra: '',
+                        shop_lat, shop_lng
+                    });
+                    if (res.data.user) {
+                        setComplete(true); // 가입 성공.
+                        history.push(`${Paths.auth.signup}/complete`);
+                    } else if (res.data.msg === "이미 존재하는 이메일 주소이거나 소비자용 계정으로 가입을 시도하셔서 실패하셨습니다.") {
+                        openDialog("이미 존재하는 계정입니다.", "가입하셨거나 소비자용 계정이 아닌지 확인해 주세요.");
+                    } else {
+                        openDialog("가입할 수 없는 계정입니다.", "계정 정보를 다시 한 번 확인해 주세요.");
+                    }
+                } catch (e) {
+                    openDialog("서버에 오류가 발생하였습니다", "잠시 후 다시 시도해 주세요.")
+                } 
+            } else {
+                openDialog("비밀번호 형식에 맞지 않습니다!", '8자 이상으로 문자, 숫자 및 특수문자가 모두 포함되어야 합니다.');
             }
         } else {
             /* confirm 버튼이 active가 되지 않았을 때 알림 창 킴. */

@@ -40,9 +40,8 @@ import Hamburger from '../components/svg/mobile_hamburger.svg';
 import Paths from '../paths';
 /* Paths */
 
+import { requestNotice } from '../api/notification';
 /* api */
-
-import {requestNotice} from '../api/notification';
 
 
 const { main } = Paths;
