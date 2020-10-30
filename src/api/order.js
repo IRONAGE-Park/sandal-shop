@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { dateToYYYYMMDDHHMMSS } from '../lib/formatter';
 /* Library */
 
 import Paths from '../paths';
@@ -39,8 +40,8 @@ export const requestGETOrderListComplete = async (JWT_TOKEN, s_date, e_date) => 
     end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
-            start_date,
-            end_date
+            start_date: dateToYYYYMMDDHHMMSS(start_date),
+            end_date: dateToYYYYMMDDHHMMSS(end_date)
         }
     });
     return res;
@@ -63,7 +64,8 @@ export const requestGETOrderListCancel = async (JWT_TOKEN, s_date, e_date) => {
     end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
-            start_date, end_date
+            start_date: dateToYYYYMMDDHHMMSS(start_date),
+            end_date: dateToYYYYMMDDHHMMSS(end_date)
         }
     });
     return res;

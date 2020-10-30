@@ -67,6 +67,8 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                 const result = await requestPUTOrderDeliveryQuick(JWT_TOKEN, order_id);
                 if (result.data.msg === '주문승인 완료') {
                     openDialog('성공적으로 퀵커스를 요청하였습니다.', '');
+                } else if (result.data.msg === '퀵커스 API 호출 실패. 퀵커스 측 문의 요망') {
+                    openDialog('퀵커스 호출 실패!', '퀵커스 측에 문의해 주세요.');
                 }
             } catch (e) {
                 openDialog("서버에 오류가 발생했습니다.", "잠시 후 다시 시도해 주세요.");
@@ -106,12 +108,8 @@ const OrderDetailContainer = ({ order_id, modal }) => {
             setLoading(true);
             try {
                 const result = await requestPUTOrderDeliveryDirectMessage(JWT_TOKEN, order_id);
-                if (result.data.msg === '주문승인 완료') {
-                    openDialog('고객님께 안전하게 전달하였습니다!', '');
-                    setOrderData({
-                        ...orderData,
-                        od_status: 'delivery_complete'
-                    });
+                if (result.data.msg === '주문승인 완료') {
+                    openDialog('고객님께 문자를 전송했습니다.', '');
                 }
             } catch (e) {
                 openDialog("서버에 오류가 발생했습니다.", "잠시 후 다시 시도해 주세요.");
