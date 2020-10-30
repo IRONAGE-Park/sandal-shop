@@ -184,9 +184,9 @@ const MainPage = ({ location }) => {
         if (scrollTop < 40) {
             reduxDispatch(setHeader(false));
         } else {
-            if (delta > 15) {
+            if (delta > 10) {
                 reduxDispatch(setHeader(false));
-            } else if (delta < -25) {
+            } else if (delta < -20) {
                 reduxDispatch(setHeader(true));
             }
         }
