@@ -63,6 +63,7 @@ const OperationContainer = ({ mode }) => {
     const history = useHistory();
     const reduxDispatch = useDispatch();
     const redux_operation = useSelector(state => state.operation);
+    const { close } = useSelector(state => state.header); // 헤더를 열고 닫기 위한 객체.
 
     const updateForm = mode.indexOf('update') !== -1; // 수정 상태인지 확인
     const displayMode = mode.indexOf('time') !== -1 ? 'time' : 'holi'; // 현재 보여질 뷰(영업시간, 휴무일)
@@ -169,7 +170,7 @@ const OperationContainer = ({ mode }) => {
 
     return (
         <div className={cn('container', { updateForm })}>
-            <div className={cn('tab')}>
+            <div className={cn('tab', { close })}>
                 <CustomTabs
                     idx={displayMode === 'time' ? 0 : 1}
                     categories={[{ ca_name: '영업시간' }, { ca_name: '휴무일' }]}

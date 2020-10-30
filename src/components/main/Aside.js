@@ -84,9 +84,7 @@ const Aside = ({ open, setOpen }) => {
         { name: '메뉴 관리', href: Paths.main.menu },
         { name: '주문 목록', href: Paths.main.order },
         { name: '배달 매출 현황', href: Paths.main.calculate },
-        { name: '공지사항', href: Paths.main.support + '/notice' },
-        { name: '자주 묻는 질문', href: Paths.main.support + '/faq' },
-        { name: '1:1 문의', href: Paths.main.support + '/qna' },
+        { name: '고객센터', href: Paths.main.support },
         { name: '약관 및 정책', href: Paths.main.policy },
     ]);
 

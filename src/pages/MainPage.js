@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 /* Library */
 
@@ -7,9 +7,9 @@ import { isEmpty } from '../lib/formatChecker';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../store/user';
+import { setHeader } from '../store/header';
 import {
     get_notice,
-//     read_check
 } from '../store/notice';
 /* Redux */
 
@@ -157,12 +157,16 @@ const MobileTitleObject = {
     CRUD 할 수 있게 함.
 */
 
+let prevHeight = 0;
+
 const MainPage = ({ location }) => {
     const reduxDispatch = useDispatch();
     const { title, back } = MobileTitleObject[location.pathname] ? MobileTitleObject[location.pathname] : { title: '오류 안내', back: 'goBack' };
 
     const user = useSelector(state => state.user);
     const [asideOpen, setAsideOpen] = useState(false);
+
+    const mainRef = useRef(null);
 
     const callNoticeApi = useCallback(async () => {
         try {
@@ -172,6 +176,21 @@ const MainPage = ({ location }) => {
         catch (e) {
             alert(e);
         }
+    }, [reduxDispatch]);
+
+    const onScrollEvent = useCallback(e => {
+        const { scrollTop } = e.target;
+        const delta = prevHeight - scrollTop;
+        if (scrollTop < 40) {
+            reduxDispatch(setHeader(false));
+        } else {
+            if (delta > 15) {
+                reduxDispatch(setHeader(false));
+            } else if (delta < -25) {
+                reduxDispatch(setHeader(true));
+            }
+        }
+        prevHeight = scrollTop;
     }, [reduxDispatch]);
 
     useEffect(() => {
@@ -187,6 +206,9 @@ const MainPage = ({ location }) => {
 
     useEffect(() => {
         setAsideOpen(false);
+        if (mainRef.current) {
+            mainRef.current.scrollTo(0, 0);
+        }
     }, [location]);
 
     return (
@@ -202,7 +224,7 @@ const MainPage = ({ location }) => {
             {!isEmpty(user) && <div className={styles['app']}>
                 <Header />
                 <Aside open={asideOpen} setOpen={setAsideOpen} />
-                <article className={styles['main']}>
+                <article className={styles['main']} ref={mainRef} onScroll={onScrollEvent}>
                     <div className={styles['content']}>
                         <MainTitle pathname={location.pathname} />
                         <Switch>

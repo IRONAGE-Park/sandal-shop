@@ -9,9 +9,11 @@ import notice from './notice';
 import date from './date';
 import dialog from './dialog';
 import loading from './loading';
+import header from './header';
 
 const rootReducer = combineReducers({
     loading,
+    header,
     dialog,
     date,
     company,

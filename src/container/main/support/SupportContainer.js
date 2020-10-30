@@ -11,6 +11,7 @@ import NoticeContainer from './NoticeContainer';
 import QNAContainer from './QNAContainer';
 import styles from './SupportContainer.module.scss';
 import NoticeDetailContainer from './NoticeDetailContainer';
+import { useSelector } from 'react-redux';
 
 const getPaths = ['notice', 'faq', 'qna'];
 
@@ -21,6 +22,7 @@ const cn = classnames.bind(styles);
 const SupportContainer = ({ mode, modal, id }) => {
     const history = useHistory();
     const openDialog = useDialog();
+    const { close } = useSelector(state => state.header); // 헤더를 열고 닫기 위한 객체.
 
     const [loading, setLoading] = useState(false);
     const [faqType, setFaqType] = useState('회원가입');
@@ -111,7 +113,7 @@ const SupportContainer = ({ mode, modal, id }) => {
     
     return (
         <div className={cn('container', { no_tab: id })}>
-            <div className={cn('tab', { only_mobile: id })}>
+            <div className={cn('tab', { close, only_mobile: id })}>
                 <CustomTabs
                     idx={index}
                     categories={[

@@ -37,5 +37,9 @@
         width: 100%;
         z-index: 1950;
         background-color: #fff;
+        transition: top .15s ease-in-out;
+        &.close {
+            top: 0px;
+        }
     }
 }

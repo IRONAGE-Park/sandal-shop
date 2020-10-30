@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import classnames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import CustomTabs from '../../components/main/assets/Tabs';
@@ -8,9 +9,12 @@ import { getCategories, getMenuList, updateMenu } from '../../store/menu';
 
 import styles from './MenuContainer.module.scss';
 
+const cn = classnames.bind(styles);
+
 const MenuContainer = ({ tab }) => {
     const history = useHistory();
     const { categories, menus } = useSelector(state => state.menu);
+    const { close } = useSelector(state => state.header); // 헤더를 열고 닫기 위한 객체.
     const reduxDispatch = useDispatch();
 
     const handleChangeItemState = useCallback(id => {
@@ -44,7 +48,7 @@ const MenuContainer = ({ tab }) => {
 
     return (
         <div className={styles['container']}>
-            <div className={styles['tab']}>
+            <div className={cn('tab', { close })}>
                 {categories !== null &&
                 categories.length &&
                 <CustomTabs

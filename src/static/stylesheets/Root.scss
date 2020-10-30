@@ -31,6 +31,14 @@ a {
 ul {
     list-style: none;
 }
+input,
+textarea {
+    box-sizing: border-box;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+}
 select {
     /*ios대응*/
     -webkit-appearance: none;

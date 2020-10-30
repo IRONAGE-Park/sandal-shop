@@ -12,12 +12,13 @@ const getPaths = ['privacy', 'tos'];
 
 const PolicyContainer = ({ mode, url }) => {
     const history = useHistory();
+    const { close } = useSelector(state => state.header); // 헤더를 열고 닫기 위한 객체.
 
     const { company } = useSelector(state => state.company);
     const index = getPaths.findIndex(path => path === mode); // 현재 보여줘야 할 내용 결정.
     return (
         <div className={cn('container')}>
-            <div className={cn('tab')}>
+            <div className={cn('tab', { close })}>
                 <CustomTabs
                     idx={index}
                     categories={[

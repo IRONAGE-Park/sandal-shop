@@ -24,6 +24,7 @@ const CalculateContainer = ({ mode }) => {
     const dispatch = useDispatch();
     const openDialog = useDialog();
     const date = useSelector(state => state.date); // 각 조회할 날짜들을 갖고 있는 객체.
+    const { close } = useSelector(state => state.header); // 헤더를 열고 닫기 위한 객체.
 
     const { calculate_daily, calculate_monthly, calculate_yearly } = date; // 리덕스에 저장된 배달 매출 현황 날짜
 
@@ -171,7 +172,7 @@ const CalculateContainer = ({ mode }) => {
 
     return (
         <div className={cn('container')}>
-            <div className={cn('tab')}>
+            <div className={cn('tab', { close })}>
                 <CustomTabs
                     idx={index}
                     categories={[
@@ -182,7 +183,7 @@ const CalculateContainer = ({ mode }) => {
                     onChange={(e, path) => history.push(Paths.main.calculate + '/' + getPaths[path])}
                 />
             </div>
-            <IconButton className={styles['date-icon']} onClick={handleOpen}>
+            <IconButton className={cn('date-icon', { close })} onClick={handleOpen}>
                 <img src ={DateIcon} alt="date"/>
             </IconButton>
             <PcDatePicker

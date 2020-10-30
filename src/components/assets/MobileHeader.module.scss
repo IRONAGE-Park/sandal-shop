@@ -11,6 +11,10 @@
     // border-bottom: solid 1px $color-dbdbdb;
     @include mobile {
         display: block;
+        transition: top .15s ease-in-out;
+        &.close {
+            top: -40px;
+        }
     }
     .area {
         height: 100%;

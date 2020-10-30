@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames/bind';
 import { Link, useHistory } from 'react-router-dom';
 /* Library */
 
@@ -9,12 +10,16 @@ import styles from './MobileHeader.module.scss';
 /* Stylesheets */
 
 import Back from '../svg/header/back.svg';
+import { useSelector } from 'react-redux';
 /* Static */
+
+const cn = classnames.bind(styles);
 
 export default ({ title, back, defaultIcon }) => {
     const history = useHistory();
+    const { close } = useSelector(state => state.header);
     return (
-        <div className={styles['mobile-header']}>
+        <div className={cn('mobile-header', { close })}>
             <div className={styles['area']}>
                 <div className={styles['container']}>
                     {back && (back !== "goBack" ?

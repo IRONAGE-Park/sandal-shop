@@ -29,6 +29,7 @@ const OrderContainer = ({ tab }) => {
     const dispatch = useDispatch();
     const openDialog = useDialog();
     const date = useSelector(state => state.date); // 각 조회할 날짜들을 갖고 있는 객체.
+    const { close } = useSelector(state => state.header); // 헤더를 열고 닫기 위한 객체.
 
     const { order_complete, order_cancel } = date; // 리덕스에 저장된 배달 매출 현황 날짜
 
@@ -174,7 +175,7 @@ const OrderContainer = ({ tab }) => {
 
     return (
         <div className={cn('container')}>
-            <div className={cn('tab')}>
+            <div className={cn('tab', { close })}>
                 <CustomTabs
                     idx={index}
                     categories={[
@@ -185,7 +186,7 @@ const OrderContainer = ({ tab }) => {
                     onChange={(e, path) => history.push(Paths.main.order + '/' + getPaths[path])}
                 />
             </div>
-            {tab !== 'progress' && <IconButton className={styles['date-icon']} onClick={handleOpen}>
+            {tab !== 'progress' && <IconButton className={cn('date-icon', { close })} onClick={handleOpen}>
                 <img src ={DateIcon} alt="date"/>
             </IconButton>}
             {index !== 0 && <PcDatePicker
