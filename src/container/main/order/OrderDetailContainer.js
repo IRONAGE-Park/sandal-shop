@@ -32,8 +32,6 @@ const OrderDetailContainer = ({ order_id, modal }) => {
         od_status
     } = orderData;
 
-    console.log(orderData);
-
     const onOpenSticker = useCallback(() => history.push(Paths.main.order + '/sticker' + location.search), [location, history]);
     const onOpenReject = useCallback(() => history.push(Paths.main.order + '/reject' + location.search), [location, history]);
     const onCloseModal = useCallback(() => history.goBack(), [history]);
