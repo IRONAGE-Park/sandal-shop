@@ -129,7 +129,7 @@ export const requestPUTOrderConfirm = async (JWT_TOKEN, order_id) => {
 
 export const requestPUTOrderDeliveryQuick = async (JWT_TOKEN, order_id) => {
     /*
-        가맹점 주문 승인 Request API
+        가맹점 퀵커스 배달 요청 Request API
 
         로그인 된 JWT_TOKEN과 주문번호(order_id)를 첨부하여 해당 주문에 퀵커스 배달 요청을 보냄.
 
@@ -145,7 +145,7 @@ export const requestPUTOrderDeliveryQuick = async (JWT_TOKEN, order_id) => {
 
 export const requestPUTOrderDeliveryDirect = async (JWT_TOKEN, order_id) => {
     /*
-        가맹점 주문 승인 Request API
+        가맹점 직접 배달 완료 Request API
 
         로그인 된 JWT_TOKEN과 주문번호(order_id)를 첨부하여 해당 주문에 직접 배달 완료 요청을 보냄.
 
@@ -177,7 +177,7 @@ export const requestPUTOrderDeliveryDirectMessage = async (JWT_TOKEN, order_id) 
 
 export const requestPUTOrderCancel = async (JWT_TOKEN, order_id, cancel_reason) => {
     /*
-        가맹점 주문 승인 Request API
+        가맹점 주문 취소 Request API
 
         로그인 된 JWT_TOKEN과 주문번호(order_id), 취소 사유(cancle_reason)을 첨부하여
         해당 주문에 취소 요청을 보냄.
@@ -189,5 +189,21 @@ export const requestPUTOrderCancel = async (JWT_TOKEN, order_id, cancel_reason) 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
     const res = await axios.put(URL, { order_id, cancel_reason });
+    return res;
+}
+
+export const requestPUTOrderDeposit = async (JWT_TOKEN, order_id) => {
+    /*
+        가맹점 입금 확인 Request API
+
+        로그인 된 JWT_TOKEN과 주문번호(order_id)를 첨부하여 해당 주문에 입금 확인 요청을 보냄.
+
+        문서보기:
+    */
+    const URL = Paths.api;
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
+
+    const res = await axios.put(URL, { order_id });
     return res;
 }

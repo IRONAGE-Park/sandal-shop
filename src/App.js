@@ -22,7 +22,7 @@ import { getCompany } from './store/company';
 /* StyleSheets */
 
 /* 
-    아주나무 관리자 페이지.
+    샌달 관리자 페이지.
     
     반응형 웹 디자인.
 */

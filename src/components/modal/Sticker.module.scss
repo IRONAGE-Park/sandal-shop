@@ -1,0 +1,69 @@
+.preview {
+    width: 250px;
+    height: 260px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
+    .input-preview {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        .circle {
+            position: absolute;
+            display: table;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 50%;
+            box-sizing: border-box;
+            border: solid 1px #f9f9f9;
+            .box {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+                color: #dbdbdb;
+                position: absolute;
+                width: 100%;
+                &.image {
+                    width: 100%;
+                    left: 50%; bottom: 50%;
+                    transform: translateX(-50%);
+                    .name {
+                        font-size: 1.167rem;
+                        font-weight: bold;
+                    }
+                    .logo {
+                        max-width: 50px;
+                        max-height: 50px;
+                        border-radius: 50%;
+                    }
+                }
+                &.text {
+                    width: 100%;
+                    left: 50%; top: 50%;
+                    transform: translateX(-50%);
+                    .phrase {
+                        margin-top: 6px;
+                        font-size: 0.667rem;
+                        white-space: normal;
+                        word-break: normal;
+                        box-sizing: border-box;
+                        width: 100%;
+                        padding: 0 10px;
+                    }
+                }
+            }
+        }
+        .preview_out {
+            width: 160px;
+            height: 160px;
+            .preview_in {
+                padding: 15px;
+                width: 152px;
+                height: 152px;
+                border-color: #dbdbdb;
+            }
+        }
+    }
+}

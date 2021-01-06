@@ -36,7 +36,7 @@ const SecessionContainer = () => {
                 try {
                     const res = await requestPUTSuccession(USER_TOKEN, secession);
                     if (res.data.msg) {
-                        openDialog('정상적으로 회원탈퇴 되셨습니다!', '다음에도 저희 아주나무를 이용해 주시기 바랍니다.');
+                        openDialog('정상적으로 회원탈퇴 되셨습니다!', '다음에도 저희 샌달을 이용해 주시기 바랍니다.');
                         history.push(Paths.ajoonamu.logout);
                     }
                 } catch (e) {

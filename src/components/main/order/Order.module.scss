@@ -131,6 +131,10 @@
                                     background-color: #fff;
                                     border-color: $mobile-main-color;
                                     color: $mobile-main-color;
+                                    &.deposit_wait {
+                                        border-color: #222;
+                                        color: #222;
+                                    }
                                     &.order_cancel {
                                         border-color: #A61332;
                                         color: #A61332;
@@ -252,6 +256,10 @@
     font-weight: 500;
     vertical-align: middle;
     transition: all .3s ease-in-out;
+    &.deposit_wait {
+        border-color: #222;
+        color: #222;
+    }
     &.order_apply {
         background-color: $desktop-main-color;
         color: #fff;

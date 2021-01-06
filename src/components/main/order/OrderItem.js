@@ -27,7 +27,8 @@ const OrderItem = ({ item }) => {
         <li className={styles['item']} onClick={onClickDetailView}>
             <div className={styles['view']}>
                 <div className={cn('order-time')}>
-                    {receipt_time.split(' ').map((line, index)=> <Fragment key={index}>{line}<br /></Fragment>)}
+                    {receipt_time && receipt_time.split(' ').map((line, index)=> <Fragment key={index}>{line}<br /></Fragment>)}
+                    {!receipt_time && '입금 대기'}
                 </div>
                 <div className={cn('order-type')}>
                     <p>{item_name}{extra_item_count > 0 && ` 외 ${extra_item_count}개`}</p>
@@ -47,6 +48,7 @@ const OrderItem = ({ item }) => {
                     <div className={styles['m-type-box']}>예약주문</div>
                     <div className={cn('m-type-box', { disabled: sticker_id === 0 })}>문구서비스</div>
                     <div className={cn('status', od_status)}>
+                        {od_status === "deposit_wait" && "입금 대기"}
                         {od_status === "order_apply" && "주문 접수"}
                         {od_status === "order_cancel" && "주문 취소"}
                         {od_status === "shipping" && "배송중"}

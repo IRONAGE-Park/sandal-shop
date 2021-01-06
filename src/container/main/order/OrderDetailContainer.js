@@ -32,6 +32,8 @@ const OrderDetailContainer = ({ order_id, modal }) => {
         od_status
     } = orderData;
 
+    console.log(orderData);
+
     const onOpenSticker = useCallback(() => history.push(Paths.main.order + '/sticker' + location.search), [location, history]);
     const onOpenReject = useCallback(() => history.push(Paths.main.order + '/reject' + location.search), [location, history]);
     const onCloseModal = useCallback(() => history.goBack(), [history]);
@@ -100,7 +102,6 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderData, order_id]);
 
-
     const callPUTOrderDeliveryDirectMessage = useCallback(async () => {
         const JWT_TOKEN = sessionStorage.getItem('user_token');
         if (JWT_TOKEN) {
@@ -149,17 +150,14 @@ const OrderDetailContainer = ({ order_id, modal }) => {
         openDialog("정말 해당 주문을 접수하시겠습니까?", '', () => callPUTOrderConfirm(), true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderConfirm]);
-
     const onClickOrderDeliveryQuick = useCallback(() =>
         openDialog("퀵커스 배달을 요청하시겠습니까?", '', () => callPUTOrderDeliveryQuick(), true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderDeliveryQuick]);
-
     const onClickOrderDeliveryDirect = useCallback(() =>
         openDialog("배달을 완료하셨습니까?", '', () => callPUTOrderDeliveryDirect(), true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     , [callPUTOrderDeliveryDirect]);
-
     const onClickOrderDeliveryDirectMessage = useCallback(() =>
         openDialog("직접 배달을 하시겠습니까?", '', () => callPUTOrderDeliveryDirectMessage(), true)
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -256,11 +254,19 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                 </p>
                                 <p className={styles['pay-table']}>
                                     <span className={styles['table-name']}>주문일시</span>
-                                    <span className={styles['table-value']}>{receipt_time}</span>
+                                    <span className={styles['table-value']}>
+                                        {receipt_time}
+                                        {!receipt_time && '입금 대기'}
+                                    </span>
                                 </p>
                                 <p className={styles['pay-table']}>
                                     <span className={styles['table-name']}>결제방식</span>
-                                    <span className={styles['table-value']}>{settle_case}</span>
+                                    <span className={styles['table-value']}>
+                                        {settle_case === 'meet' && '만나서 결제'}
+                                        {settle_case === 'card' && '카드 결제'}
+                                        {settle_case === 'transfer' && '계좌 이체'}
+                                        {settle_case === 'bank' && '무통장 입금'}
+                                    </span>
                                 </p>
                             </div>
                             <div className={styles['pay-price']}>
@@ -275,6 +281,9 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                 </div>
                             </div>
                             <div className={styles['pay-action']}>
+                                {od_status === 'deposit_wait' &&
+                                <ButtonBase onClick={onOpenReject} className={cn('button', 'cancel')}>주문거절</ButtonBase>
+                                }
                                 {od_status === 'order_apply' &&
                                 <>
                                     <ButtonBase onClick={onOpenReject} className={cn('button', 'reject')}>주문거절</ButtonBase>
