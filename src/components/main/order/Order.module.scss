@@ -134,6 +134,10 @@
                                     &.deposit_wait {
                                         border-color: #222;
                                         color: #222;
+                                        &.meet {
+                                            border-color: #999;
+                                            color: #999;
+                                        }
                                     }
                                     &.order_cancel {
                                         border-color: #A61332;
@@ -208,6 +212,9 @@
                     font-size: $desktop16px;
                     color: $desktop-main-color;
                     font-weight: normal;
+                    &.complete {
+                        color: #A61332;
+                    }
                     @include mobile {
                         display: none;
                     }
@@ -259,6 +266,10 @@
     &.deposit_wait {
         border-color: #222;
         color: #222;
+        &.meet {
+            border-color: #999;
+            color: #999;
+        }
     }
     &.order_apply {
         background-color: $desktop-main-color;

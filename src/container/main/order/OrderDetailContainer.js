@@ -254,7 +254,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                     <span className={styles['table-name']}>주문일시</span>
                                     <span className={styles['table-value']}>
                                         {receipt_time}
-                                        {!receipt_time && '입금 대기'}
+                                        {!receipt_time && (settle_case === 'meet' ? '만나서 결제' : '입금 대기')}
                                     </span>
                                 </p>
                                 <p className={styles['pay-table']}>
@@ -270,18 +270,25 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                             <div className={styles['pay-price']}>
                                 <div className={styles['pay-price-title']}>
                                     <p className={styles['pay-price-name']}>결제 금액</p>
-                                    <div className={styles['pay-state']}>결제 완료</div>
+                                    <div className={cn('pay-state', { complete: od_status === "deposit_wait" })}>
+                                        결제 {od_status === "deposit_wait" ? '미완료' : '완료'}
+                                    </div>
                                 </div>
                                 <p className={styles['pay-value']}>{numberFormat(receipt_price)}원</p>
                                 <div className={styles['m-pay-state']}>
                                     <p className={styles['m-pay-state-name']}>결제여부</p>
-                                    <p className={styles['m-pay-state-value']}>결제 완료</p>
+                                    <p className={styles['m-pay-state-value']}>
+                                        결제 {od_status === "deposit_wait" ? '미완료' : '완료'}
+                                    </p>
                                 </div>
                             </div>
                             <div className={styles['pay-action']}>
-                                {od_status === 'deposit_wait' &&
-                                <ButtonBase onClick={onOpenReject} className={cn('button', 'cancel')}>주문거절</ButtonBase>
-                                }
+                                {od_status === 'deposit_wait' && (settle_case === 'meet' ?
+                                <>
+                                    <ButtonBase onClick={onClickOrderDeliveryDirectMessage} className={cn('button', 'message')}>직접 배송</ButtonBase>
+                                    <ButtonBase onClick={onClickOrderDeliveryDirect} className={cn('button', 'direct')}>배송 완료</ButtonBase>
+                                    <ButtonBase onClick={onOpenReject} className={cn('button', 'call', 'red')}>주문거절</ButtonBase>
+                                </> : <ButtonBase onClick={onOpenReject} className={cn('button', 'cancel')}>주문거절</ButtonBase>)}
                                 {od_status === 'order_apply' &&
                                 <>
                                     <ButtonBase onClick={onOpenReject} className={cn('button', 'reject')}>주문거절</ButtonBase>
