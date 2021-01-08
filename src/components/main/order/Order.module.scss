@@ -206,6 +206,11 @@
                             content: ' (결제 완료)';
                             display: inline;
                         }
+                        &.complete {
+                            &::after {
+                                content: ' (결제 미완료)';
+                            }
+                        }
                     }
                 }
                 .pay-complete {
@@ -257,7 +262,8 @@
 
 .status {
     display: inline-block;
-    width: 88px; line-height: 38px;
+    width: 96px; line-height: 38px;
+    color: $desktop-main-color;
     border: solid 1px $desktop-main-color;
     font-size: $desktop18px;
     font-weight: 500;

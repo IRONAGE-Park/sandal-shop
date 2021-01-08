@@ -41,7 +41,7 @@ const OrderItem = ({ item }) => {
                 </div>
                 <div className={cn('order-payment')}>
                     {/* <p className={styles['pay-info']}>{numberFormat(total_price)}원</p> */}
-                    <p className={styles['pay-info']}>{numberFormat(receipt_price)}원</p>
+                    <p className={cn('pay-info', { complete: receipt_time === null })}>{numberFormat(receipt_price)}원</p>
                     <p className={cn('pay-complete', { complete: receipt_time === null })}>
                         결제 {receipt_time ? '완료' : '미완료'}
                     </p>

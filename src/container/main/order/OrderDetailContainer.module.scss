@@ -309,9 +309,9 @@
                     margin-top: 10px;
                     background-color: $desktop-main-color;
                     border-color: $desktop-main-color;
-                    &.red {
-                        background-color: #A61332;
-                        border-color: #A61332;
+                    &.meet {
+                        background-color: #dbdbdb;
+                        border-color: #dbdbdb;
                     }
                     @include tablet {
                         margin-top: 0;

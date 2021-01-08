@@ -285,9 +285,8 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                             <div className={styles['pay-action']}>
                                 {od_status === 'deposit_wait' && (settle_case === 'meet' ?
                                 <>
-                                    <ButtonBase onClick={onClickOrderDeliveryDirectMessage} className={cn('button', 'message')}>직접 배송</ButtonBase>
-                                    <ButtonBase onClick={onClickOrderDeliveryDirect} className={cn('button', 'direct')}>배송 완료</ButtonBase>
-                                    <ButtonBase onClick={onOpenReject} className={cn('button', 'call', 'red')}>주문거절</ButtonBase>
+                                    <ButtonBase onClick={onOpenReject} className={cn('button', 'reject')}>주문거절</ButtonBase>
+                                    <ButtonBase onClick={onClickOrderConfirm} className={cn('button', 'receipt')}>주문접수</ButtonBase>
                                 </> : <ButtonBase onClick={onOpenReject} className={cn('button', 'cancel')}>주문거절</ButtonBase>)}
                                 {od_status === 'order_apply' &&
                                 <>
@@ -298,7 +297,9 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                 <>
                                     <ButtonBase onClick={onClickOrderDeliveryDirectMessage} className={cn('button', 'message')}>직접 배송</ButtonBase>
                                     <ButtonBase onClick={onClickOrderDeliveryDirect} className={cn('button', 'direct')}>배송 완료</ButtonBase>
-                                    <ButtonBase onClick={onClickOrderDeliveryQuick} className={cn('button', 'call')}>차량 호출</ButtonBase>
+                                    <ButtonBase disabled={settle_case === 'meet'} onClick={onClickOrderDeliveryQuick} className={cn('button', 'call', settle_case)}>
+                                        {settle_case === 'meet' ? '만나서 결제' : '차량 호출'}
+                                    </ButtonBase>
                                 </>}
                                 {od_status === 'order_cancel' && 
                                 <ButtonBase className={cn('button', 'cancel')}>환불 완료</ButtonBase>}
