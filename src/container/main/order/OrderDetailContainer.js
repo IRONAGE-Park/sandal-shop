@@ -270,15 +270,15 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                             <div className={styles['pay-price']}>
                                 <div className={styles['pay-price-title']}>
                                     <p className={styles['pay-price-name']}>결제 금액</p>
-                                    <div className={cn('pay-state', { complete: od_status === "deposit_wait" })}>
-                                        결제 {od_status === "deposit_wait" ? '미완료' : '완료'}
+                                    <div className={cn('pay-state', { complete: receipt_time === null })}>
+                                        결제 {receipt_time ? '완료' : '미완료'}
                                     </div>
                                 </div>
                                 <p className={styles['pay-value']}>{numberFormat(receipt_price)}원</p>
                                 <div className={styles['m-pay-state']}>
                                     <p className={styles['m-pay-state-name']}>결제여부</p>
                                     <p className={styles['m-pay-state-value']}>
-                                        결제 {od_status === "deposit_wait" ? '미완료' : '완료'}
+                                        결제 {receipt_time ? '완료' : '미완료'}
                                     </p>
                                 </div>
                             </div>
