@@ -41,7 +41,8 @@ export const requestGETOrderListComplete = async (JWT_TOKEN, s_date, e_date) => 
     const res = await axios.get(URL, {
         params: {
             start_date: dateToYYYYMMDDHHMMSS(start_date),
-            end_date: dateToYYYYMMDDHHMMSS(end_date)
+            end_date: dateToYYYYMMDDHHMMSS(end_date),
+            offset: 0, limit: 100000
         }
     });
     return res;
@@ -65,7 +66,8 @@ export const requestGETOrderListCancel = async (JWT_TOKEN, s_date, e_date) => {
     const res = await axios.get(URL, {
         params: {
             start_date: dateToYYYYMMDDHHMMSS(start_date),
-            end_date: dateToYYYYMMDDHHMMSS(end_date)
+            end_date: dateToYYYYMMDDHHMMSS(end_date),
+            offset: 0, limit: 100000
         }
     });
     return res;

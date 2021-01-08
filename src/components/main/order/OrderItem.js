@@ -28,7 +28,7 @@ const OrderItem = ({ item }) => {
             <div className={styles['view']}>
                 <div className={cn('order-time')}>
                     {receipt_time && receipt_time.split(' ').map((line, index)=> <Fragment key={index}>{line}<br /></Fragment>)}
-                    {!receipt_time && (settle_case === 'meet' ? '만나서 결제' : '입금 대기')}
+                    {!receipt_time && '미완료 결제'}
                 </div>
                 <div className={cn('order-type')}>
                     <p>{item_name}{extra_item_count > 0 && ` 외 ${extra_item_count}개`}</p>

@@ -254,7 +254,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                     <span className={styles['table-name']}>주문일시</span>
                                     <span className={styles['table-value']}>
                                         {receipt_time}
-                                        {!receipt_time && (settle_case === 'meet' ? '만나서 결제' : '입금 대기')}
+                                        {!receipt_time && '미완료 결제'}
                                     </span>
                                 </p>
                                 <p className={styles['pay-table']}>
