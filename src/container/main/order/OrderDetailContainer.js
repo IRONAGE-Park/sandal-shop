@@ -293,9 +293,9 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                                     <ButtonBase onClick={onOpenReject} className={cn('button', 'reject')}>주문거절</ButtonBase>
                                     <ButtonBase onClick={onClickOrderConfirm} className={cn('button', 'receipt')}>주문접수</ButtonBase>
                                 </>}
-                                {od_status === 'shipping' && 
+                                {od_status === 'shipping' &&
                                 <>
-                                    <ButtonBase onClick={onClickOrderDeliveryDirectMessage} className={cn('button', 'message')}>직접 배송</ButtonBase>
+                                    <ButtonBase onClick={onClickOrderDeliveryDirectMessage} className={cn('button', 'message')}>직접배송출발 메세지</ButtonBase>
                                     <ButtonBase onClick={onClickOrderDeliveryDirect} className={cn('button', 'direct')}>배송 완료</ButtonBase>
                                     <ButtonBase disabled={settle_case === 'meet'} onClick={onClickOrderDeliveryQuick} className={cn('button', 'call', settle_case)}>
                                         {settle_case === 'meet' ? '만나서 결제' : '차량 호출'}

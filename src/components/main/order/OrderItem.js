@@ -15,7 +15,8 @@ const OrderItem = ({ item }) => {
         s_addr1, s_addr2, extra_item_count,
         receipt_price, receipt_time,
         sticker_id, total_qty,
-        delivery_req_time, settle_case
+        delivery_req_time, settle_case,
+        created_at
     } = item;
 
     const onClickDetailView = useCallback(() => {
@@ -27,8 +28,7 @@ const OrderItem = ({ item }) => {
         <li className={styles['item']} onClick={onClickDetailView}>
             <div className={styles['view']}>
                 <div className={cn('order-time')}>
-                    {receipt_time && receipt_time.split(' ').map((line, index)=> <Fragment key={index}>{line}<br /></Fragment>)}
-                    {!receipt_time && '미완료 결제'}
+                    {delivery_req_time.split(' ').map((line, index)=> <Fragment key={index}>{line}<br /></Fragment>)}
                 </div>
                 <div className={cn('order-type')}>
                     <p>{item_name}{extra_item_count > 0 && ` 외 ${extra_item_count}개`}</p>
@@ -37,7 +37,9 @@ const OrderItem = ({ item }) => {
                 <p className={styles['total-qty']}><b>총 수량 : </b>{total_qty}개</p>
                 <div className={cn('order-info')}>
                     <p className={styles['addr-info']}>{s_addr1} {s_addr2}</p>
-                    <p className={styles['deli-info']}>직접 배달 / {delivery_req_time}</p>
+                    <p className={styles['deli-info']}>
+                        직접 배달 / {receipt_time ? receipt_time : created_at}
+                    </p>
                 </div>
                 <div className={cn('order-payment')}>
                     {/* <p className={styles['pay-info']}>{numberFormat(total_price)}원</p> */}

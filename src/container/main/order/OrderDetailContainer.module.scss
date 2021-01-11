@@ -232,6 +232,7 @@
                     margin-top: 20px;
                 }
                 .button {
+                    word-break: keep-all;
                     width: 100%; height: 70px;
                     border: solid 1px;
                     font-size: $desktop16px;
