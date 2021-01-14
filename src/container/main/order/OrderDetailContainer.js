@@ -24,7 +24,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     const [orderData, setOrderData] = useState({});
     
     const {
-        items, s_hp, s_name,
+        items, s_hp, s_name, r_hp, r_name,
         delivery_req_time, sticker_id,
         s_addr1, s_addr2, settle_case,
         receipt_price, receipt_time,
@@ -185,11 +185,11 @@ const OrderDetailContainer = ({ order_id, modal }) => {
                         <div className={cn('border')}>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>받는 분</p>
-                                <p className={styles['i-value']}>{s_name}</p>
+                                <p className={styles['i-value']}>{r_name}</p>
                             </div>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>연락처</p>
-                                <p className={styles['i-value']}>{stringToTel(s_hp)}</p>
+                                <p className={styles['i-value']}>{stringToTel(r_hp)}</p>
                             </div>
                             <div className={styles['i-content']}>
                                 <p className={styles['i-name']}>배달 요청 시간</p>
