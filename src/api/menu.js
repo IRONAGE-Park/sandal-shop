@@ -18,7 +18,7 @@ export const requestGETMenuList = async (JWT_TOKEN, ca_id) => {
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${JWT_TOKEN}`;
 
-    const res = await axios.get(URL, { params: { ca_id } });
+    const res = await axios.get(URL, { params: { ca_id, offset: 0, limit: 100000 } });
     return res;
 }
 

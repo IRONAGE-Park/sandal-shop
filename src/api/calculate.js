@@ -27,7 +27,8 @@ export const requestGETCalculateDaily = async (JWT_TOKEN, s_date, e_date) => {
     const res = await axios.get(URL, {
         params: {
             start_date: dateToYYYYMMDDHHMMSS(start_date),
-            end_date: dateToYYYYMMDDHHMMSS(end_date)
+            end_date: dateToYYYYMMDDHHMMSS(end_date),
+            offset: 0, limit: 100000
         }
     });
     return res;
@@ -53,7 +54,8 @@ export const requestGETCalculateMonthly = async (JWT_TOKEN, s_date, e_date) => {
 
     const res = await axios.get(URL, {
         params: {
-            start_date, end_date
+            start_date, end_date,
+            offset: 0, limit: 100000
         }
     });
     return res;
@@ -78,7 +80,8 @@ export const requestGETCalculateYearly = async (JWT_TOKEN, s_date, e_date) => {
     end_date.setHours(23, 59, 59);
     const res = await axios.get(URL, {
         params: {
-            start_date, end_date
+            start_date, end_date,
+            offset: 0, limit: 100000
         }
     });
     return res;
