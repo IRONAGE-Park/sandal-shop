@@ -18,7 +18,7 @@ const MenuContainer = ({ tab }) => {
     const reduxDispatch = useDispatch();
 
     const handleChangeItemState = useCallback(id => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토근이 존재함 => 로그인 된 상태. */
             reduxDispatch(updateMenu({ JWT_TOKEN, item_id: id, ca_index: tab }));
@@ -28,7 +28,7 @@ const MenuContainer = ({ tab }) => {
     useEffect(() => {
         if (menus[tab] === undefined) {
             if (categories) {
-                const JWT_TOKEN = sessionStorage.getItem('user_token');
+                const JWT_TOKEN = localStorage.getItem('user_token');
                 if (JWT_TOKEN) {
                     reduxDispatch(getMenuList({ JWT_TOKEN, ca_id: categories[tab].ca_id, index: tab }));
                 }
@@ -38,7 +38,7 @@ const MenuContainer = ({ tab }) => {
 
     useEffect(() => {
         if (categories === null) {
-            const JWT_TOKEN = sessionStorage.getItem('user_token');
+            const JWT_TOKEN = localStorage.getItem('user_token');
             if (JWT_TOKEN) {
                 /* 토근이 존재함 => 로그인 된 상태. */
                 reduxDispatch(getCategories(JWT_TOKEN));

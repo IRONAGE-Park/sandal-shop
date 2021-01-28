@@ -89,7 +89,7 @@ export default ({ history }) => {
                     // 로그인 성공 했을 때.
                     LoginOs(result.data.access_token); // 푸쉬 토큰 보냄
     
-                    sessionStorage.setItem('user_token', result.data.access_token);
+                    localStorage.setItem('user_token', result.data.access_token);
                     if (saveEmail) {
                         // 이메일 저장하기를 했을 때,
                         localStorage.setItem('save_email', email); // 로컬 스토리지에 이메일을 추가함

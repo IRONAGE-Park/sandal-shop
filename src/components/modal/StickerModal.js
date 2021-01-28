@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import classnames from 'classnames/bind';
-import { Dialog, makeStyles, Slide } from '@material-ui/core';
+import { Dialog, makeStyles, Slide, useMediaQuery, useTheme } from '@material-ui/core';
 import { requestGETOrderSticker } from '../../api/order';
 import { useDialog } from '../../hooks/useDialog';
 import { DBImageFormat } from '../../lib/formatter';
@@ -38,11 +38,13 @@ const useStyles = makeStyles((theme) => ({
 const StickerModal = ({ open, handleClose, order_id }) => {
     const classes = useStyles();
     const openDialog = useDialog();
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down(768));
 
     const [sticker, setSticker] = useState({});
 
     const callGETORderSticker = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             try {
@@ -64,7 +66,13 @@ const StickerModal = ({ open, handleClose, order_id }) => {
     }, [callGETORderSticker]);
 
     return (
-        <Dialog className={classes.dialog} open={open} onClose={handleClose} TransitionComponent={Transition}>
+        <Dialog
+            fullScreen={fullScreen} 
+            className={classes.dialog}
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Transition}
+        >
             <div className={styles['preview']}>
                 <div disabled className={cn('input-preview', 'input-box')}>
                     <div className={cn('circle', 'preview_out')}>

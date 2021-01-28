@@ -89,7 +89,7 @@ const OperationContainer = ({ mode }) => {
     // 임시 휴무 종료일
 
     const callPUTOperationTime = useCallback((e, direct = {}) => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토근이 존재함 => 로그인 된 상태. */
             reduxDispatch(updateOperationTime({
@@ -109,7 +109,7 @@ const OperationContainer = ({ mode }) => {
     }, [operation]);
 
     const callPUTOperationHoli = useCallback((e, direct = {}) => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토근이 존재함 => 로그인 된 상태. */
             reduxDispatch(updateOperationHoli({
@@ -151,7 +151,7 @@ const OperationContainer = ({ mode }) => {
     useEffect(() => {
         // 렌더링 됐을 때 만약 리덕스에 운영정보 데이터가 없으면 받아옴.
         if (isEmpty(redux_operation)) {
-            const JWT_TOKEN = sessionStorage.getItem('user_token');
+            const JWT_TOKEN = localStorage.getItem('user_token');
             if (JWT_TOKEN) {
                 /* 토근이 존재함 => 로그인 된 상태. */
                 reduxDispatch(getOperation(JWT_TOKEN));

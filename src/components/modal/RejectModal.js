@@ -30,7 +30,7 @@ const RejectModal = ({ open, handleClose, order_id, orderData, setOrderData }) =
     const [rejectReasonTyping, setRejectReasonTyping] = useState('');
 
     const callPUTOrderCancel = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);

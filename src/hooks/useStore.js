@@ -9,7 +9,7 @@ import Paths from '../paths';
 /* Paths */
 
 export const useStore = (isReplace = true) => {
-    const JWT_USER_TOKEN = sessionStorage.getItem('user_token');
+    const JWT_USER_TOKEN = localStorage.getItem('user_token');
     const history = useHistory();
     const openDialog = useDialog();
 

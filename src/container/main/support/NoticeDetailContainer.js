@@ -36,7 +36,7 @@ const NoticeDetailContainer = ({ viewId }) => {
     }, [history]);
 
     const callGETNoticeDetail = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             setLoading(true);
             try {

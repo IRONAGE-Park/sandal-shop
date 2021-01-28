@@ -23,7 +23,7 @@ const LogoutContainer = ({ history }) => {
     const judgementLogout = useCallback(() => {
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인된 상태. */
-            sessionStorage.removeItem('user_token');
+            localStorage.removeItem('user_token');
             reduxDispatch(deleteUser(JWT_TOKEN));
             reduxDispatch(dateDelete());
             reduxDispatch(deleteMenu());

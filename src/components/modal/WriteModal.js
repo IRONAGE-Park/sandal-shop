@@ -37,7 +37,7 @@ const WriteModal = ({ open, handleClose }) => {
     const onDeleteFile = useCallback(name => setFiles(files => files.filter(file => file.name !== name)), []);
 
     const callPOSTQnaWrite = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);

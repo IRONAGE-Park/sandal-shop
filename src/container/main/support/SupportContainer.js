@@ -34,7 +34,7 @@ const SupportContainer = ({ mode, modal, id }) => {
     const index = getPaths.findIndex(path => path === mode); // 현재 보여줘야 할 내용 결정.
 
     const callGETNotice = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN && noticeList.length === 0) {
             setLoading(true);
             try {
@@ -53,7 +53,7 @@ const SupportContainer = ({ mode, modal, id }) => {
     }, [noticeList]);
 
     const callGETFAQ = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             setLoading(true);
             try {
@@ -73,7 +73,7 @@ const SupportContainer = ({ mode, modal, id }) => {
     }, [faqType]);
 
     const callGETQNA = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN && qnaList.length === 0) {
             setLoading(true);
             try {

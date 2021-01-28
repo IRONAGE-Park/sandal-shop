@@ -34,7 +34,7 @@ const App = () => {
 
     const judgementLogon = useCallback(() => {
         reduxDispatch(getCompany());
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인된 상태. */
             if (location.pathname.indexOf(Paths.main.index) !== 0) {

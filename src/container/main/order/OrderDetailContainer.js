@@ -37,7 +37,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     const onCloseModal = useCallback(() => history.goBack(), [history]);
     
     const callPUTOrderConfirm = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -59,7 +59,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     }, [orderData, order_id]);
 
     const callPUTOrderDeliveryQuick = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -79,7 +79,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     }, [orderData, order_id]);
 
     const callPUTOrderDeliveryDirect = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -101,7 +101,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     }, [orderData, order_id]);
 
     const callPUTOrderDeliveryDirectMessage = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -119,7 +119,7 @@ const OrderDetailContainer = ({ order_id, modal }) => {
     }, [orderData, order_id]);
 
     const callGETOrderDetail = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);

@@ -94,7 +94,7 @@ const CalculateContainer = ({ mode }) => {
         }, [openDialog]);
 
     const callGETCalculateDaily = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -113,7 +113,7 @@ const CalculateContainer = ({ mode }) => {
         }
     }, [calculate_daily, openDialog, setListfromResult]);
     const callGETCalculateMonthly = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -132,7 +132,7 @@ const CalculateContainer = ({ mode }) => {
         }
     }, [calculate_monthly, openDialog, setListfromResult]);
     const callGETCalculateYearly = useCallback(async () => {
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);

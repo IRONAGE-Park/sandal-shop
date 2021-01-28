@@ -195,7 +195,7 @@ const MainPage = ({ location }) => {
 
     useEffect(() => {
         if (isEmpty(user)) {
-            const JWT_TOKEN = sessionStorage.getItem('user_token');
+            const JWT_TOKEN = localStorage.getItem('user_token');
             if (JWT_TOKEN) {
                 /* 토큰이 존재함 => 로그인 된 상태. */
                 reduxDispatch(getUser(JWT_TOKEN));

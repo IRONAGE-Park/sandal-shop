@@ -94,7 +94,7 @@ const OrderContainer = ({ tab }) => {
         /*
             주문 신규/처리중 내역 가져오기
         */
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -112,7 +112,7 @@ const OrderContainer = ({ tab }) => {
         /*
             주문 완료 내역 가져오기
         */
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
@@ -135,7 +135,7 @@ const OrderContainer = ({ tab }) => {
         /*
             주문 취소 내역 가져오기
         */
-        const JWT_TOKEN = sessionStorage.getItem('user_token');
+        const JWT_TOKEN = localStorage.getItem('user_token');
         if (JWT_TOKEN) {
             /* 토큰이 존재함 => 로그인 된 상태. */
             setLoading(true);
